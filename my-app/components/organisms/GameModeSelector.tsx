@@ -34,6 +34,7 @@ const GameModeSelector: FC<GameModeSelectorProps> = ({
     const [challenger1, setChallenger1] = useState("");
     const [challenger2, setChallenger2] = useState("");
     const [yourScore, setYourScore] = useState("");
+    const [challengerScore, setYourChallengerScore] = useState("");
 
     return (
         <Card className="w-[350px]">
@@ -94,10 +95,6 @@ const GameModeSelector: FC<GameModeSelectorProps> = ({
                             </div>
                         </div>
                     )}
-                    <div>
-                        {/* Put score slector here */}
-                        <SelectScore onScore={setYourScore} selectPlaceholder="Your Score"/>
-                    </div>
                 </form>
             </CardContent>
             <CardFooter className="flex justify-end">
@@ -108,7 +105,7 @@ const GameModeSelector: FC<GameModeSelectorProps> = ({
                         )
                     }
                 >
-                    <ScoreSelector />
+                    <ScoreSelector ally={ally} challenger={challenger1}/>
                 </Button>
                 
             </CardFooter>
