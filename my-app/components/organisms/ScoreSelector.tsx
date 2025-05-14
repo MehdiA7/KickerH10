@@ -46,6 +46,8 @@ const ScoreSelector: FC<ScoreSelectorProps> = ( { ally, challenger } ) => {
                     <SelectScore onScore={setChallengerScore} selectPlaceholder={challenger}/>
                 </div>
 
+                {/* I need to know how can i get the user in the cookie with CSR */}
+
                 <DrawerFooter>
                     <Button>Submit</Button>
                     <DrawerClose>
