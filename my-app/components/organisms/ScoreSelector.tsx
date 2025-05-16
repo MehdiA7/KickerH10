@@ -19,6 +19,7 @@ type ScoreSelectorProps = {
     challenger: string;
     challenger2: string;
     GameMode: string;
+    onScoreSubmit: (allyScore: string, challengerScore: string) => void;
 };
 
 const ScoreSelector: FC<ScoreSelectorProps> = ({
@@ -27,14 +28,20 @@ const ScoreSelector: FC<ScoreSelectorProps> = ({
     challenger,
     challenger2,
     GameMode,
+    onScoreSubmit
 }) => {
     const [allyScore, setAllyScore] = useState("");
     const [challengerScore, setChallengerScore] = useState("");
 
+    // Gestion des scores localement
+    const handleSubmit = () => {
+        onScoreSubmit(allyScore, challengerScore);
+    };
+
     return (
         <Drawer>
             <DrawerTrigger>
-                <Button>Play !</Button>
+                <Button type="button">Play !</Button>
             </DrawerTrigger>
             <DrawerContent>
                 <DrawerHeader>
@@ -75,7 +82,7 @@ const ScoreSelector: FC<ScoreSelectorProps> = ({
                 </div>
 
                 <DrawerFooter>
-                    <Button>Submit</Button>
+                    <Button onClick={handleSubmit}>Submit</Button>
                     <DrawerClose>
                         <Button variant="outline">Cancel</Button>
                     </DrawerClose>

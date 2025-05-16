@@ -1,5 +1,4 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import {
     Card,
     CardContent,
@@ -19,7 +18,6 @@ import { useState, FC, useEffect } from "react";
 import SelectPlayer from "../molecules/SelectPlayer";
 import { FriendUserList } from "@/lib/types/type";
 import ScoreSelector from "./ScoreSelector";
-import SelectScore from "../molecules/SelectScore";
 import { CookieUserInformation } from "@/lib/types/authTypes";
 
 type GameModeSelectorProps = {
@@ -36,8 +34,35 @@ const GameModeSelector: FC<GameModeSelectorProps> = ({
     const [ally2, setAlly2] = useState("");
     const [challenger1, setChallenger1] = useState("");
     const [challenger2, setChallenger2] = useState("");
-    const [yourScore, setYourScore] = useState("");
-    const [challengerScore, setYourChallengerScore] = useState("");
+
+    const handleScoreSubmit = (allyScore: string, challengerScore: string) => {
+        if (gameMode === "2v2") {
+            const player1 = ally.split("");
+            const player2 = ally2.split("");
+            const player3 = challenger1.split("");
+            const player4 = challenger2.split("");
+            const team1Name = `${player1[0] + player1[1] + player1[2]}${
+                player2[0] + player2[1] + player2[2]
+            }`;
+            const team2Name = `${player3[0] + player3[1] + player3[2]}${
+                player4[0] + player4[1] + player4[2]
+            }`;
+            const body = {
+                team1: team1Name,
+                team2: team2Name,
+                team1score: allyScore,
+                team2scpre: challengerScore,
+            };
+            console.log("Final score:", body);
+        } else {
+            const body = {
+                player1: ally,
+                player2: challenger1,
+                score1: allyScore,
+                score2: challengerScore
+            }
+        }
+    };
 
     useEffect(() => {
         setAlly(UserInformation.username);
@@ -105,13 +130,14 @@ const GameModeSelector: FC<GameModeSelectorProps> = ({
                 </form>
             </CardContent>
             <CardFooter className="flex justify-end">
-                    <ScoreSelector
-                        ally={ally}
-                        ally2={ally2}
-                        challenger={challenger1}
-                        challenger2={challenger2}
-                        GameMode={gameMode}
-                    />
+                <ScoreSelector
+                    ally={ally}
+                    ally2={ally2}
+                    challenger={challenger1}
+                    challenger2={challenger2}
+                    GameMode={gameMode}
+                    onScoreSubmit={handleScoreSubmit}
+                />
             </CardFooter>
         </Card>
     );
