@@ -24,6 +24,12 @@ export class TeamGame {
     @Column()
     lost_game: number = 0;
 
+    @Column()
+    score_1!: number;
+
+    @Column()
+    score_2!: number;
+
     @CreateDateColumn()
     created_at!: Date;
 }
