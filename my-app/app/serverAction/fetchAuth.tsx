@@ -1,5 +1,5 @@
 "use server";
-import { LoginCredential, RegisterCredential } from "@/lib/types/authTypes";
+import { CookieUserInformation, LoginCredential, LoginResponse, RegisterCredential } from "@/lib/types/authTypes";
 import { ApiResponseFormat } from "@/lib/types/type";
 import { cookies } from "next/headers";
 
@@ -53,7 +53,7 @@ export const login = async (
                 message: "Email or password is incorrect",
             };
 
-        const data = await response.json();
+        const data: LoginResponse<CookieUserInformation> = await response.json();
 
         const cookieStore = await cookies();
 
@@ -63,11 +63,22 @@ export const login = async (
             httpOnly: true,
             path: "/",
         });
+        cookieStore.set({
+            name: "ActualUserId",
+            value: String(data.content.id),
+            httpOnly: false,
+            path: "/",
+        });
+        cookieStore.set({
+            name: "ActualUser",
+            value: data.content.username,
+            httpOnly: false,
+            path: "/",
+        });
 
         return {
             success: true,
-            message: "You are logged !",
-            content: data,
+            message: "You are logged !"
         };
     } catch (error) {
         return { success: false, message: `Somthing wrong... ${error}` };

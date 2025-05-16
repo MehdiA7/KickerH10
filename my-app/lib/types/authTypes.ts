@@ -9,3 +9,15 @@ export type LoginCredential = {
     email: string;
     password: string;
 }
+
+export type LoginResponse<T> = {
+    success: boolean;
+    message: string;
+    content: T;
+    token: string;
+}
+
+export type CookieUserInformation = {
+    id: number;
+    username: string;
+}
