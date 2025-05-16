@@ -18,6 +18,6 @@ export type LoginResponse<T> = {
 }
 
 export type CookieUserInformation = {
-    id: number;
+    id: string;
     username: string;
 }

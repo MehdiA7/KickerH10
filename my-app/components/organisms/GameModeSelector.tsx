@@ -15,26 +15,34 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { useState, FC } from "react";
+import { useState, FC, useEffect } from "react";
 import SelectPlayer from "../molecules/SelectPlayer";
 import { FriendUserList } from "@/lib/types/type";
 import ScoreSelector from "./ScoreSelector";
 import SelectScore from "../molecules/SelectScore";
+import { CookieUserInformation } from "@/lib/types/authTypes";
 
 
 type GameModeSelectorProps = {
     FetchFriendWithUserId: FriendUserList[];
+    UserInformation: CookieUserInformation;
 };
 
 const GameModeSelector: FC<GameModeSelectorProps> = ({
     FetchFriendWithUserId,
+    UserInformation
 }) => {
     const [gameMode, setGameMode] = useState("");
     const [ally, setAlly] = useState("");
+    const [ally2, setAlly2] = useState("");
     const [challenger1, setChallenger1] = useState("");
     const [challenger2, setChallenger2] = useState("");
     const [yourScore, setYourScore] = useState("");
     const [challengerScore, setYourChallengerScore] = useState("");
+
+    useEffect(() => {
+        setAlly(UserInformation.username);
+    },[])
 
     return (
         <Card className="w-[350px]">
@@ -63,7 +71,7 @@ const GameModeSelector: FC<GameModeSelectorProps> = ({
                                     FetchFriendWithUserId={
                                         FetchFriendWithUserId
                                     }
-                                    onPlayerSelect={setAlly}
+                                    onPlayerSelect={setAlly2}
                                 />
                             </>
                         ) : (

@@ -16,9 +16,9 @@ import SelectScore from "../molecules/SelectScore";
 type ScoreSelectorProps = {
     ally: string;
     challenger: string;
-}
+};
 
-const ScoreSelector: FC<ScoreSelectorProps> = ( { ally, challenger } ) => {
+const ScoreSelector: FC<ScoreSelectorProps> = ({ ally, challenger }) => {
     const [allyScore, setAllyScore] = useState("");
     const [challengerScore, setChallengerScore] = useState("");
 
@@ -32,7 +32,7 @@ const ScoreSelector: FC<ScoreSelectorProps> = ( { ally, challenger } ) => {
                         /!\ This action cannot be undone /!\
                     </DrawerDescription>
                 </DrawerHeader>
-                
+
                 {/* Old method */}
                 {/* <div className="flex flex-row justify-center">
                     <p className="mt-1 mr-3" >Mehdi</p>
@@ -42,8 +42,20 @@ const ScoreSelector: FC<ScoreSelectorProps> = ( { ally, challenger } ) => {
                 </div> */}
 
                 <div className="flex flex-row justify-center space-x-20">
-                    <SelectScore onScore={setAllyScore} selectPlaceholder={ally}/>
-                    <SelectScore onScore={setChallengerScore} selectPlaceholder={challenger}/>
+                    <div className="flex flex-col items-center">
+                        <SelectScore
+                            onScore={setAllyScore}
+                            selectPlaceholder={"Score"}
+                        />
+                        <p className="mt-2">{ally}</p>
+                    </div>
+                    <div className="flex flex-col items-center">
+                        <SelectScore
+                            onScore={setChallengerScore}
+                            selectPlaceholder={"Score"}
+                        />
+                        <p className="mt-2">{challenger}</p>
+                    </div>
                 </div>
 
                 {/* I need to know how can i get the user in the cookie with CSR */}
