@@ -1,4 +1,5 @@
 import {
+    Column,
     CreateDateColumn,
     Entity,
     ManyToOne,
@@ -16,6 +17,12 @@ export class SoloGame {
 
     @ManyToOne(() => Users, (user) => user.player_id2)
     player2!: Users[];
+
+    @Column()
+    score_1!: number;
+
+    @Column()
+    score_2!: number;
 
     @ManyToOne(() => Users, (user) => user.winner_id)
     winner!: Users[];
