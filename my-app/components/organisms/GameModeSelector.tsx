@@ -22,7 +22,6 @@ import ScoreSelector from "./ScoreSelector";
 import SelectScore from "../molecules/SelectScore";
 import { CookieUserInformation } from "@/lib/types/authTypes";
 
-
 type GameModeSelectorProps = {
     FetchFriendWithUserId: FriendUserList[];
     UserInformation: CookieUserInformation;
@@ -30,7 +29,7 @@ type GameModeSelectorProps = {
 
 const GameModeSelector: FC<GameModeSelectorProps> = ({
     FetchFriendWithUserId,
-    UserInformation
+    UserInformation,
 }) => {
     const [gameMode, setGameMode] = useState("");
     const [ally, setAlly] = useState("");
@@ -42,7 +41,7 @@ const GameModeSelector: FC<GameModeSelectorProps> = ({
 
     useEffect(() => {
         setAlly(UserInformation.username);
-    },[])
+    }, []);
 
     return (
         <Card className="w-[350px]">
@@ -106,16 +105,13 @@ const GameModeSelector: FC<GameModeSelectorProps> = ({
                 </form>
             </CardContent>
             <CardFooter className="flex justify-end">
-                <Button
-                    onClick={() =>
-                        console.log(
-                            `Ally : ${ally}, challenger1 : ${challenger1}, challenger2 : ${challenger2}, Your score : ${yourScore}`
-                        )
-                    }
-                >
-                    <ScoreSelector ally={ally} challenger={challenger1}/>
-                </Button>
-                
+                    <ScoreSelector
+                        ally={ally}
+                        ally2={ally2}
+                        challenger={challenger1}
+                        challenger2={challenger2}
+                        GameMode={gameMode}
+                    />
             </CardFooter>
         </Card>
     );

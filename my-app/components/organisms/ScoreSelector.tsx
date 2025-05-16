@@ -15,16 +15,27 @@ import SelectScore from "../molecules/SelectScore";
 
 type ScoreSelectorProps = {
     ally: string;
+    ally2: string;
     challenger: string;
+    challenger2: string;
+    GameMode: string;
 };
 
-const ScoreSelector: FC<ScoreSelectorProps> = ({ ally, challenger }) => {
+const ScoreSelector: FC<ScoreSelectorProps> = ({
+    ally,
+    ally2,
+    challenger,
+    challenger2,
+    GameMode,
+}) => {
     const [allyScore, setAllyScore] = useState("");
     const [challengerScore, setChallengerScore] = useState("");
 
     return (
         <Drawer>
-            <DrawerTrigger>Play !</DrawerTrigger>
+            <DrawerTrigger>
+                <Button>Play !</Button>
+            </DrawerTrigger>
             <DrawerContent>
                 <DrawerHeader>
                     <DrawerTitle>Put your score !</DrawerTitle>
@@ -33,14 +44,6 @@ const ScoreSelector: FC<ScoreSelectorProps> = ({ ally, challenger }) => {
                     </DrawerDescription>
                 </DrawerHeader>
 
-                {/* Old method */}
-                {/* <div className="flex flex-row justify-center">
-                    <p className="mt-1 mr-3" >Mehdi</p>
-                    <Input type="number" className="w-20 mr-8" />
-                    <p className="mr-3">Hugo</p>
-                    <Input type="number" className="w-20" />
-                </div> */}
-
                 <div className="flex flex-row justify-center space-x-20">
                     <div className="flex flex-col items-center">
                         <SelectScore
@@ -48,17 +51,28 @@ const ScoreSelector: FC<ScoreSelectorProps> = ({ ally, challenger }) => {
                             selectPlaceholder={"Score"}
                         />
                         <p className="mt-2">{ally}</p>
+                        {GameMode === "2v2" ? (
+                            <>
+                                <p>&</p>
+                                <p>{ally2}</p>
+                            </>
+                        ) : null}
                     </div>
+
                     <div className="flex flex-col items-center">
                         <SelectScore
                             onScore={setChallengerScore}
                             selectPlaceholder={"Score"}
                         />
                         <p className="mt-2">{challenger}</p>
+                        {GameMode === "2v2" ? (
+                            <>
+                                <p>&</p>
+                                <p>{challenger2}</p>
+                            </>
+                        ) : null}
                     </div>
                 </div>
-
-                {/* I need to know how can i get the user in the cookie with CSR */}
 
                 <DrawerFooter>
                     <Button>Submit</Button>
