@@ -11,7 +11,11 @@ import { ApiResponseFormat } from "@/lib/types/type";
 import { LoginCredential } from "@/lib/types/authTypes";
 
 const Login = () => {
-    const { register, handleSubmit } = useForm<LoginType>({
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<LoginType>({
         resolver: zodResolver(loginSchema),
     });
 
@@ -42,7 +46,11 @@ const Login = () => {
                             type="text"
                             placeholder="Email"
                             {...register("email")}
-                            className="flex-1 border-2 rounded p-1"
+                            className={
+                                errors.email
+                                    ? "flex-1 border-2 rounded p-1  border-red-500"
+                                    : "flex-1 border-2 rounded p-1 "
+                            }
                         />
                     </div>
                     <div className="flex items-center">
@@ -50,7 +58,11 @@ const Login = () => {
                             type="password"
                             placeholder="Password"
                             {...register("password")}
-                            className="flex-1 border-2 rounded p-1"
+                            className={
+                                errors.password
+                                    ? "flex-1 border-2 rounded p-1  border-red-500"
+                                    : "flex-1 border-2 rounded p-1 "
+                            }
                         />
                     </div>
                     {error && (
