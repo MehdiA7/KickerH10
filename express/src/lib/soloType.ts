@@ -3,6 +3,6 @@ export type GameData = {
     score2: number;
     player1: string;
     player2: string;
-    winner: string;
-    looser: string;
+    winner?: string;
+    looser?: string;
 }

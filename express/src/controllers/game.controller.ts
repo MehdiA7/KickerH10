@@ -10,12 +10,10 @@ export class GameController {
             const theBody: GameData = req.body;
 
             if (
-                !theBody.looser ||
                 !theBody.player1 ||
                 !theBody.player2 ||
                 !theBody.score1 ||
-                !theBody.score2 ||
-                !theBody.winner === undefined
+                !theBody.score2 === undefined
             ) {
                 res.status(400).send({
                     success: false,
@@ -24,7 +22,9 @@ export class GameController {
                 return;
             }
 
-            if (theBody.score1 !== 11 || theBody.score2 !== 11) {
+            if (theBody.score1 !== 11 && theBody.score2 !== 11) {
+                console.log(theBody.score1);
+                console.log(theBody.score2);
                 res.status(400).send({
                     success: false,
                     message: "No winner... Need 11 on one side",
@@ -45,7 +45,7 @@ export class GameController {
         } catch (error) {
             res.status(404).send({
                 success: false,
-                message: error,
+                message: error.message,
             });
             return;
         }
