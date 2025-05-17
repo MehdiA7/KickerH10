@@ -14,28 +14,27 @@ export class SoloGameService {
     }
 
     async createANewSoloGame(gameData: GameData): Promise<SoloGame> {
-        // Récupérer d'abord l'utilisateur
+        // check the score is correct
+        if (gameData.score1 !== 11 || gameData.score2 !== 11)
+            throw new Error("No winner.");
+
+        // Verify user si correct
         const player1 = await this.usersRepository.findOne({
             where: { username: gameData.player1 },
-            select: ["id", "username"]
+            select: ["id", "username"],
         });
-
-        if (!player1) {
-            throw new Error("Player 1 not found");
-        }
+        if (!player1) throw new Error("Player 1 not found");
 
         const player2 = await this.usersRepository.findOne({
             where: { username: gameData.player2 },
-            select: ["id", "username"]
+            select: ["id", "username"],
         });
+        if (!player2) throw new Error("Player 2 not found");
 
-        if (!player2) {
-            throw new Error("Player 2 not found")
-        }
-
+        // Choose the winner
         let winner;
         let looser;
-        if (gameData.winner === player1.username){
+        if (gameData.winner === player1.username) {
             winner = player1;
             looser = player2;
         } else {
@@ -49,7 +48,7 @@ export class SoloGameService {
             player2: player2,
             score2: gameData.score2,
             winner: winner,
-            looser: looser
+            looser: looser,
         });
 
         return await this.soloGameRepository.save(newGame);
