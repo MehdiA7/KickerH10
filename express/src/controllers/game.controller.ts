@@ -19,14 +19,20 @@ export class GameController {
             ) {
                 res.status(400).send({
                     success: false,
-                    message: "All field is required"
+                    message: "All field is required",
                 });
                 return;
             }
-            
 
-        } catch (error) {
-            
-        }
+            const createdGame = await soloGameService.createANewSoloGame(
+                theBody
+            );
+
+            res.status(201).send({
+                success: true,
+                message: "Solo match created !",
+                content: createdGame
+            })
+        } catch (error) {}
     }
 }
