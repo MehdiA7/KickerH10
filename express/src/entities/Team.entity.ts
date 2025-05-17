@@ -24,17 +24,17 @@ export class Team {
     player2!: Users[];
 
     @Column()
-    won_game: number = 0;
+    wongame: number = 0;
 
     @Column()
-    lost_game: number = 0;
+    lostgame: number = 0;
 
     @CreateDateColumn()
-    created_at!: Date;
+    createdat!: Date;
 
     @OneToMany(() => TeamGame, (teamgame) => teamgame.team_1)
-    team_id1!: TeamGame[];
+    teamid1!: TeamGame[];
 
     @OneToMany(() => TeamGame, (teamgame) => teamgame.team_2)
-    team_id2!: TeamGame[];
+    teamid2!: TeamGame[];
 }

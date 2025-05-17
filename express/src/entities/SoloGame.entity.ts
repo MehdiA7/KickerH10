@@ -13,23 +13,23 @@ export class SoloGame {
     id!: number;
 
     @ManyToOne(() => Users, (user) => user.player_id1)
-    player1!: Users[];
+    player1!: Users;
 
     @ManyToOne(() => Users, (user) => user.player_id2)
-    player2!: Users[];
+    player2!: Users;
 
     @Column()
-    score_1!: number;
+    score1!: number;
 
     @Column()
-    score_2!: number;
+    score2!: number;
 
     @ManyToOne(() => Users, (user) => user.winner_id)
-    winner!: Users[];
+    winner!: Users;
 
     @ManyToOne(() => Users, (user) => user.looser_id)
-    looser!: Users[];
+    looser!: Users;
 
     @CreateDateColumn()
-    created_at!: Date;
+    createdat!: Date;
 }
