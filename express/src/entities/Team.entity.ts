@@ -17,10 +17,10 @@ export class Team {
     @Column()
     name!: string;
 
-    @ManyToOne(() => Users, (user) => user.team_player_id1)
+    @ManyToOne(() => Users, (user) => user.teamplayerid1)
     player1!: Users[];
 
-    @ManyToOne(() => Users, (user) => user.team_player_id2)
+    @ManyToOne(() => Users, (user) => user.teamplayerid2)
     player2!: Users[];
 
     @Column()
@@ -32,9 +32,9 @@ export class Team {
     @CreateDateColumn()
     createdat!: Date;
 
-    @OneToMany(() => TeamGame, (teamgame) => teamgame.team_1)
+    @OneToMany(() => TeamGame, (teamgame) => teamgame.team1)
     teamid1!: TeamGame[];
 
-    @OneToMany(() => TeamGame, (teamgame) => teamgame.team_2)
+    @OneToMany(() => TeamGame, (teamgame) => teamgame.team2)
     teamid2!: TeamGame[];
 }

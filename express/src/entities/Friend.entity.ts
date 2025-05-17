@@ -16,5 +16,5 @@ export class Friend {
     status!: string;
 
     @CreateDateColumn()
-    created_at!: Date;
+    createdat!: Date;
 }

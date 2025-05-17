@@ -12,10 +12,10 @@ export class SoloGame {
     @PrimaryGeneratedColumn()
     id!: number;
 
-    @ManyToOne(() => Users, (user) => user.player_id1)
+    @ManyToOne(() => Users, (user) => user.playerid1)
     player1!: Users;
 
-    @ManyToOne(() => Users, (user) => user.player_id2)
+    @ManyToOne(() => Users, (user) => user.playerid2)
     player2!: Users;
 
     @Column()
@@ -24,10 +24,10 @@ export class SoloGame {
     @Column()
     score2!: number;
 
-    @ManyToOne(() => Users, (user) => user.winner_id)
+    @ManyToOne(() => Users, (user) => user.winnerid)
     winner!: Users;
 
-    @ManyToOne(() => Users, (user) => user.looser_id)
+    @ManyToOne(() => Users, (user) => user.looserid)
     looser!: Users;
 
     @CreateDateColumn()

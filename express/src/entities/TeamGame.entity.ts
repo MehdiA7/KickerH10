@@ -12,24 +12,24 @@ export class TeamGame {
     @PrimaryGeneratedColumn()
     id!: number;
 
-    @ManyToOne(() => Team, (team) => team.team_id1)
-    team_1!: Team[];
+    @ManyToOne(() => Team, (team) => team.teamid1)
+    team1!: Team[];
 
-    @ManyToOne(() => Team, (team) => team.team_id2)
-    team_2!: Team[];
-
-    @Column()
-    won_game: number = 0;
+    @ManyToOne(() => Team, (team) => team.teamid2)
+    team2!: Team[];
 
     @Column()
-    lost_game: number = 0;
+    wongame: number = 0;
 
     @Column()
-    score_1!: number;
+    lostgame: number = 0;
 
     @Column()
-    score_2!: number;
+    score1!: number;
+
+    @Column()
+    score2!: number;
 
     @CreateDateColumn()
-    created_at!: Date;
+    createdat!: Date;
 }

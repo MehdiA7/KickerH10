@@ -33,19 +33,19 @@ export class Users {
     xp: number = 0;
 
     @Column()
-    won_game: number = 0;
+    wongame: number = 0;
 
     @Column()
-    lost_game: number = 0;
+    lostgame: number = 0;
 
     @Column()
-    won_team_game: number = 0;
+    wonteamgame: number = 0;
 
     @Column()
-    lost_team_game: number = 0;
+    lostteamgame: number = 0;
 
     @CreateDateColumn()
-    created_at!: Date;
+    createdat!: Date;
 
     @OneToMany(() => Friend, (friend) => friend.user)
     friends!: Friend[];
@@ -54,20 +54,20 @@ export class Users {
     friendsOf!: Friend[];
 
     @OneToMany(() => SoloGame, (game) => game.player1)
-    player_id1!: SoloGame[];
+    playerid1!: SoloGame[];
 
     @OneToMany(() => SoloGame, (game) => game.player2)
-    player_id2!: SoloGame[];
+    playerid2!: SoloGame[];
 
     @OneToMany(() => SoloGame, (game) => game.winner)
-    winner_id!: SoloGame[];
+    winnerid!: SoloGame[];
 
     @OneToMany(() => SoloGame, (game) => game.looser)
-    looser_id!: SoloGame[];
+    looserid!: SoloGame[];
 
     @OneToMany(() => Team, (team) => team.player1)
-    team_player_id1!: Team[];
+    teamplayerid1!: Team[];
 
     @OneToMany(() => Team, (team) => team.player2)
-    team_player_id2!: Team[];
+    teamplayerid2!: Team[];
 }
