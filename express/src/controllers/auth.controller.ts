@@ -1,8 +1,7 @@
-import express, { Request, Response } from "express";
-import { EmailExist, LoginBody, RegisterBody } from "../lib/connectionType";
-import { logger } from "../middleware/logger";
+import { Request, Response } from "express";
+import { LoginBody, RegisterBody } from "../lib/connectionType";
 import { UsersService } from "../services/users.service";
-const bcrypt = require("bcrypt");
+import bcrypt from "bcrypt";
 const jwt = require("jsonwebtoken");
 
 const usersService = new UsersService();
