@@ -24,6 +24,14 @@ export class GameController {
                 return;
             }
 
+            if (theBody.score1 !== 11 || theBody.score2 !== 11) {
+                res.status(400).send({
+                    success: false,
+                    message: "No winner... Need 11 on one side",
+                });
+                return;
+            }
+
             const createdGame = await soloGameService.createANewSoloGame(
                 theBody
             );
@@ -31,8 +39,15 @@ export class GameController {
             res.status(201).send({
                 success: true,
                 message: "Solo match created !",
-                content: createdGame
-            })
-        } catch (error) {}
+                content: createdGame,
+            });
+            return;
+        } catch (error) {
+            res.status(404).send({
+                success: false,
+                message: error,
+            });
+            return;
+        }
     }
 }

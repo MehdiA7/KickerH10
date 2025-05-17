@@ -14,9 +14,6 @@ export class SoloGameService {
     }
 
     async createANewSoloGame(gameData: GameData): Promise<SoloGame> {
-        // check the score is correct
-        if (gameData.score1 !== 11 || gameData.score2 !== 11)
-            throw new Error("No winner.");
 
         // Verify user si correct
         const player1 = await this.usersRepository.findOne({
