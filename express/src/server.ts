@@ -8,6 +8,7 @@ import authRouter from "./routes/auth.routes";
 const cors = require("cors");
 
 import dotenv from "dotenv";
+import gameRouter from "./routes/game.routes";
 dotenv.config();
 
 const PORT = process.env.SERVER_PORT
@@ -16,23 +17,26 @@ console.log(process.env.DB_HOST)
 
 const startServer = async () => {
     try {
+        // Start database connection
         await AppDataSource.initialize();
         console.log("Connected to db");
         
-
         const app = express();
 
+        // Cors configuration
         var corsOptions = {
             origin: ["http://localhost:3000"],
             methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
             preflightContinue: false,
             optionsSuccessStatus: 204,
         };
-
         app.use(cors(corsOptions));
 
+        // Route
         app.use("/", authRouter);
+        app.use("/", gameRouter);
 
+        // Test route
         app.get(
             "/",
             logger,
