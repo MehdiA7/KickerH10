@@ -6,7 +6,10 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "tsc --build",
         "start": "node ./dist/server.js",
-        "dev": "ts-node-dev --respawn --transpile-only src/server.ts"
+        "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+        "migration:generate": "npx typeorm-ts-node-commonjs migration:generate ./src/migration/InitialMigration -d ./src/config/database.ts",
+        "migration:run": "npm run typeorm migration:run ./src/migration -d ./src/config/database.ts",
+        "migration:revert": "npm run typeorm migration:revert -- -d ./datasource.ts"
     },
     "keywords": [],
     "author": "",

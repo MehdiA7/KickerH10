@@ -7,13 +7,10 @@ export class Friend {
     id!: number;
 
     @ManyToOne(() => Users, (user) => user.friends)
-    user!: Users[];
+    user!: Users;
 
     @ManyToOne(() => Users, (user) => user.friendsOf)
-    friend!: Users[];
-
-    @Column()
-    status!: string;
+    friend!: Users;
 
     @CreateDateColumn()
     createdat!: Date;
