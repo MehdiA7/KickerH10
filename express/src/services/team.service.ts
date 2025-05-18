@@ -31,8 +31,8 @@ export class TeamService {
         // Create the team
         const newTeam = this.teamRepository.create({
             name: teamData.name,
-            player1: [player1],
-            player2: [player2]
+            player1: player1,
+            player2: player2
         });
 
         return await this.teamRepository.save(newTeam);
