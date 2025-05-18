@@ -4,6 +4,13 @@
 
 ---
 
+## Le projet actuellement
+
+**Le rush**
+Ici je fais un sprint pour mettre l'app en production.
+
+Je dois encore faire toute les routes et un page de création de team en front pour que tout soit bon.
+
 ## 🌟 **Description du projet**
 
 *Les cases coché **[x]** c'est ce qui sera dans le MVP*
