@@ -12,6 +12,9 @@ export class Friend {
     @ManyToOne(() => Users, (user) => user.friendsOf)
     friend!: Users;
 
+    @Column({ default: false })
+    accepted!: boolean;
+
     @CreateDateColumn()
     createdat!: Date;
 }
