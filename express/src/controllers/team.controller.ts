@@ -1,9 +1,7 @@
 import { Request, Response } from "express";
-import {
-    PlayerNotFoundError,
-    TeamNameTakenError,
-    TeamService,
-} from "../services/team.service";
+import { TeamService } from "../services/team.service";
+import { PlayerNotFoundError } from "../errors/users.errors";
+import { TeamNameTakenError } from "../errors/team.errors";
 import { TeamData } from "../lib/teamType";
 
 const teamService = new TeamService();
@@ -40,14 +38,14 @@ export class TeamController {
                 content: createTeam,
             });
         } catch (error) {
-            if (error instanceof PlayerNotFoundError) {
+            if (error instanceof PlayerNotFoundError)
                 return res.status(404).json({ error: error.message });
-            } else if (error instanceof TeamNameTakenError) {
+
+            if (error instanceof TeamNameTakenError)
                 return res.status(409).json({ error: error.message });
-            } else {
-                console.error("Unexpected error:", error);
-                return res.status(500).json({ error: "Internal server error" });
-            }
+
+            console.error("Unexpected error:", error);
+            return res.status(500).json({ error: "Internal server error" });
         }
     }
 }

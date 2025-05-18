@@ -3,20 +3,8 @@ import { Repository } from "typeorm";
 import { Team } from "../entities/Team.entity";
 import { Users } from "../entities/Users.entity";
 import { TeamData } from "../lib/teamType";
-
-export class PlayerNotFoundError extends Error {
-    constructor(playerId: number) {
-        super(`Player with ID ${playerId} not found`);
-        this.name = "PlayerNotFoundError";
-    }
-}
-
-export class TeamNameTakenError extends Error {
-    constructor(teamName: string) {
-        super(`Team name ${teamName} is already taken`);
-        this.name = "TeamNameTakenError";
-    }
-}
+import { PlayerNotFoundError } from "../errors/users.errors";
+import { TeamNameTakenError } from "../errors/team.errors";
 
 export class TeamService {
     private teamRepository: Repository<Team>;
