@@ -45,7 +45,7 @@ export class GameController {
         } catch (error) {
             res.status(404).send({
                 success: false,
-                message: error.message,
+                message: error instanceof Error ? error.message : "An unknown error occurred",
             });
             return;
         }
