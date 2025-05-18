@@ -14,10 +14,6 @@ export class TeamService {
     }
 
     async createTeam(teamData: TeamData): Promise<Team> {
-        
-        // Check if the payload is good
-        if (teamData.name === null || teamData.name === "")
-            throw new Error("Name is empty...");
 
         // check user id is correct
         const player1 = await this.usersRepository.findOne({
@@ -37,9 +33,8 @@ export class TeamService {
             name: teamData.name,
             player1: [player1],
             player2: [player2]
-        })
+        });
 
         return await this.teamRepository.save(newTeam);
-
     }
 }

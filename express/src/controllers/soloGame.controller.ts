@@ -45,7 +45,10 @@ export class SoloGameController {
         } catch (error) {
             res.status(404).send({
                 success: false,
-                message: error instanceof Error ? error.message : "An unknown error occurred",
+                message:
+                    error instanceof Error
+                        ? error.message
+                        : "An unknown error occurred",
             });
             return;
         }

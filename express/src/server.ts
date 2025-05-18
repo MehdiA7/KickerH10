@@ -9,6 +9,7 @@ const cors = require("cors");
 
 import dotenv from "dotenv";
 import gameRouter from "./routes/soloGame.routes";
+import teamRouter from "./routes/team.routes";
 dotenv.config();
 
 const PORT = process.env.SERVER_PORT
@@ -35,6 +36,7 @@ const startServer = async () => {
         // Route
         app.use("/", authRouter);
         app.use("/", gameRouter);
+        app.use("/", teamRouter);
 
         // Test route
         app.get(
