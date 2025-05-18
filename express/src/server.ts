@@ -8,7 +8,7 @@ import authRouter from "./routes/auth.routes";
 const cors = require("cors");
 
 import dotenv from "dotenv";
-import gameRouter from "./routes/game.routes";
+import gameRouter from "./routes/soloGame.routes";
 dotenv.config();
 
 const PORT = process.env.SERVER_PORT

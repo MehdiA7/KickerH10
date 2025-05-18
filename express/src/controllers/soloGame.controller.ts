@@ -4,7 +4,7 @@ import { GameData } from "../lib/soloType";
 
 const soloGameService = new SoloGameService();
 
-export class GameController {
+export class SoloGameController {
     static async createNewSoloMatch(req: Request, res: Response) {
         try {
             const theBody: GameData = req.body;

@@ -1,10 +1,10 @@
 import express from "express";
 import { logger } from "../middleware/logger";
-import { GameController } from "../controllers/game.controller";
+import { SoloGameController } from "../controllers/soloGame.controller";
 
 const gameRouter = express.Router();
 gameRouter.use(express.json());
 
-gameRouter.post("/game/solo", logger, GameController.createNewSoloMatch);
+gameRouter.post("/game/solo", logger, SoloGameController.createNewSoloMatch);
 
 export default gameRouter;
