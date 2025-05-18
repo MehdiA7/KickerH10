@@ -18,10 +18,10 @@ export class Team {
     name!: string;
 
     @ManyToOne(() => Users, (user) => user.teamplayerid1)
-    player1!: Users[];
+    player1!: Users;
 
     @ManyToOne(() => Users, (user) => user.teamplayerid2)
-    player2!: Users[];
+    player2!: Users;
 
     @Column()
     wongame: number = 0;
