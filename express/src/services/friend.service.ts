@@ -48,6 +48,5 @@ export class FriendService {
         friendRequestExist.accepted = true;
 
         return friendRequestExist
-        
     }
 }
