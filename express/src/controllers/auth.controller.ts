@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { LoginBody, RegisterBody } from "../lib/connectionType";
 import { UsersService } from "../services/users.service";
+import { EmailIsTaken, EmailPasswordIsIncorrect } from "../errors/users.errors";
 const jwt = require("jsonwebtoken");
 
 const usersService = new UsersService();
@@ -66,10 +67,19 @@ export class AuthController {
             });
             return;
         } catch (error) {
+            if (error instanceof EmailIsTaken) {
+                res.status(409).send({
+                    success: false,
+                    message: error.message
+                });
+                return;
+            }
+
             res.status(500).send({
                 success: false,
-                message: `SERVER ERROR ${error}`,
+                message: `Unknow error is handle : ${error}`,
             });
+            return;
         }
     }
 
@@ -111,10 +121,19 @@ export class AuthController {
                 token: dbResponse.token,
             });
         } catch (error) {
+            if ( error instanceof EmailPasswordIsIncorrect) {
+                res.status(401).send({
+                    success: false,
+                    message: error.message
+                });
+                return;
+            }
+
             res.status(500).send({
                 success: false,
-                message: `SERVER ERROR ${error}`,
+                message: `Unknow error handle : ${error}`,
             });
+            return;
         }
     }
 }

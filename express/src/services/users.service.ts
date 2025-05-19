@@ -3,7 +3,7 @@ import { Users } from "../entities/Users.entity";
 import { Repository } from "typeorm";
 import { LoginBody, LoginResponse, RegisterBody } from "../lib/connectionType";
 import * as bcrypt from "bcrypt";
-import { EmailPasswordIsIncorrect } from "../errors/users.errors";
+import { EmailIsTaken, EmailPasswordIsIncorrect } from "../errors/users.errors";
 const jwt = require("jsonwebtoken");
 
 export class UsersService {
@@ -26,7 +26,7 @@ export class UsersService {
             where: { email: userData.email },
             select: ["id", "email", "username", "password"],
         });
-        if (verifyEmail === null) throw new EmailPasswordIsIncorrect();
+        if (verifyEmail !== null) throw new EmailIsTaken();
 
         // hash
         const salt = await bcrypt.genSalt(10);

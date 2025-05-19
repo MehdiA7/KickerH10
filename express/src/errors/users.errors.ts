@@ -5,6 +5,13 @@ export class PlayerNotFoundError extends Error {
     }
 }
 
+export class EmailIsTaken extends Error {
+    constructor() {
+        super("Email is taken");
+        this.name = "EmailIsTaken";
+    }
+}
+
 export class EmailPasswordIsIncorrect extends Error {
     constructor() {
         super("Password or email is incorrect");
