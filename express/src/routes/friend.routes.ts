@@ -6,5 +6,6 @@ const friendRouter = express.Router();
 friendRouter.use(express.json());
 
 friendRouter.post("/friend", logger, FriendController.createFriend);
+friendRouter.patch("/friend", logger, FriendController.acceptFriend);
 
 export default friendRouter;
