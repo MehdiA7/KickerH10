@@ -7,6 +7,9 @@ import { FriendRequestDoesntExist } from "../errors/friend.erros";
 const friendService = new FriendService();
 
 export class FriendController {
+
+    //               CREATE NEW FRIEND REQUEST
+
     static async createFriend(req: Request, res: Response) {
         try {
             const theBody: FriendData = req.body;
@@ -51,6 +54,8 @@ export class FriendController {
             return;
         }
     }
+
+    //               ACCEPTE A NEW FRIEND
 
     static async acceptFriend(req: Request, res: Response) {
         try {
