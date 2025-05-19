@@ -28,6 +28,7 @@ export class TeamController {
                     success: false,
                     message: "Name is empty",
                 });
+                return;
             }
 
             const createTeam = await teamService.createTeam(theBody);
@@ -37,6 +38,7 @@ export class TeamController {
                 message: "Team created !",
                 content: createTeam,
             });
+            return;
         } catch (error) {
             if (error instanceof PlayerNotFoundError)
                 return res.status(404).json({

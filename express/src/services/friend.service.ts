@@ -38,10 +38,10 @@ export class FriendService {
 
     async acceptFriend(friendData: FriendData): Promise<Friend> {
         const friendRequestExist = await this.friendRepository.findOne({
-            where: [{user: {id: friendData.user}}, {friend: {id: friendData.friend}}, {accepted: friendData.accepted}],
+            where: {user: {id: friendData.user}, friend: {id: friendData.friend}, accepted: false}
         })
 
-        if (!friendRequestExist) throw new FriendRequestDoesntExist();
+        if (friendRequestExist === null) throw new FriendRequestDoesntExist();
 
         await this.friendRepository.update({id: friendRequestExist.id}, {accepted: true});
 
