@@ -4,6 +4,7 @@ import { Users } from "../entities/Users.entity";
 import { AppDataSource } from "../config/database";
 import { FriendData } from "../lib/friendType";
 import { PlayerNotFoundError } from "../errors/users.errors";
+import { FriendRequestDoesntExist } from "../errors/friend.erros";
 
 export class FriendService {
     private friendRepository: Repository<Friend>;
@@ -35,5 +36,18 @@ export class FriendService {
         return await this.friendRepository.save(createFriend);
     }
 
-    async acceptFriend(friendData: )
+    async acceptFriend(friendData: FriendData): Promise<Friend> {
+        const friendRequestExist = await this.friendRepository.findOne({
+            where: [{user: {id: friendData.user}}, {friend: {id: friendData.friend}}, {accepted: friendData.accepted}],
+        })
+
+        if (!friendRequestExist) throw new FriendRequestDoesntExist();
+
+        await this.friendRepository.update({id: friendRequestExist.id}, {accepted: true});
+
+        friendRequestExist.accepted = true;
+
+        return friendRequestExist
+        
+    }
 }
