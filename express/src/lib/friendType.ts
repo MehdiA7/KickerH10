@@ -1,4 +1,8 @@
 export type FriendData = {
-    player1: number;
-    player2: number;
+    user: number;
+    friend: number;
+}
+
+export type FriendAction = {
+    
 }

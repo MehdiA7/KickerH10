@@ -16,16 +16,16 @@ export class FriendService {
 
     async createFriend(friendData: FriendData): Promise<Friend> {
         const player1 = await this.usersRepository.findOne({
-            where: { id: friendData.player1 },
+            where: { id: friendData.user },
             select: ["id", "username"],
         });
-        if (!player1) throw new PlayerNotFoundError(friendData.player1);
+        if (!player1) throw new PlayerNotFoundError(friendData.user);
 
         const player2 = await this.usersRepository.findOne({
-            where: { id: friendData.player2 },
+            where: { id: friendData.friend },
             select: [ "id", "username" ]
         });
-        if (!player2) throw new PlayerNotFoundError(friendData.player2);
+        if (!player2) throw new PlayerNotFoundError(friendData.friend);
 
         const createFriend = this.friendRepository.create({
             user: player1,
@@ -34,4 +34,6 @@ export class FriendService {
 
         return await this.friendRepository.save(createFriend);
     }
+
+    async acceptFriend(friendData: )
 }

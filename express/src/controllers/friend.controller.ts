@@ -10,8 +10,8 @@ export class FriendController {
         try {
             const theBody: FriendData = req.body;
 
-            if (!theBody.player1 ||
-                !theBody.player2 === undefined
+            if (!theBody.user ||
+                !theBody.friend === undefined
             ) {
                 res.status(400).send({
                     success: false,
