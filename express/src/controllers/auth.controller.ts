@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { LoginBody, RegisterBody } from "../lib/connectionType";
 import { UsersService } from "../services/users.service";
-import bcrypt from "bcrypt";
 const jwt = require("jsonwebtoken");
 
 const usersService = new UsersService();
@@ -59,15 +58,6 @@ export class AuthController {
                 return;
             }
 
-            const verifyEmail = await usersService.findByEmail(theBody.email);
-            if (verifyEmail !== null) {
-                res.status(409).send({
-                    success: false,
-                    message: "This email is taken",
-                });
-                return;
-            }
-
             await usersService.create(theBody);
 
             res.status(201).send({
@@ -112,45 +102,13 @@ export class AuthController {
                 return;
             }
 
-            const dbResponse = await usersService.loginCredential(
-                theBody.email
-            );
-            if (dbResponse === null) {
-                res.status(401).send({
-                    success: false,
-                    message: "The password or email is incorrect",
-                });
-                return;
-            }
+            const dbResponse = await usersService.login(theBody);
 
-            const passwordVerification = await bcrypt.compare(
-                theBody.password,
-                dbResponse.password
-            );
-
-            if (!passwordVerification) {
-                res.status(401).send({
-                    success: false,
-                    message: "The password or email is incorrect",
-                });
-                return;
-            }
-
-            const jwtToken = await jwt.sign(
-                { username: "Paul" },
-                process.env.SECRET,
-                {
-                    expiresIn: "1h",
-                }
-            );
             res.send({
                 success: true,
                 message: "You are logged !",
-                content: {
-                    id: dbResponse.id,
-                    username: dbResponse.username,
-                },
-                token: jwtToken,
+                content: dbResponse.content,
+                token: dbResponse.token,
             });
         } catch (error) {
             res.status(500).send({

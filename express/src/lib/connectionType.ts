@@ -13,5 +13,15 @@ export type LoginBody = {
     id: number;
     firstname: string;
     email: string;
-    password?: string;
+    password: string;
+}
+
+export type LoginResponseContent = {
+    id: number;
+    username: string;
+}
+
+export type LoginResponse = {
+    content: LoginResponseContent;
+    token: string;
 }
