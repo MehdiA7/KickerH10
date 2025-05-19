@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { SoloGameService } from "../services/soloGame.service";
 import { GameData } from "../lib/soloType";
+import { PlayerNotFoundError } from "../errors/users.errors";
 
 const soloGameService = new SoloGameService();
 
@@ -43,12 +44,17 @@ export class SoloGameController {
             });
             return;
         } catch (error) {
-            res.status(404).send({
+            if (error instanceof PlayerNotFoundError) {
+                res.status(404).send({
+                    success: false,
+                    message: error.message,
+                });
+                return;
+            }
+
+            res.status(500).send({
                 success: false,
-                message:
-                    error instanceof Error
-                        ? error.message
-                        : "An unknown error occurred",
+                message: `Unknow error : ${error}`
             });
             return;
         }
