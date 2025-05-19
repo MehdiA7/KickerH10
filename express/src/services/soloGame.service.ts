@@ -3,6 +3,7 @@ import { Repository } from "typeorm";
 import { SoloGame } from "../entities/SoloGame.entity";
 import { GameData } from "../lib/soloType";
 import { Users } from "../entities/Users.entity";
+import { PlayerNotFoundError } from "../errors/users.errors";
 
 export class SoloGameService {
     private soloGameRepository: Repository<SoloGame>;
@@ -17,21 +18,21 @@ export class SoloGameService {
 
         // Verify user si correct
         const player1 = await this.usersRepository.findOne({
-            where: { username: gameData.player1 },
+            where: { id: gameData.player1 },
             select: ["id", "username"],
         });
-        if (!player1) throw new Error("Player 1 not found");
+        if (!player1) throw new PlayerNotFoundError(gameData.player1);
 
         const player2 = await this.usersRepository.findOne({
-            where: { username: gameData.player2 },
+            where: { id: gameData.player2 },
             select: ["id", "username"],
         });
-        if (!player2) throw new Error("Player 2 not found");
+        if (!player2) throw new PlayerNotFoundError(gameData.player2);
 
         // Choose the winner
         let winner;
         let looser;
-        if (gameData.winner === player1.username) {
+        if (gameData.winner === player1.id) {
             winner = player1;
             looser = player2;
         } else {
