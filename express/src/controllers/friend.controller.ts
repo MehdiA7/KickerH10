@@ -16,7 +16,15 @@ export class FriendController {
                     success: false,
                     message: "All field is required",
                 });
-                
+                return;
+            }
+
+            if (theBody.user === theBody.friend) {
+                res.status(409).send({
+                    success: false,
+                    message: "You can invite yourself...",
+                });
+                return;
             }
 
             const createFriend = await friendService.createFriend(theBody);
@@ -26,21 +34,21 @@ export class FriendController {
                 message: "Friend added !",
                 conten: createFriend,
             });
-            
+            return;
         } catch (error) {
             if (error instanceof PlayerNotFoundError) {
                 res.status(400).send({
                     success: false,
                     message: error.message,
                 });
-                
+                return;
             }
 
             res.status(500).send({
                 succes: false,
                 message: "Unknow error handled...",
             });
-            
+            return;
         }
     }
 
@@ -48,37 +56,44 @@ export class FriendController {
         try {
             const theBody: FriendData = req.body;
 
-            if (
-                !theBody.user ||
-                !theBody.friend === undefined
-            ) {
+            if (!theBody.user || !theBody.friend === undefined) {
                 res.status(400).send({
                     success: false,
                     message: "All field is required",
                 });
-                
+                return;
             }
 
-            const acceptFriend = friendService.acceptFriend(theBody);
+            if (theBody.user === theBody.friend) {
+                res.status(409).send({
+                    success: false,
+                    message: "You can invite yourself...",
+                });
+                return;
+            }
+
+            const acceptFriend = await friendService.acceptFriend(theBody);
 
             res.status(200).send({
                 success: true,
                 message: "Friend accepted !",
-                content: acceptFriend
-            })
-            
+                content: acceptFriend,
+            });
+            return;
         } catch (error) {
             if (error instanceof FriendRequestDoesntExist) {
                 res.status(404).send({
                     success: false,
-                    message: error.message
+                    message: error.message,
                 });
+                return;
             }
 
             res.status(500).send({
-                success: true,
-                message: `Unknow error handled... ${error}`
-            })
+                success: false,
+                message: `Unknow error handled... ${error}`,
+            });
+            return;
         }
     }
 }
