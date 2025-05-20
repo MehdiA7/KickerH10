@@ -1,16 +1,18 @@
+"use client";
 import ProfileOverview from "@/components/molecules/ProfileOverview";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import React from "react";
-import { FetchRecentUserMatch, FetchUserProfile } from "../serverAction/fetchUsers";
+import { FetchRecentUserMatch, FetchUserProfile, FetchAddNewFriend } from "../serverAction/fetchUsers";
 import RecentGame from "@/components/organisms/RecentGame";
 import SearchBar from "@/components/molecules/SearchBar";
 
 
 
-const HomePage = () => {
+const UserPage = () => {
     
-    let id = 0 // get user id in jwt
+    let idFriend = 0 
+    let idUser = 1 // get user id in jwt
 
     return (
         <>  
@@ -19,11 +21,16 @@ const HomePage = () => {
                 <SearchBar/>
             </div>
             <div className="flex flex-col items-center">
-                <ProfileOverview FetchUserProfile={FetchUserProfile(id)} />
+                <ProfileOverview FetchUserProfile={FetchUserProfile(idFriend)} />
             </div>
             <article>
-                <RecentGame FetchRecentUserMatch={FetchRecentUserMatch(id)}/>
+                <RecentGame FetchRecentUserMatch={FetchRecentUserMatch(idFriend)}/>
             </article>
+            <div className="flex w-full justify-center">
+                <Button className="h-15 mb-5" size="lg"  onClick={() => FetchAddNewFriend(idUser, idFriend)}>
+                    Add friend
+                </Button>
+            </div>
             <div className="flex justify-center space-x-45 w-sm fixed bottom-5 ">
                 <Button className="h-15 mb-5" size={"lg"} asChild>
                     <Link href={"/home/score"}>SCORE</Link>
@@ -32,8 +39,9 @@ const HomePage = () => {
                     <Link href={"/home/start"}>PLAY</Link>
                 </Button>
             </div>
+
         </>
     );
 };
 
-export default HomePage;
+export default UserPage;

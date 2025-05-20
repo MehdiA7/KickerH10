@@ -20,7 +20,7 @@ const RecentGame: FC<RecentGameProps> = ({ FetchRecentUserMatch }) => {
 
     return (
         <>
-            <Table className="w-88 m-auto mb-25">
+            <Table className="w-88 m-auto ">
                 <TableCaption>⚽ Your recent Matches ⚽</TableCaption>
                 <TableHeader className="bg-gray-100">
                     <TableRow>

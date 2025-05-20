@@ -111,7 +111,7 @@ export function FetchUserByName() {
     return userList;
 }
 
-export function FetchRecentUserMatch() {
+export function FetchRecentUserMatch(id : number) {
     const userMatch = [
         {
             id: 2,
@@ -183,4 +183,15 @@ export function FetchCheckIsFriend(idPlayer1 : number, idPlayer2 : number) {
     }
 
     return "true or false";
+}
+
+export function FetchAddNewFriend(idPlayer1 : number, idPlayer2 : number) {
+    
+    let postObj =
+    {
+    "user": idPlayer1,
+    "friend": idPlayer2
+    }
+    console.log("you are now friends")
+    return 0;
 }

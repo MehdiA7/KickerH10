@@ -62,7 +62,7 @@ const SearchBar = () => {
                                 onMouseDown={(e) => e.preventDefault()}
                             >
                                 <Link
-                                    href={{ pathname: "/User", query: { id: user.id } }}
+                                    href={{ pathname: "/user"}}
                                     onClick={() => setSearch("")}
                                     className="block w-full px-4 py-2 bg-white hover:bg-[rgb(152,152,152)] cursor-pointer"
                                 >
