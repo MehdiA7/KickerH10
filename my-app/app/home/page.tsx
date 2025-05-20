@@ -4,10 +4,18 @@ import Link from "next/link";
 import React from "react";
 import { FetchRecentUserMatch, FetchUserProfile } from "../serverAction/fetchUsers";
 import RecentGame from "@/components/organisms/RecentGame";
+import SearchBar from "@/components/molecules/SearchBar";
+
+
 
 const HomePage = () => {
+    
     return (
-        <>
+        <>  
+        
+            <div className="flex flex-col items-center mb-2">
+                <SearchBar/>
+            </div>
             <div className="flex flex-col items-center">
                 <ProfileOverview FetchUserProfile={FetchUserProfile()} />
             </div>

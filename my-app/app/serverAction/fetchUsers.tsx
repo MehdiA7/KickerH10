@@ -36,7 +36,28 @@ export function FetchFriendWithUserId() {
         {
             id: 8,
             username: "Pierre"
-        }
+        },
+        {
+            id: 9,
+            username: "Scott Borlon"
+        },
+        {
+            id: 10,
+            username: "Bryan Charles"
+        },
+        {
+            id: 11,
+            username: "Lucas Cloes"
+        },
+        {
+            id: 12,
+            username: "Denis Collette"
+        },
+        {
+            id: 13,
+            username: "Emmanuel Cuiret"
+        },
+        
     ];
 
     return userList;

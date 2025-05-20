@@ -14,6 +14,8 @@ const StartPage = async () => {
         username = "";
     }
 
+// check if player is not playing against himself
+
     const userInformation = {
         id: id,
         username: username
