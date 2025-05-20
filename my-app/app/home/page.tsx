@@ -10,6 +10,8 @@ import SearchBar from "@/components/molecules/SearchBar";
 
 const HomePage = () => {
     
+    let id = 0 // get user id in jwt
+
     return (
         <>  
         
@@ -17,7 +19,7 @@ const HomePage = () => {
                 <SearchBar/>
             </div>
             <div className="flex flex-col items-center">
-                <ProfileOverview FetchUserProfile={FetchUserProfile()} />
+                <ProfileOverview FetchUserProfile={FetchUserProfile(id)} />
             </div>
             <article>
                 <RecentGame FetchRecentUserMatch={FetchRecentUserMatch()}/>

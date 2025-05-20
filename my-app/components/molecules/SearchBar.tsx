@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from 'next/link';
-import { FetchFriendWithUserId } from "@/app/serverAction/fetchUsers";
+import { FetchUserByName } from "@/app/serverAction/fetchUsers";
 
 type FilteredUser = {
     id: number;
@@ -23,7 +23,7 @@ const SearchBar = () => {
 
         const handler = setTimeout(async () => {
             try {
-                const userList = await FetchFriendWithUserId(); 
+                const userList = await FetchUserByName(); 
                 if (userList.length > 0) {
                     console.log("a search request is sent");
                     setResult(userList);

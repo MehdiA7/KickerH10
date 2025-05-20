@@ -1,6 +1,6 @@
 // "use server"
 
-export function FetchUserProfile() {
+export function FetchUserProfile(id : number) {
     const user = 
         {
             username: "QuentinLeS",
@@ -16,6 +16,54 @@ export function FetchUserProfile() {
 }
 
 export function FetchFriendWithUserId() {
+    const userList = [
+        {
+            id: 4,
+            username: "Hugo"
+        },
+        {
+            id: 5,
+            username: "Martin"
+        },
+        {
+            id: 6,
+            username: "Robin"
+        },
+        {
+            id: 7,
+            username: "Nico"
+        },
+        {
+            id: 8,
+            username: "Pierre"
+        },
+        {
+            id: 9,
+            username: "Scott Borlon"
+        },
+        {
+            id: 10,
+            username: "Bryan Charles"
+        },
+        {
+            id: 11,
+            username: "Lucas Cloes"
+        },
+        {
+            id: 12,
+            username: "Denis Collette"
+        },
+        {
+            id: 13,
+            username: "Emmanuel Cuiret"
+        },
+        
+    ];
+
+    return userList;
+}
+
+export function FetchUserByName() {
     const userList = [
         {
             id: 4,
@@ -112,4 +160,27 @@ export function FetchRecentUserMatch() {
         }
     ]
     return userMatch;
+}
+
+export function FetchAddFriend() {
+    
+    let postObj =
+    {
+    "user": 1,
+    "friend": 2
+    }
+
+    return "friend added successfully";
+}
+
+
+export function FetchCheckIsFriend(idPlayer1 : number, idPlayer2 : number) {
+    
+    let postObj =
+    {
+    "player1": idPlayer1,
+    "player2": idPlayer2
+    }
+
+    return "true or false";
 }
