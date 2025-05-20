@@ -40,23 +40,27 @@ export class TeamController {
             });
             return;
         } catch (error) {
-            if (error instanceof PlayerNotFoundError)
-                return res.status(404).json({
+            if (error instanceof PlayerNotFoundError){
+                res.status(404).json({
                     success: false,
                     message: error.message,
                 });
+            }
 
-            if (error instanceof TeamNameTakenError)
-                return res.status(409).json({
+            if (error instanceof TeamNameTakenError) {
+                res.status(409).json({
                     success: false,
                     message: error.message,
                 });
+                return;
+            }
 
             console.error("Unexpected error:", error);
-            return res.status(500).json({
+            res.status(500).json({
                 success: false,
                 message: "Internal server error",
             });
+            return
         }
     }
 }
