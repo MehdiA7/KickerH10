@@ -1,5 +1,4 @@
 import express, { Request, Response } from "express";
-import { authJwt } from "./middleware/authJwt";
 import { logger } from "./middleware/logger";
 import { AppDataSource } from "./config/database";
 import "reflect-metadata";
@@ -44,8 +43,8 @@ const startServer = async () => {
         app.get(
             "/",
             logger,
-            (response: Response) => {
-                response.status(200).send({ message: "The api work well !" });
+            (req: Request, res: Response) => {
+                res.status(200).send({ message: "The api work well !" });
             }
         );
 
