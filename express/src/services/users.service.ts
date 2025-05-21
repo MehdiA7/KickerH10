@@ -13,4 +13,14 @@ export class UsersService {
         return await this.usersRepository.findOneBy({ id });
     }
 
+    async searchUserByUsername(input: string): Promise<any> {
+
+        const search = await this.usersRepository
+            .createQueryBuilder("users")
+            .where("user.username LIKE :input", { input: `${input}%` })
+            .getMany()
+
+        return search;
+    }
+
 }
