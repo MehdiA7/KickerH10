@@ -15,7 +15,23 @@ export function FetchUserProfile(id : number) {
     return user;
 }
 
-export function FetchFriendWithUserId() {
+export function FetchUserProfileByName(name : string) {
+    const user = 
+        {
+            id : 0,
+            username: "QuentinLeS",
+            xp: 83,
+            level: 4,
+            won_game: 32,
+            lost_game: 21,
+            won_team_game: 10,
+            lost_team_game: 4,
+        };
+
+    return user;
+}
+
+export function FetchFriendWithUserId(id : number) {
     const userList = [
         {
             id: 4,
@@ -194,4 +210,10 @@ export function FetchAddNewFriend(idPlayer1 : number, idPlayer2 : number) {
     }
     console.log("you are now friends")
     return 0;
+}
+
+export function FetchRemoveFriend(idUser : number , idFriend : number){
+
+    // delte the foreign table containig those 2 id
+
 }
