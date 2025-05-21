@@ -101,4 +101,35 @@ export class FriendController {
             return;
         }
     }
+
+    //               GET FRIEND
+    static async getFriendWithUserId(req: Request, res: Response) {
+        try {
+            
+            const userId: number = parseInt(req.params.userId);
+
+            if (!userId) {
+                res.status(400).send({
+                    success: false,
+                    message: "The format is not correct."
+                });
+                return;
+            }
+
+            const friend = await friendService.getFriend(userId);
+
+            res.status(200).send({
+                success: true,
+                message: "Its works !",
+                content: friend
+            })
+        } catch(error) {
+
+            res.status(500).send({
+                success: false,
+                message: `Unknow error... : ${error}`
+            });
+            return;
+        }
+    }
 }

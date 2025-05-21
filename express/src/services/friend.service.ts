@@ -24,29 +24,53 @@ export class FriendService {
 
         const player2 = await this.usersRepository.findOne({
             where: { id: friendData.friend },
-            select: [ "id", "username" ]
+            select: ["id", "username"],
         });
         if (!player2) throw new PlayerNotFoundError(friendData.friend);
 
         const createFriend = this.friendRepository.create({
             user: player1,
-            friend: player2
-        })
+            friend: player2,
+        });
 
         return await this.friendRepository.save(createFriend);
     }
 
     async acceptFriend(friendData: FriendData): Promise<Friend> {
         const friendRequestExist = await this.friendRepository.findOne({
-            where: {user: {id: friendData.user}, friend: {id: friendData.friend}, accepted: false}
-        })
+            where: {
+                user: { id: friendData.user },
+                friend: { id: friendData.friend },
+                accepted: false,
+            },
+        });
 
         if (friendRequestExist === null) throw new FriendRequestDoesntExist();
 
-        await this.friendRepository.update({id: friendRequestExist.id}, {accepted: true});
+        await this.friendRepository.update(
+            { id: friendRequestExist.id },
+            { accepted: true }
+        );
 
         friendRequestExist.accepted = true;
 
-        return friendRequestExist
+        return friendRequestExist;
+    }
+
+    // I need to get all friend but un the table we have 2 column with id
+    async getFriend(userId: number): Promise<Friend[]> {
+        const friend = await this.friendRepository
+            .createQueryBuilder("friend")
+            .leftJoinAndSelect("friend.users", "users", "users.id = :userId", {
+                userId: userId,
+            })
+            .where("userId = :id", { id: userId })
+            .orWhere("friendId = :id", { id: userId })
+            .getMany();
+
+        // const friend = await this.usersRepository
+        //     .findOneBy({id: userId})
+
+        return friend;
     }
 }
