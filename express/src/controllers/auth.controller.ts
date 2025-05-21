@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { LoginBody, RegisterBody } from "../lib/connectionType";
-import { UsersService } from "../services/users.service";
+import { AuthService } from "../services/auth.service";
 import { EmailIsTaken, EmailPasswordIsIncorrect } from "../errors/users.errors";
 const jwt = require("jsonwebtoken");
 
-const usersService = new UsersService();
+const authService = new AuthService();
 
 // documentation about the password verification and hash
 // https://www.freecodecamp.org/news/how-to-hash-passwords-with-bcrypt-in-nodejs/
@@ -59,7 +59,7 @@ export class AuthController {
                 return;
             }
 
-            await usersService.create(theBody);
+            await authService.create(theBody);
 
             res.status(201).send({
                 success: true,
@@ -112,7 +112,7 @@ export class AuthController {
                 return;
             }
 
-            const dbResponse = await usersService.login(theBody);
+            const dbResponse = await authService.login(theBody);
 
             res.send({
                 success: true,

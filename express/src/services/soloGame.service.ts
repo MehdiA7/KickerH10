@@ -13,7 +13,7 @@ export class SoloGameService {
         this.soloGameRepository = AppDataSource.getRepository(SoloGame);
         this.usersRepository = AppDataSource.getRepository(Users);
     }
-
+    
     async createANewSoloGame(gameData: GameData): Promise<SoloGame> {
 
         // Verify user si correct

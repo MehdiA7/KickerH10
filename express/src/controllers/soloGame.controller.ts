@@ -6,6 +6,7 @@ import { PlayerNotFoundError } from "../errors/users.errors";
 const soloGameService = new SoloGameService();
 
 export class SoloGameController {
+
     static async createNewSoloMatch(req: Request, res: Response) {
         try {
             const theBody: GameData = req.body;
@@ -58,5 +59,9 @@ export class SoloGameController {
             });
             return;
         }
+    }
+
+    static async getSoloMatch(req: Request, res: Response) {
+
     }
 }
