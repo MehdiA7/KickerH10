@@ -1,6 +1,6 @@
 // "use server"
 
-export function FetchUserProfile() {
+export function FetchUserProfile(id : number) {
     const user = 
         {
             username: "QuentinLeS",
@@ -15,7 +15,23 @@ export function FetchUserProfile() {
     return user;
 }
 
-export function FetchFriendWithUserId() {
+export function FetchUserProfileByName(name : string) {
+    const user = 
+        {
+            id : 0,
+            username: "QuentinLeS",
+            xp: 83,
+            level: 4,
+            won_game: 32,
+            lost_game: 21,
+            won_team_game: 10,
+            lost_team_game: 4,
+        };
+
+    return user;
+}
+
+export function FetchFriendWithUserId(id : number) {
     const userList = [
         {
             id: 4,
@@ -36,13 +52,82 @@ export function FetchFriendWithUserId() {
         {
             id: 8,
             username: "Pierre"
-        }
+        },
+        {
+            id: 9,
+            username: "Scott Borlon"
+        },
+        {
+            id: 10,
+            username: "Bryan Charles"
+        },
+        {
+            id: 11,
+            username: "Lucas Cloes"
+        },
+        {
+            id: 12,
+            username: "Denis Collette"
+        },
+        {
+            id: 13,
+            username: "Emmanuel Cuiret"
+        },
+        
     ];
 
     return userList;
 }
 
-export function FetchRecentUserMatch() {
+export function FetchUserByName() {
+    const userList = [
+        {
+            id: 4,
+            username: "Hugo"
+        },
+        {
+            id: 5,
+            username: "Martin"
+        },
+        {
+            id: 6,
+            username: "Robin"
+        },
+        {
+            id: 7,
+            username: "Nico"
+        },
+        {
+            id: 8,
+            username: "Pierre"
+        },
+        {
+            id: 9,
+            username: "Scott Borlon"
+        },
+        {
+            id: 10,
+            username: "Bryan Charles"
+        },
+        {
+            id: 11,
+            username: "Lucas Cloes"
+        },
+        {
+            id: 12,
+            username: "Denis Collette"
+        },
+        {
+            id: 13,
+            username: "Emmanuel Cuiret"
+        },
+        
+    ];
+
+    return userList;
+}
+
+export function FetchRecentUserMatch(id : number) {
     const userMatch = [
         {
             id: 2,
@@ -91,4 +176,44 @@ export function FetchRecentUserMatch() {
         }
     ]
     return userMatch;
+}
+
+export function FetchAddFriend() {
+    
+    let postObj =
+    {
+    "user": 1,
+    "friend": 2
+    }
+
+    return "friend added successfully";
+}
+
+
+export function FetchCheckIsFriend(idPlayer1 : number, idPlayer2 : number) {
+    
+    let postObj =
+    {
+    "player1": idPlayer1,
+    "player2": idPlayer2
+    }
+
+    return "true or false";
+}
+
+export function FetchAddNewFriend(idPlayer1 : number, idPlayer2 : number) {
+    
+    let postObj =
+    {
+    "user": idPlayer1,
+    "friend": idPlayer2
+    }
+    console.log("you are now friends")
+    return 0;
+}
+
+export function FetchRemoveFriend(idUser : number , idFriend : number){
+
+    // delte the foreign table containig those 2 id
+
 }

@@ -60,7 +60,6 @@ const ScoreSelector: FC<ScoreSelectorProps> = ({
                         <p className="mt-2">{ally}</p>
                         {GameMode === "2v2" ? (
                             <>
-                                <p>&</p>
                                 <p>{ally2}</p>
                             </>
                         ) : null}
@@ -71,11 +70,12 @@ const ScoreSelector: FC<ScoreSelectorProps> = ({
                             onScore={setChallengerScore}
                             selectPlaceholder={"Score"}
                         />
-                        <p className="mt-2">{challenger}</p>
+                        {GameMode === "1v1" ? (
+                        <p className="mt-2">{challenger}</p>) 
+                        : null}
                         {GameMode === "2v2" ? (
                             <>
-                                <p>&</p>
-                                <p>{challenger2}</p>
+                                <p  className="mt-2">{challenger2}</p>
                             </>
                         ) : null}
                     </div>

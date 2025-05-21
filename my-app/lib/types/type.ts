@@ -32,3 +32,10 @@ export type Match = {
     created_at: string;
 };
 
+
+export type Team = {
+    id : number
+    name: string,
+    player1 : number,
+    player2 : number
+}

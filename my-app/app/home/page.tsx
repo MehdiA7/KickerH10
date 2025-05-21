@@ -4,15 +4,25 @@ import Link from "next/link";
 import React from "react";
 import { FetchRecentUserMatch, FetchUserProfile } from "../serverAction/fetchUsers";
 import RecentGame from "@/components/organisms/RecentGame";
+import SearchBar from "@/components/molecules/SearchBar";
+
+
 
 const HomePage = () => {
+    
+    let id = 0 // get user id in jwt
+
     return (
-        <>
+        <>  
+        
+            <div className="flex flex-col items-center mb-2">
+                <SearchBar/>
+            </div>
             <div className="flex flex-col items-center">
-                <ProfileOverview FetchUserProfile={FetchUserProfile()} />
+                <ProfileOverview FetchUserProfile={FetchUserProfile(id)} />
             </div>
             <article>
-                <RecentGame FetchRecentUserMatch={FetchRecentUserMatch()}/>
+                <RecentGame FetchRecentUserMatch={FetchRecentUserMatch(id)}/>
             </article>
             <div className="flex justify-center space-x-45 w-sm fixed bottom-5 ">
                 <Button className="h-15 mb-5" size={"lg"} asChild>
