@@ -1,7 +1,11 @@
 import { Request, Response } from "express";
 import { LoginBody, RegisterBody } from "../lib/connectionType";
 import { AuthService } from "../services/auth.service";
-import { EmailIsTaken, EmailPasswordIsIncorrect } from "../errors/users.errors";
+import {
+    EmailIsTaken,
+    EmailPasswordIsIncorrect,
+    UsernameIsTaken,
+} from "../errors/users.errors";
 const jwt = require("jsonwebtoken");
 
 const authService = new AuthService();
@@ -67,10 +71,13 @@ export class AuthController {
             });
             return;
         } catch (error) {
-            if (error instanceof EmailIsTaken) {
+            if (
+                error instanceof EmailIsTaken ||
+                error instanceof UsernameIsTaken
+            ) {
                 res.status(409).send({
                     success: false,
-                    message: error.message
+                    message: error.message,
                 });
                 return;
             }
@@ -121,10 +128,10 @@ export class AuthController {
                 token: dbResponse.token,
             });
         } catch (error) {
-            if ( error instanceof EmailPasswordIsIncorrect) {
+            if (error instanceof EmailPasswordIsIncorrect) {
                 res.status(401).send({
                     success: false,
-                    message: error.message
+                    message: error.message,
                 });
                 return;
             }

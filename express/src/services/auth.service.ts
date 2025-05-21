@@ -3,7 +3,7 @@ import { AppDataSource } from "../config/database";
 import { Users } from "../entities/Users.entity";
 import { LoginBody, LoginResponse, RegisterBody } from "../lib/connectionType";
 import * as bcrypt from "bcrypt";
-import { EmailIsTaken, EmailPasswordIsIncorrect } from "../errors/users.errors";
+import { EmailIsTaken, EmailPasswordIsIncorrect, UsernameIsTaken } from "../errors/users.errors";
 const jwt = require("jsonwebtoken");
 
 
@@ -17,11 +17,15 @@ export class AuthService {
     }
 
     async create(userData: RegisterBody): Promise<Users> {
-        const verifyEmail = await this.usersRepository.findOne({
+        const verifyEmail = await this.usersRepository.exists({
             where: { email: userData.email },
-            select: ["id", "email", "username", "password"],
         });
-        if (verifyEmail !== null) throw new EmailIsTaken();
+        if (verifyEmail) throw new EmailIsTaken();
+
+        const verifyUsername = await this.usersRepository.exists({
+            where: {username: userData.username},
+        })
+        if (verifyUsername) throw new UsernameIsTaken();
 
         // hash
         const salt = await bcrypt.genSalt(10);

@@ -5,6 +5,13 @@ export class PlayerNotFoundError extends Error {
     }
 }
 
+export class UsernameIsTaken extends Error {
+    constructor(){
+        super("This username is taken");
+        this.name = "UsernameIsTaken"
+    }
+}
+
 export class EmailIsTaken extends Error {
     constructor() {
         super("Email is taken");

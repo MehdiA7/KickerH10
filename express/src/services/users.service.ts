@@ -19,6 +19,7 @@ export class UsersService {
             .createQueryBuilder("users")
             .where("username LIKE :input", { input: `${input}%` })
             .select(["users.username", "users.id"])
+            .take(5)
             .getMany()
 
         return search;
