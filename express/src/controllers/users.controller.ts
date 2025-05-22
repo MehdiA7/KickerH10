@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { UsersService } from "../services/users.service";
 import { SearchUserBody } from "../lib/usersType";
+import { DeleteResult } from "typeorm";
 
 const usersService = new UsersService();
 
@@ -21,7 +22,7 @@ export class UsersController {
                 res.status(400).send({
                     success: false,
                     message: "Input is empty...",
-                    content: []
+                    content: [],
                 });
                 return;
             }
@@ -34,6 +35,42 @@ export class UsersController {
                 success: true,
                 message: `User list with ${theBody.input}`,
                 content: reponse,
+            });
+            return;
+        } catch (error) {
+            res.status(500).send({
+                success: false,
+                message: `Unknow error... : ${error}`,
+            });
+            return;
+        }
+    }
+
+    static async DeleteUser(req: Request, res: Response) {
+        try {
+            const userId = parseInt(req.params.userId);
+
+            if (userId === null) {
+                res.status(400).send({
+                    success: false,
+                    message: "Id format is incorrect",
+                });
+                return;
+            }
+
+            const response: DeleteResult = await usersService.deleteUser(userId);
+
+            if (!response.affected) {
+                res.status(400).send({
+                    success: false,
+                    message: "Id is incorrect"
+                });
+                return;
+            }
+
+            res.status(200).send({
+                success: true,
+                message: "Delete success !",
             });
             return;
         } catch (error) {

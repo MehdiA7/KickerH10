@@ -1,6 +1,6 @@
 import { AppDataSource } from "../config/database";
 import { Users } from "../entities/Users.entity";
-import { Repository } from "typeorm";
+import { DeleteResult, Repository } from "typeorm";
 
 export class UsersService {
     private usersRepository: Repository<Users>;
@@ -25,4 +25,10 @@ export class UsersService {
         return search;
     }
 
+    async deleteUser(id: number): Promise<DeleteResult> {
+
+        const deleteTheUser = await this.usersRepository.delete({id: id});
+
+        return deleteTheUser;
+    }
 }
