@@ -5,6 +5,6 @@ import { SoloGameController } from "../controllers/soloGame.controller";
 const gameRouter = express.Router();
 gameRouter.use(express.json());
 
-gameRouter.post("/game/solo", logger, SoloGameController.createNewSoloMatch);
+gameRouter.post("/solo", logger, SoloGameController.createNewSoloMatch);
 
 export default gameRouter;

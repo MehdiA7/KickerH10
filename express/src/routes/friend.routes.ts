@@ -5,8 +5,8 @@ import { FriendController } from "../controllers/friend.controller";
 const friendRouter = express.Router();
 friendRouter.use(express.json());
 
-friendRouter.post("/friend", logger, FriendController.createFriend);
-friendRouter.patch("/friend", logger, FriendController.acceptFriend);
-friendRouter.get("/friend/:userId", logger, FriendController.getFriendWithUserId);
+friendRouter.post("/", logger, FriendController.createFriend);
+friendRouter.patch("/", logger, FriendController.acceptFriend);
+friendRouter.get("/:userId", logger, FriendController.getFriendWithUserId);
 
 export default friendRouter;

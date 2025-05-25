@@ -5,6 +5,6 @@ import { TeamController } from "../controllers/team.controller";
 const teamRouter = express.Router();
 teamRouter.use(express.json());
 
-teamRouter.post("/team", logger, TeamController.createTeam);
+teamRouter.post("/", logger, TeamController.createTeam);
 
 export default teamRouter;

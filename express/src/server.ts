@@ -36,10 +36,10 @@ const startServer = async () => {
 
         // Route
         app.use("/", authRouter);
-        app.use("/", gameRouter);
-        app.use("/", teamRouter);
-        app.use("/", friendRouter);
-        app.use("/", usersRouter);
+        app.use("/game", gameRouter);
+        app.use("/team", teamRouter);
+        app.use("/friend", friendRouter);
+        app.use("/user", usersRouter);
 
         // Test route
         app.get(
