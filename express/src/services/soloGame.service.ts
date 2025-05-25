@@ -1,7 +1,7 @@
 import { AppDataSource } from "../config/database";
 import { Repository } from "typeorm";
 import { SoloGame } from "../entities/SoloGame.entity";
-import { GameData } from "../lib/soloType";
+import { GameData, SoloGamePagingResponse } from "../lib/soloType";
 import { Users } from "../entities/Users.entity";
 import { PlayerNotFoundError } from "../errors/users.errors";
 
@@ -52,9 +52,14 @@ export class SoloGameService {
         return await this.soloGameRepository.save(newGame);
     }
 
-    async getSoloGame(page: number): Promise<SoloGame[]> {
-    const allSoloGame = await this.soloGameRepository
-    .find({
+    async getSoloGame(page: number): Promise<SoloGamePagingResponse> {
+        const limit: number = 10;
+        const offset: number = (page - 1) * limit;
+
+    const [allSoloGame, total] = await this.soloGameRepository
+    .findAndCount({
+        take: 10,
+        skip: offset,
         relations: ['player1', 'player2'],
         select: {
             id: true,
@@ -64,7 +69,12 @@ export class SoloGameService {
             player2: { id: true, username: true},
         }
     });
+
+    const formatResponse = {
+        content: allSoloGame,
+        totalPage: total
+    }
         
-            return allSoloGame;
+            return formatResponse;
     }
 }

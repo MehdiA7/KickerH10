@@ -1,3 +1,5 @@
+import { SoloGame } from "../entities/SoloGame.entity";
+
 export type GameData = {
     score1: number;
     score2: number;
@@ -5,4 +7,9 @@ export type GameData = {
     player2: number;
     winner?: number;
     looser?: number;
+}
+
+export type SoloGamePagingResponse = {
+    content: SoloGame[],
+    totalPage: number
 }

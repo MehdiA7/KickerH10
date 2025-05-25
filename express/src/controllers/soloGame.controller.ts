@@ -76,7 +76,9 @@ export class SoloGameController {
             res.status(200).send({
                 success: true,
                 message: "All solo game",
-                content: response
+                content: response.content,
+                currentPage: pageNumber,
+                totalPage: response.totalPage
             });
         } catch (error) {
             res.status(500).send({
