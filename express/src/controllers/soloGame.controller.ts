@@ -62,6 +62,27 @@ export class SoloGameController {
     }
 
     static async getSoloMatch(req: Request, res: Response) {
+        try {
+            const pageNumber: number = parseInt(req.params.page)
+            if (!pageNumber) {
+                res.status(400).send({
+                    success: false,
+                    message: "Page number is required"
+                });
+                return;
+            }
+            const response = await soloGameService.getSoloGame(pageNumber);
 
+            res.status(200).send({
+                success: true,
+                message: "All solo game",
+                content: response
+            });
+        } catch (error) {
+            res.status(500).send({
+                success: false,
+                message: `Unknow error : ${error}`
+            });
+        }
     }
 }

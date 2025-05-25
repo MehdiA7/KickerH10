@@ -51,4 +51,20 @@ export class SoloGameService {
 
         return await this.soloGameRepository.save(newGame);
     }
+
+    async getSoloGame(page: number): Promise<SoloGame[]> {
+    const allSoloGame = await this.soloGameRepository
+    .find({
+        relations: ['player1', 'player2'],
+        select: {
+            id: true,
+            score1: true,
+            score2: true,
+            player1: { id: true, username: true},
+            player2: { id: true, username: true},
+        }
+    });
+        
+            return allSoloGame;
+    }
 }
