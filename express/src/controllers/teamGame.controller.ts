@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { TeamGameData } from "../lib/teamGameType";
 import { TeamGameService } from "../services/teamGame.service";
+import { TeamNotFoundError } from "../errors/team.errors";
 
 const teamGameService = new TeamGameService();
 
@@ -42,6 +43,14 @@ export class TeamGameController {
             return;
 
         } catch (error) {
+            if (error instanceof TeamNotFoundError) {
+                res.status(409).send({
+                    success: false,
+                    message: error.message
+                });
+                return;
+            }
+
             res.status(500).send({
                 success: false,
                 message: `Unknow Error... : ${error}`
