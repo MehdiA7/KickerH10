@@ -7,7 +7,7 @@ import authRouter from "./routes/auth.routes";
 const cors = require("cors");
 
 import dotenv from "dotenv";
-import gameRouter from "./routes/soloGame.routes";
+import soloGameRouter from "./routes/soloGame.routes";
 import teamRouter from "./routes/team.routes";
 import friendRouter from "./routes/friend.routes";
 import usersRouter from "./routes/user.routes";
@@ -36,7 +36,7 @@ const startServer = async () => {
 
         // Route
         app.use("/", authRouter);
-        app.use("/game", gameRouter);
+        app.use("/game/solo", soloGameRouter);
         app.use("/team", teamRouter);
         app.use("/friend", friendRouter);
         app.use("/user", usersRouter);
