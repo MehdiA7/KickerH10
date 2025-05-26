@@ -13,16 +13,13 @@ export class TeamGame {
     id!: number;
 
     @ManyToOne(() => Team, (team) => team.teamid1)
-    team1!: Team[];
+    team1!: Team;
 
     @ManyToOne(() => Team, (team) => team.teamid2)
-    team2!: Team[];
+    team2!: Team;
 
     @Column()
-    wongame: number = 0;
-
-    @Column()
-    lostgame: number = 0;
+    winner!: number;
 
     @Column()
     score1!: number;

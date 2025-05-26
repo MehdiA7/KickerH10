@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { SoloGameService } from "../services/soloGame.service";
-import { GameData } from "../lib/soloType";
+import { GameData } from "../lib/soloGameType";
 import { PlayerNotFoundError } from "../errors/users.errors";
 
 const soloGameService = new SoloGameService();

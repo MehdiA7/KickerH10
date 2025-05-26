@@ -1,7 +1,7 @@
 import { AppDataSource } from "../config/database";
 import { Repository } from "typeorm";
 import { SoloGame } from "../entities/SoloGame.entity";
-import { GameData, SoloGamePagingResponse } from "../lib/soloType";
+import { GameData, SoloGamePagingResponse } from "../lib/soloGameType";
 import { Users } from "../entities/Users.entity";
 import { PlayerNotFoundError } from "../errors/users.errors";
 
