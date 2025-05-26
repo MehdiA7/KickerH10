@@ -67,12 +67,13 @@ export class SoloGameService {
             score2: true,
             player1: { id: true, username: true},
             player2: { id: true, username: true},
+            createdat: true
         }
     });
 
     const formatResponse = {
         content: allSoloGame,
-        totalPage: total
+        totalPage: total-1
     }
         
             return formatResponse;
