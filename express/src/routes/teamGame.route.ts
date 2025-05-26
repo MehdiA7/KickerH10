@@ -5,6 +5,6 @@ import { TeamGameController } from "../controllers/teamGame.controller";
 const teamGameRouter = express.Router();
 teamGameRouter.use(express.json());
 
-teamGameRouter.post("/", logger, );
+teamGameRouter.post("/", logger, TeamGameController.createTeamMatch);
 
 export default teamGameRouter;
