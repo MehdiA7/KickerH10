@@ -1,9 +1,10 @@
 import { AppDataSource } from "../config/database";
 import { Repository } from "typeorm";
 import { SoloGame } from "../entities/SoloGame.entity";
-import { GameData, SoloGamePagingResponse } from "../lib/soloGameType";
+import { GameData } from "../lib/soloGameType";
 import { Users } from "../entities/Users.entity";
 import { PlayerNotFoundError } from "../errors/users.errors";
+import { PagingGameFormat } from "../lib/gameType";
 
 export class SoloGameService {
     private soloGameRepository: Repository<SoloGame>;
@@ -52,7 +53,7 @@ export class SoloGameService {
         return await this.soloGameRepository.save(newGame);
     }
 
-    async getSoloGame(page: number): Promise<SoloGamePagingResponse> {
+    async getSoloGame(page: number): Promise<PagingGameFormat<SoloGame[]>> {
         const limit: number = 10;
         const offset: number = (page - 1) * limit;
 
@@ -73,6 +74,7 @@ export class SoloGameService {
 
     const formatResponse = {
         content: allSoloGame,
+        currentPage: page,
         totalPage: total-1
     }
         

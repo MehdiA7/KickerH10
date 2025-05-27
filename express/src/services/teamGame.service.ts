@@ -43,4 +43,24 @@ export class TeamGameService {
             winner: winner
         });
     }
+
+    async getTeamGame(page: number): Promise<TeamGame[]> {
+        const limit: number = 10;
+        const offset: number = (page - 1) * limit;
+
+        const [allTeamGame, total] = await this.teamGameRepository
+        .findAndCount({
+            take: 10,
+            skip: offset,
+            relations: ['team1', 'team2'],
+            select: {
+                id: true,
+                score1: true,
+                score2: true,
+                team1: {id: true, name: true},
+                team2: {id: true, name:true},
+                createdat: true
+            }
+        });
+    }
 }
