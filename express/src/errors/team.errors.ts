@@ -6,7 +6,7 @@ export class TeamNameTakenError extends Error {
 }
 export class TeamNotFoundError extends Error {
     constructor(teamid: number) {
-        super(`Player with ID ${teamid} not found`);
-        this.name = "PlayerNotFoundError";
+        super(`Team with ID ${teamid} not found`);
+        this.name = "TeamNotFoundError";
     }
 }
