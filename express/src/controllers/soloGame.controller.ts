@@ -34,14 +34,14 @@ export class SoloGameController {
                 return;
             }
 
-            const createdGame = await soloGameService.createANewSoloGame(
+            const createGame = await soloGameService.createANewSoloGame(
                 theBody
             );
 
             res.status(201).send({
                 success: true,
                 message: "Solo match created !",
-                content: createdGame,
+                content: createGame,
             });
             return;
         } catch (error) {
@@ -63,7 +63,7 @@ export class SoloGameController {
 
     static async getSoloMatch(req: Request, res: Response) {
         try {
-            const pageNumber: number = parseInt(req.params.page)
+            const pageNumber: number = parseInt(req.params.page);
             if (!pageNumber) {
                 res.status(400).send({
                     success: false,

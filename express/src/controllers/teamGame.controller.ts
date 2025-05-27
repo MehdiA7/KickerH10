@@ -74,7 +74,9 @@ export class TeamGameController {
             res.status(200).send({
                 success: true,
                 message: "All team Game",
-                response
+                content: response.content,
+                currentPage: response.currentPage,
+                totalPage: response.totalPage
             });
             return;
         } catch (error) {

@@ -36,13 +36,15 @@ export class TeamGameService {
             winner = gameData.teamId2;
         }
 
-        return await this.teamGameRepository.create({
+        const createGame = this.teamGameRepository.create({
             team1: team1,
             team2: team2,
             score1: gameData.score1,
             score2: gameData.score2,
             winner: winner
         });
+
+        return await this.teamGameRepository.save(createGame);
     }
 
     async getTeamGame(page: number): Promise<PagingGameFormat<TeamGame[]>> {
@@ -67,7 +69,7 @@ export class TeamGameService {
         const formatResponse = {
             content: allTeamGame,
             currentPage: page,
-            totalPage: total-1
+            totalPage: total
         }
 
         return formatResponse;
