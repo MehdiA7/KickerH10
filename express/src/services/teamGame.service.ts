@@ -4,6 +4,7 @@ import { Repository } from "typeorm";
 import { TeamGameData } from "../lib/teamGameType";
 import { Team } from "../entities/Team.entity";
 import { TeamNotFoundError } from "../errors/team.errors";
+import { PagingGameFormat } from "../lib/gameType";
 
 export class TeamGameService {
     private teamGameRepository: Repository<TeamGame>;
@@ -44,7 +45,7 @@ export class TeamGameService {
         });
     }
 
-    async getTeamGame(page: number): Promise<TeamGame[]> {
+    async getTeamGame(page: number): Promise<PagingGameFormat<TeamGame[]>> {
         const limit: number = 10;
         const offset: number = (page - 1) * limit;
 
@@ -62,5 +63,13 @@ export class TeamGameService {
                 createdat: true
             }
         });
+
+        const formatResponse = {
+            content: allTeamGame,
+            currentPage: page,
+            totalPage: total-1
+        }
+
+        return formatResponse;
     }
 }
