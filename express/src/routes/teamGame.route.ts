@@ -6,5 +6,6 @@ const teamGameRouter = express.Router();
 teamGameRouter.use(express.json());
 
 teamGameRouter.post("/", logger, TeamGameController.createTeamMatch);
+teamGameRouter.get("/:page", logger, TeamGameController.getTeamMatch);
 
 export default teamGameRouter;
