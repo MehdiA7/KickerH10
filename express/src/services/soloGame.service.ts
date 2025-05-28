@@ -41,6 +41,17 @@ export class SoloGameService {
             looser = player1;
         }
 
+        if (winner === player1) {
+            player1.xp = player1.xp + 10;
+            if (player1.xp < 100) {
+                player1.level = player1.level + 1;
+            }
+            player1.wongame = player1.wongame + 1;
+            player2.lostgame = player2.lostgame + 1;
+        } else {
+
+        }
+
         const newGame = this.soloGameRepository.create({
             player1: player1,
             score1: gameData.score1,

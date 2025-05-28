@@ -33,6 +33,9 @@ export class Users {
     xp: number = 0;
 
     @Column()
+    goal: number = 0;
+
+    @Column()
     wongame: number = 0;
 
     @Column()
