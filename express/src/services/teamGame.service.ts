@@ -21,13 +21,59 @@ export class TeamGameService {
     async createANewGame(gameData: TeamGameData): Promise<TeamGame> {
         const team1 = await this.teamRepository.findOne({
             where: { id: gameData.teamId1 },
-            select: ["id", "name"],
+            relations: ["player1", "player2"],
+            select: {
+                id: true,
+                name: true,
+                goal: true,
+                player1: {
+                    id: true,
+                    username: true,
+                    xp: true,
+                    level: true,
+                    goal: true,
+                    wongame: true,
+                    lostgame: true,
+                },
+                player2: {
+                    id: true,
+                    username: true,
+                    xp: true,
+                    level: true,
+                    goal: true,
+                    wongame: true,
+                    lostgame: true,
+                },
+            },
         });
         if (!team1) throw new TeamNotFoundError(gameData.teamId1);
 
         const team2 = await this.teamRepository.findOne({
             where: { id: gameData.teamId2 },
-            select: ["id", "name"],
+            relations: ["player1", "player2"],
+            select: {
+                id: true,
+                name: true,
+                goal: true,
+                player1: {
+                    id: true,
+                    username: true,
+                    xp: true,
+                    level: true,
+                    goal: true,
+                    wongame: true,
+                    lostgame: true,
+                },
+                player2: {
+                    id: true,
+                    username: true,
+                    xp: true,
+                    level: true,
+                    goal: true,
+                    wongame: true,
+                    lostgame: true,
+                },
+            },
         });
         if (!team2) throw new TeamNotFoundError(gameData.teamId2);
 
@@ -66,7 +112,7 @@ export class TeamGameService {
             team2: team2,
             score1: gameData.score1,
             score2: gameData.score2,
-            winner: winner
+            winner: winner,
         });
 
         return await this.teamGameRepository.save(createGame);
@@ -76,26 +122,27 @@ export class TeamGameService {
         const limit: number = 10;
         const offset: number = (page - 1) * limit;
 
-        const [allTeamGame, total] = await this.teamGameRepository
-        .findAndCount({
-            take: 10,
-            skip: offset,
-            relations: ['team1', 'team2'],
-            select: {
-                id: true,
-                score1: true,
-                score2: true,
-                team1: {id: true, name: true},
-                team2: {id: true, name:true},
-                createdat: true
+        const [allTeamGame, total] = await this.teamGameRepository.findAndCount(
+            {
+                take: 10,
+                skip: offset,
+                relations: ["team1", "team2"],
+                select: {
+                    id: true,
+                    score1: true,
+                    score2: true,
+                    team1: { id: true, name: true },
+                    team2: { id: true, name: true },
+                    createdat: true,
+                },
             }
-        });
+        );
 
         const formatResponse = {
             content: allTeamGame,
             currentPage: page,
-            totalPage: total
-        }
+            totalPage: total,
+        };
 
         return formatResponse;
     }
