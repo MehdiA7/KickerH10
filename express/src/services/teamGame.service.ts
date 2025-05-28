@@ -20,7 +20,7 @@ export class TeamGameService {
     }
 
     async createANewGame(gameData: TeamGameData): Promise<TeamGame> {
-        const team1 = await this.teamRepository.findOne({
+        let team1 = await this.teamRepository.findOne({
             where: { id: gameData.teamId1 },
             relations: ["player1", "player2"],
             select: {
@@ -51,7 +51,7 @@ export class TeamGameService {
         if (!team1.player1) throw new PlayerNotFoundError(team1.player1);
         if (!team1.player2) throw new PlayerNotFoundError(team1.player2);
 
-        const team2 = await this.teamRepository.findOne({
+        let team2 = await this.teamRepository.findOne({
             where: { id: gameData.teamId2 },
             relations: ["player1", "player2"],
             select: {
@@ -90,6 +90,20 @@ export class TeamGameService {
             winner = gameData.teamId2;
         }
 
+        team1.goal += gameData.score1;
+        team2.goal += gameData.score2;
+        
+        team1.player1.goal += gameData.score1;
+        team1.player2.goal += gameData.score1;
+        team2.player1.goal += gameData.score1;
+        team2.player2.goal += gameData.score2;
+
+        if (winner === team1.id) {
+            team1.wongame += 1;
+
+        }
+
+        
         // player1.goal = player1.goal + gameData.score1;
         // player2.goal = player2.goal + gameData.score2;
 

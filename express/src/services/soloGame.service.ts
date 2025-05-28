@@ -41,23 +41,23 @@ export class SoloGameService {
         }
 
         // Update the user stat
-        player1.goal = player1.goal + gameData.score1;
-        player2.goal = player2.goal + gameData.score2;
+        player1.goal += gameData.score1;
+        player2.goal += gameData.score2;
 
         if (winner === player1) {
-            player1.xp = player1.xp + 10;
+            player1.xp += 10;
             if (player1.xp < 100) {
-                player1.level = player1.level + 1;
+                player1.level += 1;
             }
-            player1.wongame = player1.wongame + 1;
-            player2.lostgame = player2.lostgame + 1;
+            player1.wongame += 1;
+            player2.lostgame += 1;
         } else {
-            player2.xp = player2.xp + 10;
+            player2.xp += 10;
             if (player2.xp < 100) {
-                player2.level = player2.level + 1;
+                player2.level += 1;
             }
-            player2.wongame = player2.wongame + 1;
-            player1.lostgame = player1.lostgame + 1;
+            player2.wongame += 1;
+            player1.lostgame += 1;
         }
 
         await this.usersRepository.save(player1);
