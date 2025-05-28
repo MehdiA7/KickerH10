@@ -29,6 +29,9 @@ export class Team {
     @Column()
     lostgame: number = 0;
 
+    @Column()
+    goal: number = 0;
+
     @CreateDateColumn()
     createdat!: Date;
 
