@@ -16,16 +16,16 @@ export class SoloGameService {
     }
 
     async createANewSoloGame(gameData: GameData): Promise<SoloGame> {
-        // Verify user si correct
+        // Verify user is correct
         const player1 = await this.usersRepository.findOne({
             where: { id: gameData.player1 },
-            select: ["id", "username"],
+            select: ["id", "username", "level", "xp", "wongame", "lostgame", "goal"],
         });
         if (!player1) throw new PlayerNotFoundError(gameData.player1);
 
         const player2 = await this.usersRepository.findOne({
             where: { id: gameData.player2 },
-            select: ["id", "username"],
+            select: ["id", "username", "level", "xp", "wongame", "lostgame", "goal"],
         });
         if (!player2) throw new PlayerNotFoundError(gameData.player2);
 
@@ -40,6 +40,7 @@ export class SoloGameService {
             looser = player1;
         }
 
+        // Update the user stat
         player1.goal = player1.goal + gameData.score1;
         player2.goal = player2.goal + gameData.score2;
 

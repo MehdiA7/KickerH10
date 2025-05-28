@@ -27,7 +27,7 @@ export class Users {
     country!: string;
 
     @Column()
-    level: number = 0;
+    level: number = 1;
 
     @Column()
     xp: number = 0;
