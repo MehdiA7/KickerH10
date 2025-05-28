@@ -19,13 +19,29 @@ export class SoloGameService {
         // Verify user is correct
         const player1 = await this.usersRepository.findOne({
             where: { id: gameData.player1 },
-            select: ["id", "username", "level", "xp", "wongame", "lostgame", "goal"],
+            select: [
+                "id",
+                "username",
+                "level",
+                "xp",
+                "wongame",
+                "lostgame",
+                "goal",
+            ],
         });
         if (!player1) throw new PlayerNotFoundError(gameData.player1);
 
         const player2 = await this.usersRepository.findOne({
             where: { id: gameData.player2 },
-            select: ["id", "username", "level", "xp", "wongame", "lostgame", "goal"],
+            select: [
+                "id",
+                "username",
+                "level",
+                "xp",
+                "wongame",
+                "lostgame",
+                "goal",
+            ],
         });
         if (!player2) throw new PlayerNotFoundError(gameData.player2);
 
@@ -51,6 +67,10 @@ export class SoloGameService {
             }
             player1.wongame += 1;
             player2.lostgame += 1;
+            player2.xp += 5;
+            if (player2.xp < 100) {
+                player2.level += 1;
+            }
         } else {
             player2.xp += 10;
             if (player2.xp < 100) {
@@ -58,6 +78,10 @@ export class SoloGameService {
             }
             player2.wongame += 1;
             player1.lostgame += 1;
+            player1.xp += 5;
+            if (player1.xp < 100) {
+                player1.level += 1;
+            }
         }
 
         await this.usersRepository.save(player1);

@@ -100,6 +100,9 @@ export class TeamGameService {
 
         if (winner === team1.id) {
             team1.wongame += 1;
+            team1.player1.wongame += 1;
+            team1.player2.wongame += 1;
+            team1.player1.xp += 10;
 
         }
 
