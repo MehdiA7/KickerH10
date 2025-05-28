@@ -6,6 +6,7 @@ import { Team } from "../entities/Team.entity";
 import { TeamNotFoundError } from "../errors/team.errors";
 import { PagingGameFormat } from "../lib/gameType";
 import { Users } from "../entities/Users.entity";
+import { PlayerNotFoundError } from "../errors/users.errors";
 
 export class TeamGameService {
     private teamGameRepository: Repository<TeamGame>;
@@ -47,6 +48,8 @@ export class TeamGameService {
             },
         });
         if (!team1) throw new TeamNotFoundError(gameData.teamId1);
+        if (!team1.player1) throw new PlayerNotFoundError(team1.player1);
+        if (!team1.player2) throw new PlayerNotFoundError(team1.player2);
 
         const team2 = await this.teamRepository.findOne({
             where: { id: gameData.teamId2 },
@@ -76,6 +79,8 @@ export class TeamGameService {
             },
         });
         if (!team2) throw new TeamNotFoundError(gameData.teamId2);
+        if (!team2.player1) throw new PlayerNotFoundError(team2.player1);
+        if (!team2.player2) throw new PlayerNotFoundError(team2.player2);
 
         let winner: number;
 
