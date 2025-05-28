@@ -5,14 +5,17 @@ import { TeamGameData } from "../lib/teamGameType";
 import { Team } from "../entities/Team.entity";
 import { TeamNotFoundError } from "../errors/team.errors";
 import { PagingGameFormat } from "../lib/gameType";
+import { Users } from "../entities/Users.entity";
 
 export class TeamGameService {
     private teamGameRepository: Repository<TeamGame>;
     private teamRepository: Repository<Team>;
+    private userRepository: Repository<Users>;
 
     constructor() {
         this.teamGameRepository = AppDataSource.getRepository(TeamGame);
         this.teamRepository = AppDataSource.getRepository(Team);
+        this.userRepository = AppDataSource.getRepository(Users);
     }
 
     async createANewGame(gameData: TeamGameData): Promise<TeamGame> {
@@ -35,6 +38,28 @@ export class TeamGameService {
         } else {
             winner = gameData.teamId2;
         }
+
+        // player1.goal = player1.goal + gameData.score1;
+        // player2.goal = player2.goal + gameData.score2;
+
+        // if (winner === player1) {
+        //     player1.xp = player1.xp + 10;
+        //     if (player1.xp < 100) {
+        //         player1.level = player1.level + 1;
+        //     }
+        //     player1.wongame = player1.wongame + 1;
+        //     player2.lostgame = player2.lostgame + 1;
+        // } else {
+        //     player2.xp = player2.xp + 10;
+        //     if (player2.xp < 100) {
+        //         player2.level = player2.level + 1;
+        //     }
+        //     player2.wongame = player2.wongame + 1;
+        //     player1.lostgame = player1.lostgame + 1;
+        // }
+
+        // await this.usersRepository.save(player1);
+        // await this.usersRepository.save(player2);
 
         const createGame = this.teamGameRepository.create({
             team1: team1,
