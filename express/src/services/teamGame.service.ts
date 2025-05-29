@@ -78,18 +78,19 @@ export class TeamGameService {
                 },
             },
         });
+
         if (!team2) throw new TeamNotFoundError(gameData.teamId2);
         if (!team2.player1) throw new PlayerNotFoundError(team2.player1);
         if (!team2.player2) throw new PlayerNotFoundError(team2.player2);
 
         let winner: number;
-
         if (gameData.score1 === 11) {
             winner = gameData.teamId1;
         } else {
             winner = gameData.teamId2;
         }
-
+        
+        // Update the user and team stat
         team1.goal += gameData.score1;
         team2.goal += gameData.score2;
 
@@ -128,30 +129,39 @@ export class TeamGameService {
             if (team2.player2.xp > 100) {
                 team2.player2.level += 1;
             }
-            // day is finish i need to check if its work well or not
+        } else {
+            team2.wongame += 1;
+
+            team2.player1.wonteamgame += 1;
+            team2.player2.wonteamgame += 1;
+
+            team2.player1.xp += 10;
+            if (team2.player1.xp > 100) {
+                team2.player1.level += 1;
+            }
+
+            team2.player2.xp += 10;
+            if (team2.player2.xp > 100) {
+                team2.player2.level += 1;
+            }
+
+            team1.lostgame += 1;
+
+            team1.player1.lostteamgame += 1;
+            team1.player2.lostteamgame += 1;
+
+            team1.player1.xp += 5;
+            if (team1.player1.xp > 100) {
+                team1.player1.level += 1;
+            }
+
+            team1.player2.xp += 5;
+            if (team1.player2.xp > 100) {
+                team1.player2.level += 1;
+            }
         }
 
-        // player1.goal = player1.goal + gameData.score1;
-        // player2.goal = player2.goal + gameData.score2;
-
-        // if (winner === player1) {
-        //     player1.xp = player1.xp + 10;
-        //     if (player1.xp < 100) {
-        //         player1.level = player1.level + 1;
-        //     }
-        //     player1.wongame = player1.wongame + 1;
-        //     player2.lostgame = player2.lostgame + 1;
-        // } else {
-        //     player2.xp = player2.xp + 10;
-        //     if (player2.xp < 100) {
-        //         player2.level = player2.level + 1;
-        //     }
-        //     player2.wongame = player2.wongame + 1;
-        //     player1.lostgame = player1.lostgame + 1;
-        // }
-
-        // await this.usersRepository.save(player1);
-        // await this.usersRepository.save(player2);
+        // Save
 
         const createGame = this.teamGameRepository.create({
             team1: team1,
