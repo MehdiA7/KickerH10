@@ -142,6 +142,7 @@ export class TeamGameService {
             team2.player1.xp += 10;
             if (team2.player1.xp > 100) {
                 team2.player1.level += 1;
+                team2.player1.xp = 0;
             }
 
             team2.player2.xp += 10;
