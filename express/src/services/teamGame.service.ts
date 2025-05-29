@@ -90,8 +90,6 @@ export class TeamGameService {
             winner = gameData.teamId2;
         }
 
-        console.log(team1)
-        
         // Update the user and team stat
         team1.goal += gameData.score1;
         team2.goal += gameData.score2;
@@ -108,13 +106,15 @@ export class TeamGameService {
             team1.player2.wonteamgame += 1;
 
             team1.player1.xp += 10;
-            if (team1.player1.xp > 100) {
+            if (team1.player1.xp >= 100) {
                 team1.player1.level += 1;
+                team1.player1.xp = 0;
             }
 
             team1.player2.xp += 10;
-            if (team1.player2.xp > 100) {
+            if (team1.player2.xp >= 100) {
                 team1.player2.level += 1;
+                team1.player2.xp = 0;
             }
 
             team2.lostgame += 1;
@@ -123,13 +123,15 @@ export class TeamGameService {
             team2.player2.lostteamgame += 1;
 
             team2.player1.xp += 5;
-            if (team2.player1.xp > 100) {
+            if (team2.player1.xp >= 100) {
                 team2.player1.level += 1;
+                team2.player1.xp = 0;
             }
 
             team2.player2.xp += 5;
-            if (team2.player2.xp > 100) {
+            if (team2.player2.xp >= 100) {
                 team2.player2.level += 1;
+                team2.player2.xp = 0;
             }
         } else {
             team2.wongame += 1;
@@ -143,8 +145,9 @@ export class TeamGameService {
             }
 
             team2.player2.xp += 10;
-            if (team2.player2.xp > 100) {
+            if (team2.player2.xp >= 100) {
                 team2.player2.level += 1;
+                team2.player2.xp = 0;
             }
 
             team1.lostgame += 1;
@@ -153,13 +156,15 @@ export class TeamGameService {
             team1.player2.lostteamgame += 1;
 
             team1.player1.xp += 5;
-            if (team1.player1.xp > 100) {
+            if (team1.player1.xp >= 100) {
                 team1.player1.level += 1;
+                team1.player1.xp = 0;
             }
 
             team1.player2.xp += 5;
-            if (team1.player2.xp > 100) {
+            if (team1.player2.xp >= 100) {
                 team1.player2.level += 1;
+                team1.player2.xp = 0;
             }
         }
 
@@ -176,8 +181,6 @@ export class TeamGameService {
             score2: gameData.score2,
             winner: winner,
         });
-
-        console.log(createGame)
 
         return await this.teamGameRepository.save(createGame);
     }

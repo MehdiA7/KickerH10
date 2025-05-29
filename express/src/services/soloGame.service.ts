@@ -63,30 +63,34 @@ export class SoloGameService {
         if (winner === player1) {
             player1.xp += 10;
             
-            if (player1.xp < 100) {
+            if (player1.xp >= 100) {
                 player1.level += 1;
+                player1.xp = 0;
             }
 
             player1.wongame += 1;
             player2.lostgame += 1;
             player2.xp += 5;
 
-            if (player2.xp < 100) {
+            if (player2.xp >= 100) {
                 player2.level += 1;
+                player2.xp = 0;
             }
         } else {
             player2.xp += 10;
 
-            if (player2.xp < 100) {
+            if (player2.xp >= 100) {
                 player2.level += 1;
+                player2.xp = 0;
             }
 
             player2.wongame += 1;
             player1.lostgame += 1;
             player1.xp += 5;
 
-            if (player1.xp < 100) {
+            if (player1.xp >= 100) {
                 player1.level += 1;
+                player1.xp = 0;
             }
         }
 
