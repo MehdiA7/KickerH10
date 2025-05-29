@@ -89,6 +89,8 @@ export class TeamGameService {
         } else {
             winner = gameData.teamId2;
         }
+
+        console.log(team1)
         
         // Update the user and team stat
         team1.goal += gameData.score1;
@@ -161,6 +163,12 @@ export class TeamGameService {
             }
         }
 
+        await this.userRepository.save(team1.player1);
+        await this.userRepository.save(team1.player2);
+        await this.userRepository.save(team2.player1);
+        await this.userRepository.save(team2.player2);
+
+
         const createGame = this.teamGameRepository.create({
             team1: team1,
             team2: team2,
@@ -168,6 +176,8 @@ export class TeamGameService {
             score2: gameData.score2,
             winner: winner,
         });
+
+        console.log(createGame)
 
         return await this.teamGameRepository.save(createGame);
     }
