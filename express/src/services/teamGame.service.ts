@@ -101,34 +101,33 @@ export class TeamGameService {
         if (winner === team1.id) {
             team1.wongame += 1;
 
-            team1.player1.wongame += 1;
-            team1.player2.wongame += 1;
+            team1.player1.wonteamgame += 1;
+            team1.player2.wonteamgame += 1;
 
             team1.player1.xp += 10;
-            team1.player2.xp += 10;
-
             if (team1.player1.xp > 100) {
                 team1.player1.level += 1;
             }
+
+            team1.player2.xp += 10;
             if (team1.player2.xp > 100) {
                 team1.player2.level += 1;
             }
 
             team2.lostgame += 1;
 
-            team2.player1.lostgame += 1;
-            team2.player2.lostgame += 1;
+            team2.player1.lostteamgame += 1;
+            team2.player2.lostteamgame += 1;
 
             team2.player1.xp += 5;
-            team2.player2.xp += 5;
-
             if (team2.player1.xp > 100) {
                 team2.player1.level += 1;
             }
+
+            team2.player2.xp += 5;
             if (team2.player2.xp > 100) {
                 team2.player2.level += 1;
             }
-
             // day is finish i need to check if its work well or not
         }
 
