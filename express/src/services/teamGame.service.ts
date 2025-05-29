@@ -161,8 +161,6 @@ export class TeamGameService {
             }
         }
 
-        // Save
-
         const createGame = this.teamGameRepository.create({
             team1: team1,
             team2: team2,
