@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { UsersService } from "../services/users.service";
 import { SearchUserBody } from "../lib/usersType";
 import { DeleteResult } from "typeorm";
+import { PlayerNotFoundError } from "../errors/users.errors";
 
 const usersService = new UsersService();
 
@@ -46,6 +47,42 @@ export class UsersController {
         }
     }
 
+    static async GetUserStat(req: Request, res: Response) {
+        try {
+            const userId = parseInt(req.params.userId);
+
+            if (!userId) {
+                res.status(400).send({
+                    success: false,
+                    message: "Id is needed."
+                });
+                return;
+            }
+
+            const response = await usersService.getUserStatById(userId);
+
+            res.status(200).send({
+                success: true,
+                message: "The user",
+                content: response
+            })
+            
+        } catch (error) {
+            if (error instanceof PlayerNotFoundError) {
+                res.send(404).send({
+                    success: false,
+                    message: "The player doesn't exist"
+                });
+                return;
+            }
+
+            res.status(500).send({
+                success: false,
+                message: `Unknow error handled... : ${error}`
+            });
+            return;
+        }
+    }
     static async DeleteUser(req: Request, res: Response) {
         try {
             const userId = parseInt(req.params.userId);
