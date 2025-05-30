@@ -10,6 +10,7 @@ type ProfileOverviewProps = {
 
 const ProfileOverview: FC<ProfileOverviewProps> = async ({ FetchUserProfile }) => {
     const user = await FetchUserProfile;
+    console.log(user)
     return (
         <div className="flex flex-row items-center mb-10">
             <div className="relative w-30 h-30 overflow-hidden rounded-full mr-15">

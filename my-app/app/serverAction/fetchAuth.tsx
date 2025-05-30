@@ -64,13 +64,13 @@ export const login = async (
             path: "/",
         });
         cookieStore.set({
-            name: "ActualUserId",
+            name: "UserId",
             value: data.content.id,
             httpOnly: false,
             path: "/",
         });
         cookieStore.set({
-            name: "ActualUser",
+            name: "Username",
             value: data.content.username,
             httpOnly: false,
             path: "/",

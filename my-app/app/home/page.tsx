@@ -5,12 +5,20 @@ import React from "react";
 import { FetchRecentUserMatch, FetchUserProfile } from "../serverAction/fetchUsers";
 import RecentGame from "@/components/organisms/RecentGame";
 import SearchBar from "@/components/molecules/SearchBar";
+import { cookies } from "next/headers";
 
 
 
-const HomePage = () => {
+const HomePage = async () => {
+        const cookieStore = await cookies();
     
-    let id = 1 // get user id in jwt
+        let stringId = cookieStore.get("UserId")?.value
+    
+        if (stringId === undefined){
+            stringId = "0";
+        }
+
+        const id = parseInt(stringId);
 
     return (
         <>  

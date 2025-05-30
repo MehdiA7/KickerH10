@@ -6,8 +6,8 @@ import { cookies } from "next/headers";
 const StartPage = async () => {
     const cookieStore = await cookies();
 
-    let id = cookieStore.get("ActualUserId")?.value
-    let username = cookieStore.get("ActualUser")?.value
+    let id = cookieStore.get("UserId")?.value
+    let username = cookieStore.get("Username")?.value
 
     if (id === undefined || username === undefined){
         id = "";
