@@ -1,18 +1,26 @@
 // "use server"
+const API = process.env.API_URL;
 
-export function FetchUserProfile(id : number) {
-    const user = 
-        {
-            username: "QuentinLeS",
-            xp: 83,
-            level: 4,
-            won_game: 32,
-            lost_game: 21,
-            won_team_game: 10,
-            lost_team_game: 4,
-        };
+export async function FetchUserProfile(id : number) {
+    // fake data
+    // const user = 
+    //     {
+    //         username: "QuentinLeS",
+    //         xp: 83,
+    //         level: 4,
+    //         won_game: 32,
+    //         lost_game: 21,
+    //         won_team_game: 10,
+    //         lost_team_game: 4,
+    //     };
 
-    return user;
+    const user = await fetch(`${API}/user/1`, {
+        method: "GET"
+    });
+
+    const data = user.json()
+
+    return data;
 }
 
 export function FetchUserProfileByName(name : string) {
