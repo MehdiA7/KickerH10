@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { FC } from "react";
-import quentinjpg from "@/public/img/quentin.jpg";
+import footIcon from "@/public/img/footIcon.png";
 import { User } from "@/lib/types/type";
 import { Progress } from "../ui/progress";
 
@@ -14,8 +14,8 @@ const ProfileOverview: FC<ProfileOverviewProps> = ({ FetchUserProfile }) => {
         <div className="flex flex-row items-center mb-10">
             <div className="relative w-30 h-30 overflow-hidden rounded-full mr-15">
                 <Image
-                    src={quentinjpg}
-                    alt="Photo de profil"
+                    src={footIcon}
+                    alt="Profile Picture"
                     fill
                     className="object-cover"
                 />
