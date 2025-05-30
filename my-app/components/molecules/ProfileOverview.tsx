@@ -5,11 +5,11 @@ import { User } from "@/lib/types/type";
 import { Progress } from "../ui/progress";
 
 type ProfileOverviewProps = {
-    FetchUserProfile: User;
+    FetchUserProfile: Promise<User>;
 };
 
-const ProfileOverview: FC<ProfileOverviewProps> = ({ FetchUserProfile }) => {
-    const user = FetchUserProfile;
+const ProfileOverview: FC<ProfileOverviewProps> = async ({ FetchUserProfile }) => {
+    const user = await FetchUserProfile;
     return (
         <div className="flex flex-row items-center mb-10">
             <div className="relative w-30 h-30 overflow-hidden rounded-full mr-15">
@@ -23,12 +23,12 @@ const ProfileOverview: FC<ProfileOverviewProps> = ({ FetchUserProfile }) => {
             <div className="text-xl font-semibold">
                 <p>{user.username}</p>
                 <p>
-                    Solo : {user.won_game}/
-                    <span className="text-red-400">{user.lost_game}</span>
+                    Solo : {user.wongame}/
+                    <span className="text-red-400">{user.lostgame}</span>
                 </p>
                 <p>
-                    Team : {user.won_team_game}/
-                    <span className="text-red-400">{user.lost_team_game}</span>
+                    Team : {user.wonteamgame}/
+                    <span className="text-red-400">{user.lostteamgame}</span>
                 </p>
                 <p>Level : {user.level}</p>
                 <Progress value={user.xp} />

@@ -10,7 +10,7 @@ import SearchBar from "@/components/molecules/SearchBar";
 
 const HomePage = () => {
     
-    let id = 0 // get user id in jwt
+    let id = 1 // get user id in jwt
 
     return (
         <>  

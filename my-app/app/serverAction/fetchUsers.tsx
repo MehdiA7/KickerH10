@@ -14,13 +14,13 @@ export async function FetchUserProfile(id : number) {
     //         lost_team_game: 4,
     //     };
 
-    const user = await fetch(`${API}/user/1`, {
+    const user = await fetch(`${API}/user/${id}`, {
         method: "GET"
     });
 
-    const data = user.json()
+    const data = await user.json()
 
-    return data;
+    return data.content;
 }
 
 export function FetchUserProfileByName(name : string) {
