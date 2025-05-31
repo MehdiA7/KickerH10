@@ -12,6 +12,7 @@ import teamRouter from "./routes/team.routes";
 import friendRouter from "./routes/friend.routes";
 import usersRouter from "./routes/user.routes";
 import teamGameRouter from "./routes/teamGame.route";
+import gameRouter from "./routes/game.routes";
 dotenv.config();
 
 const PORT = process.env.SERVER_PORT
@@ -37,6 +38,7 @@ const startServer = async () => {
 
         // Route
         app.use("/", authRouter);
+        app.use("/game", gameRouter);
         app.use("/game/solo", soloGameRouter);
         app.use("/game/team", teamGameRouter);
         app.use("/team", teamRouter);
