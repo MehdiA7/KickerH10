@@ -61,7 +61,8 @@ export class TeamGameController {
     static async getTeamMatch(req: Request, res: Response) {
         try {
             const pageNumber: number = parseInt(req.params.page);
-            if (!pageNumber) {
+            const limitNumber: number = parseInt(req.params.limit);
+            if (!pageNumber || !limitNumber) {
                 res.status(400).send({
                     success: false,
                     message: "Page number is required"
@@ -69,7 +70,7 @@ export class TeamGameController {
                 return;
             }
 
-            const response = await teamGameService.getTeamGame(pageNumber);
+            const response = await teamGameService.getTeamGame(pageNumber, limitNumber);
 
             res.status(200).send({
                 success: true,

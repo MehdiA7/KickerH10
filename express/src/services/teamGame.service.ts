@@ -174,7 +174,6 @@ export class TeamGameService {
         await this.userRepository.save(team2.player1);
         await this.userRepository.save(team2.player2);
 
-
         const createGame = this.teamGameRepository.create({
             team1: team1,
             team2: team2,
@@ -186,14 +185,13 @@ export class TeamGameService {
         return await this.teamGameRepository.save(createGame);
     }
 
-    async getTeamGame(page: number): Promise<PagingGameFormat<TeamGame[]>> {
-        const limit: number = 10;
+    async getTeamGame(page: number, limit: number): Promise<PagingGameFormat<TeamGame[]>> {
         const offset: number = (page - 1) * limit;
 
         const [allTeamGame, total] = await this.teamGameRepository.findAndCount(
             {
-                take: limit,
-                skip: offset,
+                take: limit, 
+                skip: offset, 
                 relations: ["team1", "team2"],
                 select: {
                     id: true,
@@ -203,6 +201,7 @@ export class TeamGameService {
                     team2: { id: true, name: true },
                     createdat: true,
                 },
+                order: {createdat: "DESC"}
             }
         );
 
