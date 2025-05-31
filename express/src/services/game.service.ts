@@ -15,6 +15,7 @@ export class GameService {
         this.teamGameRepositiory = AppDataSource.getRepository(TeamGame);
     }
 
+    // Maybe this request is optional.
     async getRecentSoloAndTeamMatch(userId: number): Promise<any> {
         const response = await this.userRepository.findOne({
             where: { id: userId },
@@ -52,10 +53,8 @@ export class GameService {
             ...response.teamplayerid2,
         ];
 
-        const sortedRecentGame = allRecentGame.sort()
-
         const formatResponse = {
-            recentGame: sortedRecentGame,
+            recentGame: allRecentGame,
         };
 
         return formatResponse;
