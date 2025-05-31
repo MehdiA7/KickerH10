@@ -109,8 +109,7 @@ export class SoloGameService {
         return await this.soloGameRepository.save(newGame);
     }
 
-    async getSoloGame(page: number): Promise<PagingGameFormat<SoloGame[]>> {
-        const limit: number = 10;
+    async getSoloGame(page: number, limit: number): Promise<PagingGameFormat<SoloGame[]>> {
         const offset: number = (page - 1) * limit;
 
         const [allSoloGame, total] = await this.soloGameRepository.findAndCount(
@@ -126,6 +125,7 @@ export class SoloGameService {
                     player2: { id: true, username: true },
                     createdat: true,
                 },
+                order: {createdat: "DESC"}
             }
         );
 

@@ -6,6 +6,6 @@ const soloGameRouter = express.Router();
 soloGameRouter.use(express.json());
 
 soloGameRouter.post("/", logger, SoloGameController.createNewSoloMatch);
-soloGameRouter.get("/page=:page", logger, SoloGameController.getSoloGame);
+soloGameRouter.get("/page=:page/limit=:limit", logger, SoloGameController.getSoloGame);
 
 export default soloGameRouter;

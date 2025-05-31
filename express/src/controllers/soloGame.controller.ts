@@ -64,14 +64,16 @@ export class SoloGameController {
     static async getSoloGame(req: Request, res: Response) {
         try {
             const pageNumber: number = parseInt(req.params.page);
-            if (!pageNumber) {
+            const limitNumber: number = parseInt(req.params.limit);
+            console.log(pageNumber, limitNumber)
+            if (!pageNumber || !limitNumber) {
                 res.status(400).send({
                     success: false,
                     message: "Page number is required"
                 });
                 return;
             }
-            const response = await soloGameService.getSoloGame(pageNumber);
+            const response = await soloGameService.getSoloGame(pageNumber, limitNumber);
 
             res.status(200).send({
                 success: true,
