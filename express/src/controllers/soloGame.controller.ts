@@ -61,7 +61,7 @@ export class SoloGameController {
         }
     }
 
-    static async getSoloMatch(req: Request, res: Response) {
+    static async getSoloGame(req: Request, res: Response) {
         try {
             const pageNumber: number = parseInt(req.params.page);
             if (!pageNumber) {

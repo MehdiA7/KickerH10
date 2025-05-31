@@ -115,7 +115,7 @@ export class SoloGameService {
 
         const [allSoloGame, total] = await this.soloGameRepository.findAndCount(
             {
-                take: 10,
+                take: limit,
                 skip: offset,
                 relations: ["player1", "player2"],
                 select: {
@@ -129,10 +129,12 @@ export class SoloGameService {
             }
         );
 
+        const totalPages = Math.ceil(total / limit);
+
         const formatResponse = {
             content: allSoloGame,
             currentPage: page,
-            totalPage: total - 1,
+            totalPage: totalPages,
         };
 
         return formatResponse;

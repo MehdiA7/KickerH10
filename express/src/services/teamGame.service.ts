@@ -192,7 +192,7 @@ export class TeamGameService {
 
         const [allTeamGame, total] = await this.teamGameRepository.findAndCount(
             {
-                take: 10,
+                take: limit,
                 skip: offset,
                 relations: ["team1", "team2"],
                 select: {
@@ -206,10 +206,12 @@ export class TeamGameService {
             }
         );
 
+        const totalPages = Math.ceil(total / limit);
+
         const formatResponse = {
             content: allTeamGame,
             currentPage: page,
-            totalPage: total,
+            totalPage: totalPages,
         };
 
         return formatResponse;
