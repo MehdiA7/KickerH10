@@ -7,5 +7,6 @@ soloGameRouter.use(express.json());
 
 soloGameRouter.post("/", logger, SoloGameController.createNewSoloMatch);
 soloGameRouter.get("/page=:page/limit=:limit", logger, SoloGameController.getSoloGame);
+soloGameRouter.get("/userId=:userId/page=:page/limit=:limit", logger, SoloGameController.getSoloGameWithUserId);
 
 export default soloGameRouter;

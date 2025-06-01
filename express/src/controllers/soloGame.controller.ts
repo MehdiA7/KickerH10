@@ -89,4 +89,36 @@ export class SoloGameController {
             });
         }
     }
+
+    static async getSoloGameWithUserId(req: Request, res: Response) {
+        try {
+            const userId = parseInt(req.params.userId);
+            const pageNumber = parseInt(req.params.page);
+            const limitNumber = parseInt(req.params.limit);
+
+            if (!userId || !pageNumber || !limitNumber) {
+                res.status(400).send({
+                    success: false,
+                    message: "Your request is not complete"
+                });
+                return;
+            }
+
+            const response = await soloGameService.getSoloGameWithUser(userId, pageNumber, limitNumber);
+
+            res.status(200).send({
+                success: true,
+                message: "All match for this user",
+                content: response.content,
+                currentPage: response.currentPage,
+                totalPage: response.totalPage
+            })
+            return;
+        } catch (error) {
+            res.status(500).send({
+                success: false,
+                message: `Unknow error : ${error}`
+            })
+        }
+    }
 }

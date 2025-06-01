@@ -62,7 +62,7 @@ export class SoloGameService {
 
         if (winner === player1) {
             player1.xp += 10;
-            
+
             if (player1.xp >= 100) {
                 player1.level += 1;
                 player1.xp = 0;
@@ -109,7 +109,10 @@ export class SoloGameService {
         return await this.soloGameRepository.save(newGame);
     }
 
-    async getSoloGame(page: number, limit: number): Promise<PagingGameFormat<SoloGame[]>> {
+    async getSoloGame(
+        page: number,
+        limit: number
+    ): Promise<PagingGameFormat<SoloGame[]>> {
         const offset: number = (page - 1) * limit;
 
         const [allSoloGame, total] = await this.soloGameRepository.findAndCount(
@@ -125,7 +128,7 @@ export class SoloGameService {
                     player2: { id: true, username: true },
                     createdat: true,
                 },
-                order: {createdat: "DESC"}
+                order: { createdat: "DESC" },
             }
         );
 
@@ -133,6 +136,31 @@ export class SoloGameService {
 
         const formatResponse = {
             content: allSoloGame,
+            currentPage: page,
+            totalPage: totalPages,
+        };
+
+        return formatResponse;
+    }
+
+    async getSoloGameWithUser(
+        userId: number,
+        page: number,
+        limit: number
+    ): Promise<PagingGameFormat<Users[]>> {
+        const offset: number = (page - 1) * limit;
+
+        const [userWithSoloGame, total] = await this.usersRepository.findAndCount({
+            take: limit,
+            skip: offset,
+            where: { id: userId },
+            relations: ["player1", "player2"],
+        });
+
+        const totalPages = Math.ceil(total / limit);
+
+        const formatResponse = {
+            content: userWithSoloGame,
             currentPage: page,
             totalPage: totalPages,
         };
