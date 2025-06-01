@@ -65,7 +65,7 @@ export class SoloGameController {
         try {
             const pageNumber: number = parseInt(req.params.page);
             const limitNumber: number = parseInt(req.params.limit);
-            console.log(pageNumber, limitNumber)
+            console.log(pageNumber, limitNumber);
             if (!pageNumber || !limitNumber) {
                 res.status(400).send({
                     success: false,
