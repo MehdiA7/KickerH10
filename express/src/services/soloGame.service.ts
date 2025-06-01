@@ -150,30 +150,39 @@ export class SoloGameService {
     ): Promise<PagingGameFormat<SoloGame[]>> {
         const offset: number = (page - 1) * limit;
 
-        const [userWithSoloGame, total1] = await this.usersRepository.findAndCount({
-            take: limit,
-            skip: offset,
-            where: { id: userId },
-            relations: ["playerid1", "playerid2"],
-            select:{
-                id: true,
-                playerid1: true,
-                playerid2: true
-            }
-        });
-        
-        // I need to change that, is not the good way, i need to use juste de sologameRepo to make this request
-
-        const user = await this.usersRepository.find({
-            where: {id: userId},
-            select: {id: true}
-        });
-
-        const [allUserSoloGame, total] = await this.soloGameRepository.findAndCount({
-            take: limit,
-            skip: offset,
-            where: [{player1: user}, {player2: user}]
-        })
+        const [allUserSoloGame, total] =
+            await this.soloGameRepository.findAndCount({
+                take: limit,
+                skip: offset,
+                where: [
+                    { player1: { id: userId } },
+                    { player2: { id: userId } },
+                    { winner: { id: userId } },
+                    { looser: { id: userId } },
+                ],
+                relations: ["player1", "player2", "winner", "looser"],
+                select: {
+                    id: true,
+                    score1: true,
+                    score2: true,
+                    player1: {
+                        id: true,
+                        username: true,
+                    },
+                    player2: {
+                        id: true,
+                        username: true,
+                    },
+                    winner: {
+                        id: true,
+                        username: true
+                    },
+                    looser: {
+                        id: true,
+                        username: true
+                    }
+                },
+            });
 
         const totalPages = Math.ceil(total / limit);
 
