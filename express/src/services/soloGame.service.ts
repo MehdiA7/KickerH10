@@ -154,8 +154,15 @@ export class SoloGameService {
             take: limit,
             skip: offset,
             where: { id: userId },
-            relations: ["player1", "player2"],
+            relations: ["playerid1", "playerid2"],
+            select:{
+                id: true,
+                playerid1: true,
+                playerid2: true
+            }
         });
+        
+        // I need to change that, is not the good way, i need to use juste de sologameRepo to make this request
 
         const totalPages = Math.ceil(total / limit);
 
