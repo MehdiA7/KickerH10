@@ -154,6 +154,7 @@ export class SoloGameService {
             await this.soloGameRepository.findAndCount({
                 take: limit,
                 skip: offset,
+                // list is OR operator in typeOr
                 where: [
                     { player1: { id: userId } },
                     { player2: { id: userId } },

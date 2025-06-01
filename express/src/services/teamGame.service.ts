@@ -215,4 +215,48 @@ export class TeamGameService {
 
         return formatResponse;
     }
+
+        async getTeamGameWithTeamId(
+            teamId: number,
+            page: number,
+            limit: number
+        ): Promise<PagingGameFormat<TeamGame[]>> {
+            const offset: number = (page - 1) * limit;
+    
+            const [allTeamGame, total] =
+                await this.teamGameRepository.findAndCount({
+                    take: limit,
+                    skip: offset,
+                    where: [
+                        { team1: { id: teamId } },
+                        { team2: { id: teamId } },
+                        { winner: teamId },
+                    ],
+                    relations: ["team1", "team2"],
+                    select: {
+                        id: true,
+                        score1: true,
+                        score2: true,
+                        team1: {
+                            id: true,
+                            name: true,
+                        },
+                        team2: {
+                            id: true,
+                            name: true,
+                        },
+                        winner: true
+                    },
+                });
+    
+            const totalPages = Math.ceil(total / limit);
+    
+            const formatResponse = {
+                content: allTeamGame,
+                currentPage: page,
+                totalPage: totalPages,
+            };
+    
+            return formatResponse;
+        }
 }
