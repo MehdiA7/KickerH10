@@ -147,10 +147,10 @@ export class SoloGameService {
         userId: number,
         page: number,
         limit: number
-    ): Promise<PagingGameFormat<Users[]>> {
+    ): Promise<PagingGameFormat<SoloGame[]>> {
         const offset: number = (page - 1) * limit;
 
-        const [userWithSoloGame, total] = await this.usersRepository.findAndCount({
+        const [userWithSoloGame, total1] = await this.usersRepository.findAndCount({
             take: limit,
             skip: offset,
             where: { id: userId },
@@ -164,10 +164,21 @@ export class SoloGameService {
         
         // I need to change that, is not the good way, i need to use juste de sologameRepo to make this request
 
+        const user = await this.usersRepository.find({
+            where: {id: userId},
+            select: {id: true}
+        });
+
+        const [allUserSoloGame, total] = await this.soloGameRepository.findAndCount({
+            take: limit,
+            skip: offset,
+            where: [{player1: user}, {player2: user}]
+        })
+
         const totalPages = Math.ceil(total / limit);
 
         const formatResponse = {
-            content: userWithSoloGame,
+            content: allUserSoloGame,
             currentPage: page,
             totalPage: totalPages,
         };
