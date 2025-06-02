@@ -2,7 +2,10 @@
 // this is a server action component, with this
 // you can make api call from client component to server component
 
-export function fetchSoloMatches() {
+const apiUrl = process.env.API_URL;
+export async function fetchSoloMatches(userId: number, page: number, limit: number) {
+
+    const response = await fetch(apiUrl+`/game/solo/userId=${userId}/page=${page}/limit=${limit}`)
 
     const soloScore = [
         {
