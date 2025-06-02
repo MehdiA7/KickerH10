@@ -9,14 +9,14 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { Match } from "@/lib/types/type";
+import { ApiResponseFormat, SoloMatch } from "@/lib/types/type";
 
 type RecentGameProps = {
-    FetchRecentUserMatch: Match[];
+    FetchSoloMatchesByUserId: ApiResponseFormat<SoloMatch[]>;
 };
 
-const RecentGame: FC<RecentGameProps> = ({ FetchRecentUserMatch }) => {
-    const RecentMatch = FetchRecentUserMatch;
+const RecentGame: FC<RecentGameProps> = ({ FetchSoloMatchesByUserId }) => {
+    const RecentMatch = FetchSoloMatchesByUserId;
 
     return (
         <>
@@ -30,34 +30,34 @@ const RecentGame: FC<RecentGameProps> = ({ FetchRecentUserMatch }) => {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {RecentMatch &&
-                        RecentMatch.map((match) => (
+                    {RecentMatch.content &&
+                        RecentMatch.content.map((match) => (
                             <TableRow key={match.id}>
                                 <TableCell>
                                     <span
                                         className={
-                                            match.player1 === match.winner
+                                            match.player1.id === match.winner.id
                                                 ? "font-bold"
                                                 : ""
                                         }
                                     >
-                                        {match.player1}
+                                        {match.player1.username}
                                     </span>
                                     <span>{" VS "}</span>
                                     <span
                                         className={
-                                            match.player2 === match.winner
+                                            match.player2.id === match.winner.id
                                                 ? "font-bold"
                                                 : ""
                                         }
                                     >
-                                        {match.player2}
+                                        {match.player2.username}
                                     </span>
                                 </TableCell>
                                 <TableCell className="text-center">
                                     <span
                                         className={
-                                            match.player2 === match.winner
+                                            match.player2.id === match.winner.id
                                                 ? "font-bold"
                                                 : ""
                                         }
@@ -67,7 +67,7 @@ const RecentGame: FC<RecentGameProps> = ({ FetchRecentUserMatch }) => {
                                     <span>{" / "}</span>
                                     <span
                                         className={
-                                            match.player2 === match.winner
+                                            match.player2.id === match.winner.id
                                                 ? "font-bold"
                                                 : ""
                                         }
@@ -76,7 +76,7 @@ const RecentGame: FC<RecentGameProps> = ({ FetchRecentUserMatch }) => {
                                     </span>
                                 </TableCell>
                                 <TableCell className="text-right">
-                                    {match.created_at}
+                                    {match.createdat}
                                 </TableCell>
                             </TableRow>
                         ))}

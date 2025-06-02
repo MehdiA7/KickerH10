@@ -6,9 +6,11 @@ export type ApiResponseFormat<T> = {
 }
 
 export type User = {
+    id: number;
     username: string;
     xp: number;
     level: number;
+    goal: number;
     wongame: number;
     lostgame: number;
     wonteamgame: number;
@@ -18,6 +20,17 @@ export type User = {
 export type FriendUserList = {
     id: number;
     username: string;
+}
+
+export type SoloMatch = {
+    id: number;
+    score1: number;
+    score2: number;
+    player1: User;
+    player2: User;
+    winner: User;
+    looser: User;
+    createdat: string;
 }
 
 export type Match = {
