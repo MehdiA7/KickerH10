@@ -25,13 +25,19 @@ export class SoloGameController {
             }
 
             if (theBody.score1 !== 11 && theBody.score2 !== 11) {
-                console.log(theBody.score1);
-                console.log(theBody.score2);
                 res.status(400).send({
                     success: false,
                     message: "No winner... Need 11 on one side",
                 });
                 return;
+            }
+
+            if (theBody.score1 > theBody.score2) {
+                theBody.winner = theBody.player1;
+                theBody.looser = theBody.player2;
+            } else {
+                theBody.winner = theBody.player2;
+                theBody.looser = theBody.player1;
             }
 
             const createGame = await soloGameService.createANewSoloGame(

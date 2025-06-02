@@ -57,7 +57,7 @@ const RecentGame: FC<RecentGameProps> = ({ FetchSoloMatchesByUserId }) => {
                                 <TableCell className="text-center">
                                     <span
                                         className={
-                                            match.player2.id === match.winner.id
+                                            match.player1.id === match.winner.id
                                                 ? "font-bold"
                                                 : ""
                                         }
