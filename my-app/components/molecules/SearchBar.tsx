@@ -20,7 +20,7 @@ const SearchBar = () => {
             setResult([]);
             return;
         }
-
+        // I'm stopped here
         const handler = setTimeout(async () => {
             try {
                 const userList = await FetchUserByName(); 

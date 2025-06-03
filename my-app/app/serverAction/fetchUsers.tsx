@@ -1,9 +1,11 @@
-// "use server"
-const API = process.env.API_URL;
+import { User } from "@/lib/types/type";
 
-export async function FetchUserProfile(id : number) {
+// "use server"
+const apiUrl = process.env.API_URL;
+
+export async function FetchUserProfile(id: number) {
     // fake data
-    // const user = 
+    // const user =
     //     {
     //         username: "QuentinLeS",
     //         xp: 83,
@@ -14,128 +16,94 @@ export async function FetchUserProfile(id : number) {
     //         lost_team_game: 4,
     //     };
 
-    const user = await fetch(`${API}/user/${id}`, {
-        method: "GET"
+    const user = await fetch(`${apiUrl}/user/${id}`, {
+        method: "GET",
     });
 
-    const data = await user.json()
+    const data = await user.json();
 
     return data.content;
 }
 
-export function FetchUserProfileByName(name : string) {
-    const user = 
-        {
-            id : 0,
-            username: "QuentinLeS",
-            xp: 83,
-            level: 4,
-            won_game: 32,
-            lost_game: 21,
-            won_team_game: 10,
-            lost_team_game: 4,
-        };
+export function FetchUserProfileByName(name: string) {
+    const user = {
+        id: 0,
+        username: "QuentinLeS",
+        xp: 83,
+        level: 4,
+        won_game: 32,
+        lost_game: 21,
+        won_team_game: 10,
+        lost_team_game: 4,
+    };
 
     return user;
 }
 
-export function FetchFriendWithUserId(id : number) {
+export function FetchFriendWithUserId(id: number) {
     const userList = [
         {
             id: 4,
-            username: "Hugo"
+            username: "Hugo",
         },
         {
             id: 5,
-            username: "Martin"
+            username: "Martin",
         },
         {
             id: 6,
-            username: "Robin"
+            username: "Robin",
         },
         {
             id: 7,
-            username: "Nico"
+            username: "Nico",
         },
         {
             id: 8,
-            username: "Pierre"
+            username: "Pierre",
         },
         {
             id: 9,
-            username: "Scott Borlon"
+            username: "Scott Borlon",
         },
         {
             id: 10,
-            username: "Bryan Charles"
+            username: "Bryan Charles",
         },
         {
             id: 11,
-            username: "Lucas Cloes"
+            username: "Lucas Cloes",
         },
         {
             id: 12,
-            username: "Denis Collette"
+            username: "Denis Collette",
         },
         {
             id: 13,
-            username: "Emmanuel Cuiret"
+            username: "Emmanuel Cuiret",
         },
-        
     ];
 
     return userList;
 }
 
-export function FetchUserByName() {
-    const userList = [
-        {
-            id: 4,
-            username: "Hugo"
+export async function FetchUserByName(userInput: string): Promise<User[]> {
+    const response = await fetch(apiUrl + "/user/search", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
         },
-        {
-            id: 5,
-            username: "Martin"
-        },
-        {
-            id: 6,
-            username: "Robin"
-        },
-        {
-            id: 7,
-            username: "Nico"
-        },
-        {
-            id: 8,
-            username: "Pierre"
-        },
-        {
-            id: 9,
-            username: "Scott Borlon"
-        },
-        {
-            id: 10,
-            username: "Bryan Charles"
-        },
-        {
-            id: 11,
-            username: "Lucas Cloes"
-        },
-        {
-            id: 12,
-            username: "Denis Collette"
-        },
-        {
-            id: 13,
-            username: "Emmanuel Cuiret"
-        },
-        
-    ];
+        body: JSON.stringify({
+            input: userInput
+        }),
+    });
 
-    return userList;
+    const data = await response.json();
+
+    return data.content;
 }
 
-export function FetchRecentUserMatch(id : number) {
+export function FetchRecentUserMatch(id: number) {
     const userMatch = [
         {
             id: 2,
@@ -181,47 +149,38 @@ export function FetchRecentUserMatch(id : number) {
             score2: 4,
             winner: "Lucas",
             created_at: "3/3/25",
-        }
-    ]
+        },
+    ];
     return userMatch;
 }
 
 export function FetchAddFriend() {
-    
-    let postObj =
-    {
-    "user": 1,
-    "friend": 2
-    }
+    let postObj = {
+        user: 1,
+        friend: 2,
+    };
 
     return "friend added successfully";
 }
 
-
-export function FetchCheckIsFriend(idPlayer1 : number, idPlayer2 : number) {
-    
-    let postObj =
-    {
-    "player1": idPlayer1,
-    "player2": idPlayer2
-    }
+export function FetchCheckIsFriend(idPlayer1: number, idPlayer2: number) {
+    let postObj = {
+        player1: idPlayer1,
+        player2: idPlayer2,
+    };
 
     return "true or false";
 }
 
-export function FetchAddNewFriend(idPlayer1 : number, idPlayer2 : number) {
-    
-    let postObj =
-    {
-    "user": idPlayer1,
-    "friend": idPlayer2
-    }
-    console.log("you are now friends")
+export function FetchAddNewFriend(idPlayer1: number, idPlayer2: number) {
+    let postObj = {
+        user: idPlayer1,
+        friend: idPlayer2,
+    };
+    console.log("you are now friends");
     return 0;
 }
 
-export function FetchRemoveFriend(idUser : number , idFriend : number){
-
+export function FetchRemoveFriend(idUser: number, idFriend: number) {
     // delte the foreign table containig those 2 id
-
 }
