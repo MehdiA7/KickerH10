@@ -6,7 +6,7 @@ import { FetchUserProfile } from "../serverAction/fetchUsers";
 import RecentGame from "@/components/organisms/RecentGame";
 import SearchBar from "@/components/molecules/SearchBar";
 import { cookies } from "next/headers";
-import { FetchSoloMatchesByUserId } from "../serverAction/fetchMatches";
+import { FetchSoloMatchByUserId } from "../serverAction/fetchMatches";
 
 
 
@@ -31,7 +31,7 @@ const HomePage = async () => {
                 <ProfileOverview FetchUserProfile={FetchUserProfile(id)} />
             </div>
             <article>
-                <RecentGame FetchSoloMatchesByUserId={await FetchSoloMatchesByUserId(id, 1, 5)}/>
+                <RecentGame FetchSoloMatchByUserId={await FetchSoloMatchByUserId(id, 1, 5)}/>
             </article>
             <div className="flex justify-center space-x-45 w-sm fixed bottom-5 ">
                 <Button className="h-15 mb-5" size={"lg"} asChild>

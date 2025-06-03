@@ -1,6 +1,6 @@
 import ScoreTable from "@/components/organisms/ScoreTable";
 import {
-    fetchSoloMatches,
+    Fet,
     fetchTeamMatches,
 } from "../../serverAction/fetchMatches";
 import React from "react";

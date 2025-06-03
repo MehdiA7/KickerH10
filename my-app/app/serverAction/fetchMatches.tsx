@@ -5,7 +5,7 @@
 import { ApiResponseFormat, SoloMatch } from "@/lib/types/type";
 
 const apiUrl = process.env.API_URL;
-export async function FetchSoloMatchesByUserId(
+export async function FetchSoloMatchByUserId(
     userId: number,
     page: number,
     limit: number
@@ -145,6 +145,10 @@ export async function FetchSoloMatchesByUserId(
     // ];
 
     // return soloScore;
+}
+
+export async function FetchSoloMatch(page: number, limit: number) {
+    
 }
 
 export function fetchTeamMatches() {

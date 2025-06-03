@@ -12,16 +12,16 @@ import {
 import { ApiResponseFormat, SoloMatch } from "@/lib/types/type";
 
 type RecentGameProps = {
-    FetchSoloMatchesByUserId: ApiResponseFormat<SoloMatch[]>;
+    FetchSoloMatchByUserId: ApiResponseFormat<SoloMatch[]>;
 };
 
-const RecentGame: FC<RecentGameProps> = ({ FetchSoloMatchesByUserId }) => {
-    const RecentMatch = FetchSoloMatchesByUserId;
+const RecentGame: FC<RecentGameProps> = ({ FetchSoloMatchByUserId }) => {
+    const RecentMatch = FetchSoloMatchByUserId;
 
     return (
         <>
             <Table className="w-88 m-auto ">
-                <TableCaption>⚽ Your recent Matches ⚽</TableCaption>
+                <TableCaption>⚽ Your recent solo Matches ⚽</TableCaption>
                 <TableHeader className="bg-gray-100">
                     <TableRow>
                         <TableHead className="w-[100px]">Match</TableHead>
