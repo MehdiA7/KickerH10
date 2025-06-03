@@ -21,7 +21,7 @@ const TeamGameTable: FC<TeamGameTableProps> = ({ FetchTeamMatch }) => {
     return (
         <>
             <Table className="w-88 m-auto ">
-                <TableCaption>⚽ Your recent solo Matches ⚽</TableCaption>
+                <TableCaption>⚽ Team Game ⚽</TableCaption>
                 <TableHeader className="bg-gray-100">
                     <TableRow>
                         <TableHead className="w-[100px]">Match</TableHead>
@@ -76,7 +76,7 @@ const TeamGameTable: FC<TeamGameTableProps> = ({ FetchTeamMatch }) => {
                                     </span>
                                 </TableCell>
                                 <TableCell className="text-right">
-                                    {match.createdat.toLocaleString()}
+                                    {new Date(match.createdat).toLocaleDateString('fr-FR')}
                                 </TableCell>
                             </TableRow>
                         ))}

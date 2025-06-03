@@ -16,11 +16,10 @@ type RecentGameProps = {
 };
 
 const SoloGameTable: FC<RecentGameProps> = ({ FetchSoloMatch }) => {
-    const soloMatch = FetchSoloMatch;
     return (
         <>
             <Table className="w-88 m-auto ">
-                <TableCaption>⚽ Your recent solo Matches ⚽</TableCaption>
+                <TableCaption>⚽ Solo Game ⚽</TableCaption>
                 <TableHeader className="bg-gray-100">
                     <TableRow>
                         <TableHead className="w-[100px]">Match</TableHead>
@@ -29,8 +28,8 @@ const SoloGameTable: FC<RecentGameProps> = ({ FetchSoloMatch }) => {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {soloMatch &&
-                        soloMatch.map((match) => (
+                    {FetchSoloMatch &&
+                        FetchSoloMatch.map((match) => (
                             <TableRow key={match.id}>
                                 <TableCell>
                                     <span
@@ -75,7 +74,7 @@ const SoloGameTable: FC<RecentGameProps> = ({ FetchSoloMatch }) => {
                                     </span>
                                 </TableCell>
                                 <TableCell className="text-right">
-                                    {match.createdat.toLocaleString('fr-FR')}
+                                    {new Date(match.createdat).toLocaleDateString('fr-FR')}
                                 </TableCell>
                             </TableRow>
                         ))}
