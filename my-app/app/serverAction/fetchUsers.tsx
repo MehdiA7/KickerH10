@@ -1,6 +1,6 @@
+"use server"
 import { User } from "@/lib/types/type";
 
-// "use server"
 const apiUrl = process.env.API_URL;
 
 export async function FetchUserProfile(id: number) {
@@ -25,7 +25,7 @@ export async function FetchUserProfile(id: number) {
     return data.content;
 }
 
-export function FetchUserProfileByName(name: string) {
+export async function FetchUserProfileByName(name: string) {
     const user = {
         id: 0,
         username: "QuentinLeS",
@@ -40,7 +40,7 @@ export function FetchUserProfileByName(name: string) {
     return user;
 }
 
-export function FetchFriendWithUserId(id: number) {
+export async function FetchFriendWithUserId(id: number) {
     const userList = [
         {
             id: 4,
@@ -87,8 +87,8 @@ export function FetchFriendWithUserId(id: number) {
     return userList;
 }
 
-export async function FetchUserByName(userInput: string): Promise<User[]> {
-    const response = await fetch(apiUrl + "/user/search", {
+export async function FetchUserByUsername(userInput: string): Promise<User[]> {
+    const response = await fetch(`${apiUrl}/user/search`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -99,11 +99,11 @@ export async function FetchUserByName(userInput: string): Promise<User[]> {
     });
 
     const data = await response.json();
-
+    
     return data.content;
 }
 
-export function FetchRecentUserMatch(id: number) {
+export async function FetchRecentUserMatch(id: number) {
     const userMatch = [
         {
             id: 2,
@@ -154,7 +154,7 @@ export function FetchRecentUserMatch(id: number) {
     return userMatch;
 }
 
-export function FetchAddFriend() {
+export async function FetchAddFriend() {
     let postObj = {
         user: 1,
         friend: 2,
@@ -163,7 +163,7 @@ export function FetchAddFriend() {
     return "friend added successfully";
 }
 
-export function FetchCheckIsFriend(idPlayer1: number, idPlayer2: number) {
+export async function FetchCheckIsFriend(idPlayer1: number, idPlayer2: number) {
     let postObj = {
         player1: idPlayer1,
         player2: idPlayer2,
@@ -172,7 +172,7 @@ export function FetchCheckIsFriend(idPlayer1: number, idPlayer2: number) {
     return "true or false";
 }
 
-export function FetchAddNewFriend(idPlayer1: number, idPlayer2: number) {
+export async function FetchAddNewFriend(idPlayer1: number, idPlayer2: number) {
     let postObj = {
         user: idPlayer1,
         friend: idPlayer2,
@@ -181,6 +181,7 @@ export function FetchAddNewFriend(idPlayer1: number, idPlayer2: number) {
     return 0;
 }
 
-export function FetchRemoveFriend(idUser: number, idFriend: number) {
+export async function FetchRemoveFriend(idUser: number, idFriend: number) {
     // delte the foreign table containig those 2 id
+    return;
 }

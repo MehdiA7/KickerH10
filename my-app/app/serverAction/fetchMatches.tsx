@@ -2,7 +2,7 @@
 // this is a server action component, with this
 // you can make api call from client component to server component
 
-import { ApiResponseFormat, SoloMatch, TeamMatch } from "@/lib/types/type";
+import { SoloMatch, TeamMatch } from "@/lib/types/type";
 
 const apiUrl = process.env.API_URL;
 export async function FetchSoloMatchByUserId(

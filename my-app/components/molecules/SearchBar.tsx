@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from 'next/link';
-import { FetchUserByName } from "@/app/serverAction/fetchUsers";
+import Link from "next/link";
+import { FetchUserByUsername } from "@/app/serverAction/fetchUsers";
 
 type FilteredUser = {
     id: number;
@@ -14,26 +14,21 @@ const SearchBar = () => {
     const [result, setResult] = useState<FilteredUser[]>([]);
     const [search, setSearch] = useState("");
 
-
     useEffect(() => {
         if (!search.trim()) {
             setResult([]);
             return;
         }
-        // I'm stopped here
+        
         const handler = setTimeout(async () => {
-            try {
-                const userList = await FetchUserByName(); 
+                const userList = await FetchUserByUsername(search);
                 if (userList.length > 0) {
                     console.log("a search request is sent");
                     setResult(userList);
                 }
-            } catch (error) {
-                console.error("Failed to fetch users", error);
-            }
-        }, 1000); 
+        }, 500);
 
-        return () => clearTimeout(handler); 
+        return () => clearTimeout(handler);
     }, [search]);
 
     useEffect(() => {
@@ -62,7 +57,9 @@ const SearchBar = () => {
                                 onMouseDown={(e) => e.preventDefault()}
                             >
                                 <Link
-                                    href={{ pathname: `/user/${user.username}` }}
+                                    href={{
+                                        pathname: `/user/${user.username}`,
+                                    }}
                                     onClick={() => setSearch("")}
                                     className="block w-full px-4 py-2 bg-white hover:bg-[rgb(152,152,152)] cursor-pointer"
                                 >
