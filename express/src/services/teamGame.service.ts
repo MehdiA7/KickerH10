@@ -202,6 +202,7 @@ export class TeamGameService {
                     score2: true,
                     team1: { id: true, name: true },
                     team2: { id: true, name: true },
+                    winner: true,
                     createdat: true,
                 },
                 order: { createdat: "DESC" },
@@ -264,3 +265,4 @@ export class TeamGameService {
         return formatResponse;
     }
 }
+ 
