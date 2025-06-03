@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { FetchRecentUserMatch, FetchUserProfile, FetchAddNewFriend, FetchUserProfileByName,FetchFriendWithUserId,FetchRemoveFriend } from "../../serverAction/fetchUsers";
-import RecentGame from "@/components/organisms/RecentGame";
+import RecentGame from "@/components/organisms/SoloGameTable";
 import SearchBar from "@/components/molecules/SearchBar";
 import { useParams } from "next/navigation";
 

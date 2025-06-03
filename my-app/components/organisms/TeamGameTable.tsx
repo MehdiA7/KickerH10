@@ -9,14 +9,14 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { ApiResponseFormat, SoloMatch } from "@/lib/types/type";
+import { TeamMatch } from "@/lib/types/type";
 
-type RecentGameProps = {
-    FetchSoloMatchByUserId: ApiResponseFormat<SoloMatch[]>;
+type TeamGameTableProps = {
+    FetchTeamMatch: TeamMatch[];
 };
 
-const RecentGame: FC<RecentGameProps> = ({ FetchSoloMatchByUserId }) => {
-    const RecentMatch = FetchSoloMatchByUserId;
+const TeamGameTable: FC<TeamGameTableProps> = ({ FetchTeamMatch }) => {
+    const teamMatch = FetchTeamMatch;
 
     return (
         <>
@@ -30,34 +30,34 @@ const RecentGame: FC<RecentGameProps> = ({ FetchSoloMatchByUserId }) => {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {RecentMatch.content &&
-                        RecentMatch.content.map((match) => (
+                    {teamMatch &&
+                        teamMatch.map((match) => (
                             <TableRow key={match.id}>
                                 <TableCell>
                                     <span
                                         className={
-                                            match.player1.id === match.winner.id
+                                            match.team1.id === match.winner
                                                 ? "font-bold"
                                                 : ""
                                         }
                                     >
-                                        {match.player1.username}
+                                        {match.team1.name}
                                     </span>
                                     <span>{" VS "}</span>
                                     <span
                                         className={
-                                            match.player2.id === match.winner.id
+                                            match.team2.id === match.winner
                                                 ? "font-bold"
                                                 : ""
                                         }
                                     >
-                                        {match.player2.username}
+                                        {match.team2.name}
                                     </span>
                                 </TableCell>
                                 <TableCell className="text-center">
                                     <span
                                         className={
-                                            match.player1.id === match.winner.id
+                                            match.team1.id === match.winner
                                                 ? "font-bold"
                                                 : ""
                                         }
@@ -67,7 +67,7 @@ const RecentGame: FC<RecentGameProps> = ({ FetchSoloMatchByUserId }) => {
                                     <span>{" / "}</span>
                                     <span
                                         className={
-                                            match.player2.id === match.winner.id
+                                            match.team2.id === match.winner
                                                 ? "font-bold"
                                                 : ""
                                         }
@@ -76,7 +76,7 @@ const RecentGame: FC<RecentGameProps> = ({ FetchSoloMatchByUserId }) => {
                                     </span>
                                 </TableCell>
                                 <TableCell className="text-right">
-                                    {match.createdat}
+                                    {match.createdat.toLocaleString()}
                                 </TableCell>
                             </TableRow>
                         ))}
@@ -86,4 +86,4 @@ const RecentGame: FC<RecentGameProps> = ({ FetchSoloMatchByUserId }) => {
     );
 };
 
-export default RecentGame;
+export default TeamGameTable;

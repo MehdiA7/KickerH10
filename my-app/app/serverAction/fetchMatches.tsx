@@ -2,14 +2,15 @@
 // this is a server action component, with this
 // you can make api call from client component to server component
 
-import { ApiResponseFormat, SoloMatch } from "@/lib/types/type";
+import { ApiResponseFormat, SoloMatch, TeamMatch } from "@/lib/types/type";
 
 const apiUrl = process.env.API_URL;
 export async function FetchSoloMatchByUserId(
     userId: number,
     page: number,
     limit: number
-): Promise<ApiResponseFormat<SoloMatch[]>> {
+): Promise<SoloMatch[]> {
+
     const response = await fetch(
         apiUrl + `/game/solo/userId=${userId}/page=${page}/limit=${limit}`,
         {
@@ -22,7 +23,7 @@ export async function FetchSoloMatchByUserId(
 
     const data = await response.json();
 
-    return data;
+    return data.content;
 
     // const soloScore = [
     //     {
@@ -147,114 +148,128 @@ export async function FetchSoloMatchByUserId(
     // return soloScore;
 }
 // I need to handle status error but is for test actually i make this later.
-export async function FetchSoloMatch(page: number, limit: number) {
-    const response = await fetch(apiUrl + `/page=${page}/limit=${limit}`, {
+export async function FetchSoloMatch(
+    page: number,
+    limit: number
+): Promise<SoloMatch[]> {
+
+    const response = await fetch(apiUrl + `/game/solo/page=${page}/limit=${limit}`, {
         method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
+        headers: {
+            "Content-Type": "application/json",
+        },
     });
 
     const data = await response.json();
 
-    return data;
+    return data.content;
 }
 
-export function fetchTeamMatches() {
-    const teamScore = [
-        {
-            id: 23,
-            team1: "Lions",
-            team2: "Aigles",
-            score1: 11,
-            score2: 8,
-            winner: "Lions",
-            created_at: "10/5/24",
-        },
-        {
-            id: 24,
-            team1: "Tigres",
-            team2: "Panthères",
-            score1: 10,
-            score2: 7,
-            winner: "Tigres",
-            created_at: "12/5/24",
-        },
-        {
-            id: 25,
-            team1: "Foudres",
-            team2: "Tornades",
-            score1: 9,
-            score2: 11,
-            winner: "Tornades",
-            created_at: "15/5/24",
-        },
-        {
-            id: 26,
-            team1: "Éclairs",
-            team2: "Orages",
-            score1: 10,
-            score2: 12,
-            winner: "Orages",
-            created_at: "18/5/24",
-        },
-        {
-            id: 27,
-            team1: "Loups",
-            team2: "Renards",
-            score1: 11,
-            score2: 9,
-            winner: "Loups",
-            created_at: "20/5/24",
-        },
-        {
-            id: 28,
-            team1: "Géants",
-            team2: "Titans",
-            score1: 8,
-            score2: 10,
-            winner: "Titans",
-            created_at: "22/5/24",
-        },
-        {
-            id: 29,
-            team1: "Phoenix",
-            team2: "Dragons",
-            score1: 7,
-            score2: 11,
-            winner: "Dragons",
-            created_at: "25/5/24",
-        },
-        {
-            id: 30,
-            team1: "Vikings",
-            team2: "Spartiates",
-            score1: 10,
-            score2: 8,
-            winner: "Vikings",
-            created_at: "28/5/24",
-        },
-        {
-            id: 31,
-            team1: "Gladiateurs",
-            team2: "Samouraïs",
-            score1: 11,
-            score2: 10,
-            winner: "Gladiateurs",
-            created_at: "1/6/24",
-        },
-        {
-            id: 32,
-            team1: "Pirates",
-            team2: "Corsaires",
-            score1: 9,
-            score2: 11,
-            winner: "Corsaires",
-            created_at: "3/6/24",
-        },
-    ];
+export async function FetchTeamMatch(page: number, limit: number): Promise<TeamMatch[]> {
 
-    return teamScore;
+    const response = await fetch(apiUrl + `/game/team/page=${page}/limit=${limit}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+
+    const data = await response.json();
+
+    return data.content;
+
+    // const teamScore = [
+    //     {
+    //         id: 23,
+    //         team1: "Lions",
+    //         team2: "Aigles",
+    //         score1: 11,
+    //         score2: 8,
+    //         winner: "Lions",
+    //         created_at: "10/5/24",
+    //     },
+    //     {
+    //         id: 24,
+    //         team1: "Tigres",
+    //         team2: "Panthères",
+    //         score1: 10,
+    //         score2: 7,
+    //         winner: "Tigres",
+    //         created_at: "12/5/24",
+    //     },
+    //     {
+    //         id: 25,
+    //         team1: "Foudres",
+    //         team2: "Tornades",
+    //         score1: 9,
+    //         score2: 11,
+    //         winner: "Tornades",
+    //         created_at: "15/5/24",
+    //     },
+    //     {
+    //         id: 26,
+    //         team1: "Éclairs",
+    //         team2: "Orages",
+    //         score1: 10,
+    //         score2: 12,
+    //         winner: "Orages",
+    //         created_at: "18/5/24",
+    //     },
+    //     {
+    //         id: 27,
+    //         team1: "Loups",
+    //         team2: "Renards",
+    //         score1: 11,
+    //         score2: 9,
+    //         winner: "Loups",
+    //         created_at: "20/5/24",
+    //     },
+    //     {
+    //         id: 28,
+    //         team1: "Géants",
+    //         team2: "Titans",
+    //         score1: 8,
+    //         score2: 10,
+    //         winner: "Titans",
+    //         created_at: "22/5/24",
+    //     },
+    //     {
+    //         id: 29,
+    //         team1: "Phoenix",
+    //         team2: "Dragons",
+    //         score1: 7,
+    //         score2: 11,
+    //         winner: "Dragons",
+    //         created_at: "25/5/24",
+    //     },
+    //     {
+    //         id: 30,
+    //         team1: "Vikings",
+    //         team2: "Spartiates",
+    //         score1: 10,
+    //         score2: 8,
+    //         winner: "Vikings",
+    //         created_at: "28/5/24",
+    //     },
+    //     {
+    //         id: 31,
+    //         team1: "Gladiateurs",
+    //         team2: "Samouraïs",
+    //         score1: 11,
+    //         score2: 10,
+    //         winner: "Gladiateurs",
+    //         created_at: "1/6/24",
+    //     },
+    //     {
+    //         id: 32,
+    //         team1: "Pirates",
+    //         team2: "Corsaires",
+    //         score1: 9,
+    //         score2: 11,
+    //         winner: "Corsaires",
+    //         created_at: "3/6/24",
+    //     },
+    // ];
+
+    // return teamScore;
 }
-
-export default fetchTeamMatches; // Find this in ScoreTable.tsx

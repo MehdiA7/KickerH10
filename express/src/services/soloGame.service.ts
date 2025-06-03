@@ -119,13 +119,14 @@ export class SoloGameService {
             {
                 take: limit,
                 skip: offset,
-                relations: ["player1", "player2"],
+                relations: ["player1", "player2", "winner"],
                 select: {
                     id: true,
                     score1: true,
                     score2: true,
                     player1: { id: true, username: true },
                     player2: { id: true, username: true },
+                    winner: { id: true, username: true},
                     createdat: true,
                 },
                 order: { createdat: "DESC" },

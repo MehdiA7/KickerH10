@@ -1,9 +1,8 @@
-
 export type ApiResponseFormat<T> = {
     success: boolean;
     message: string;
     content?: T;
-}
+};
 
 export type User = {
     id: number;
@@ -15,12 +14,12 @@ export type User = {
     lostgame: number;
     wonteamgame: number;
     lostteamgame: number;
-}
+};
 
 export type FriendUserList = {
     id: number;
     username: string;
-}
+};
 
 export type SoloMatch = {
     id: number;
@@ -30,25 +29,31 @@ export type SoloMatch = {
     player2: User;
     winner: User;
     looser: User;
-    createdat: string;
-}
-
-export type Match = {
-    id: number;
-    player1?: string;
-    player2?: string;
-    team1?: string;
-    team2?: string; 
-    score1: number;
-    score2: number;
-    winner: string;
-    created_at: string;
+    createdat: Date;
 };
 
+export type SoloAndTeamMatch = {
+    sologame: SoloMatch[];
+    teamgame: TeamMatch[];
+};
 
 export type Team = {
-    id : number
-    name: string,
-    player1 : number,
-    player2 : number
-}
+    id: number;
+    name: string;
+    player1: User;
+    player2: User;
+    wongame: number;
+    lostgame: number;
+    goal: number;
+    createdat: Date;
+};
+
+export type TeamMatch = {
+    id: number;
+    team1: Team;
+    team2: Team;
+    winner: number;
+    score1: number;
+    score2: number;
+    createdat: Date;
+};

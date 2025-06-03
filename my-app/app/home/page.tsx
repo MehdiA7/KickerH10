@@ -3,10 +3,11 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import React from "react";
 import { FetchUserProfile } from "../serverAction/fetchUsers";
-import RecentGame from "@/components/organisms/RecentGame";
+import RecentGame from "@/components/organisms/SoloGameTable";
 import SearchBar from "@/components/molecules/SearchBar";
 import { cookies } from "next/headers";
 import { FetchSoloMatchByUserId } from "../serverAction/fetchMatches";
+import SoloGameTable from "@/components/organisms/SoloGameTable";
 
 
 
@@ -31,7 +32,7 @@ const HomePage = async () => {
                 <ProfileOverview FetchUserProfile={FetchUserProfile(id)} />
             </div>
             <article>
-                <RecentGame FetchSoloMatchByUserId={await FetchSoloMatchByUserId(id, 1, 5)}/>
+                <SoloGameTable FetchSoloMatch={await FetchSoloMatchByUserId(id, 1, 5)}/>
             </article>
             <div className="flex justify-center space-x-45 w-sm fixed bottom-5 ">
                 <Button className="h-15 mb-5" size={"lg"} asChild>
