@@ -182,7 +182,8 @@ export class SoloGameService {
                     looser: {
                         id: true,
                         username: true
-                    }
+                    },
+                    createdat: true
                 },
             });
 
