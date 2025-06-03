@@ -146,9 +146,18 @@ export async function FetchSoloMatchByUserId(
 
     // return soloScore;
 }
-
+// I need to handle status error but is for test actually i make this later.
 export async function FetchSoloMatch(page: number, limit: number) {
-    
+    const response = await fetch(apiUrl + `/page=${page}/limit=${limit}`, {
+        method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+    });
+
+    const data = await response.json();
+
+    return data;
 }
 
 export function fetchTeamMatches() {

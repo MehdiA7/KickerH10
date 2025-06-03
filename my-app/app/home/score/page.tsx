@@ -1,6 +1,6 @@
 import ScoreTable from "@/components/organisms/ScoreTable";
 import {
-    Fet,
+    FetchSoloMatch,
     fetchTeamMatches,
 } from "../../serverAction/fetchMatches";
 import React from "react";
@@ -10,7 +10,7 @@ const ScorePage = () => {
         <div>
             <h1 className="text-4xl text-center mb-10">TOP SCORE</h1>
             <ScoreTable
-                fetchSoloMatches={fetchSoloMatches()}
+                FetchSoloMatches={FetchSoloMatch()}
                 fetchTeamMatches={fetchTeamMatches()}
             />
         </div>

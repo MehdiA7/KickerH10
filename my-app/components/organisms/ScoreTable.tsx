@@ -10,28 +10,28 @@ import {
     TableRow,
 } from "../ui/table";
 import { Button } from "../ui/button";
-import { Match } from "@/lib/types/type";
+import { ApiResponseFormat, Match, SoloMatch } from "@/lib/types/type";
 
 type ScoreTableProps = {
-    fetchSoloMatches: Match[];
+    FetchSoloMatch: ApiResponseFormat<SoloMatch[]>;
     fetchTeamMatches: Match[];
 };
 
 const ScoreTable: FC<ScoreTableProps> = ({
-    fetchSoloMatches,
+    FetchSoloMatch,
     fetchTeamMatches,
 }) => {
     const [matchType, setMatchType] = useState<string>("");
-    const [displayMatch, setDisplayMatch] = useState<Match[]>();
+    const [displayMatch, setDisplayMatch] = useState<SoloMatch[]>();
 
     const handleSoloGame = () => {
         setMatchType("SOLO");
-        setDisplayMatch(fetchSoloMatches);
+        setDisplayMatch(FetchSoloMatch);
     };
 
     const handleTeamGame = () => {
         setMatchType("TEAM");
-        setDisplayMatch(fetchTeamMatches);
+        setDisplayMatch(FetchTeamMatch);
     };
 
     return (
