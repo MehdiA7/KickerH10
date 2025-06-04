@@ -23,7 +23,6 @@ const SearchBar = () => {
         const handler = setTimeout(async () => {
                 const userList = await SearchUserByUsername(search);
                 if (userList.length > 0) {
-                    console.log("a search request is sent");
                     setResult(userList);
                 }
         }, 500);
