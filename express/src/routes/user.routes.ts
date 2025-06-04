@@ -8,6 +8,6 @@ usersRouter.use(express.json());
 usersRouter.get("/id=:userId", logger, UsersController.GetUserStat);
 usersRouter.get("/username=:username", logger, UsersController.GetUserByUsername);
 usersRouter.post("/search", logger, UsersController.SearchUsers);
-usersRouter.delete("/:userId", logger, UsersController.DeleteUser);
+usersRouter.delete("/id=:userId", logger, UsersController.DeleteUser);
 
 export default usersRouter;
