@@ -63,7 +63,7 @@ export async function FetchFriendWithUserId(id: number) {
 }
 
 // SEARCH BY USERNAME
-export async function FetchUserByUsername(userInput: string): Promise<User[]> {
+export async function SearchUserByUsername(userInput: string): Promise<User[]> {
     const response = await fetch(`${apiUrl}/user/search`, {
         method: "POST",
         headers: {
@@ -76,6 +76,20 @@ export async function FetchUserByUsername(userInput: string): Promise<User[]> {
 
     const data = await response.json();
     
+    return data.content;
+}
+
+// FIND BY USERNAME 1 USER
+export async function FetchUserByUsername(username: string): Promise<User> {
+    const response = await fetch(`${apiUrl}/user/username=${username}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+
+    const data = await response.json();
+
     return data.content;
 }
 

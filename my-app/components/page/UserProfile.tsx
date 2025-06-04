@@ -1,9 +1,12 @@
 
+import ProfileOverview from "../molecules/ProfileOverview";
 
 const UserProfile = () => {
-    return <>
-        <h1>hey</h1>
-    </>;
+
+    return (
+        <>
+        </>
+    );
 };
 
 export default UserProfile;

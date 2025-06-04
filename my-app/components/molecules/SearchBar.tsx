@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { FetchUserByUsername } from "@/app/serverAction/fetchUsers";
+import { SearchUserByUsername } from "@/app/serverAction/fetchUsers";
 
 type FilteredUser = {
     id: number;
@@ -21,7 +21,7 @@ const SearchBar = () => {
         }
         
         const handler = setTimeout(async () => {
-                const userList = await FetchUserByUsername(search);
+                const userList = await SearchUserByUsername(search);
                 if (userList.length > 0) {
                     console.log("a search request is sent");
                     setResult(userList);
@@ -60,7 +60,7 @@ const SearchBar = () => {
                                     href={{
                                         pathname: `/user/${user.username}`,
                                     }}
-                                    onClick={() => setSearch("")}
+                                    onClick={() => setSearch("")}   
                                     className="block w-full px-4 py-2 bg-white hover:bg-[rgb(152,152,152)] cursor-pointer"
                                 >
                                     {user.username}
