@@ -6,7 +6,7 @@ const apiUrl = process.env.API_URL;
 // GET USER BY ID
 export async function FetchUserProfile(id: number) {
 
-    const user = await fetch(`${apiUrl}/user/${id}`, {
+    const user = await fetch(`${apiUrl}/user/id=${id}`, {
         method: "GET",
     });
 

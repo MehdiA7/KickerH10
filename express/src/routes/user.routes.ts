@@ -5,7 +5,8 @@ import { UsersController } from "../controllers/users.controller";
 const usersRouter = express.Router();
 usersRouter.use(express.json());
 
-usersRouter.get("/:userId", logger, UsersController.GetUserStat);
+usersRouter.get("/id=:userId", logger, UsersController.GetUserStat);
+usersRouter.get("/username=:username", logger, UsersController.GetUserByUsername);
 usersRouter.post("/search", logger, UsersController.SearchUsers);
 usersRouter.delete("/:userId", logger, UsersController.DeleteUser);
 

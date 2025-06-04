@@ -69,6 +69,7 @@ export class UsersController {
                 message: "Your user by username",
                 content: response
             });
+            return;
 
         } catch (error) {
             if (error instanceof PlayerNotFoundError) {
