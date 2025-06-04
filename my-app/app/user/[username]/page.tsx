@@ -4,6 +4,7 @@ import {
 import {
     FetchUserByUsername,
 } from "@/app/serverAction/fetchUsers";
+import AddFriendButton from "@/components/molecules/AddFriendButton";
 import ProfileOverview from "@/components/molecules/ProfileOverview";
 import SoloGameTable from "@/components/molecules/SoloGameTable";
 import React from "react";
@@ -18,8 +19,11 @@ const UserProfilePage = async ({ params }: UserProfileProps) => {
     return (
         <>
             {user ? (
-                <>
-                    <ProfileOverview FetchUserProfile={user} />
+                <div className="flex flex-col justify-items-center">
+                    <div className="flex justify-center">
+                        <ProfileOverview FetchUserProfile={user} />
+                    </div>
+                    <AddFriendButton/>
                     <SoloGameTable
                         FetchSoloMatch={await FetchSoloMatchByUserId(
                             user.id,
@@ -27,7 +31,7 @@ const UserProfilePage = async ({ params }: UserProfileProps) => {
                             5
                         )}
                     />
-                </>
+                </div>
             ) : <h1>User not found...</h1>}
         </>
     );

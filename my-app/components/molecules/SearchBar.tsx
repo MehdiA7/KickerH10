@@ -35,7 +35,7 @@ const SearchBar = () => {
     }, [search]);
 
     return (
-        <div className="relative w-70 max-w-md mx-auto">
+        <div className="relative w-70 max-w-md mx-auto mb-4">
             <div className="flex flex-col">
                 <input
                     type="text"
