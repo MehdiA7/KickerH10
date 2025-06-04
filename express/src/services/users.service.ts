@@ -15,19 +15,18 @@ export class UsersService {
     }
 
     async getUserStatById(id: number): Promise<Users> {
-        
         const user = await this.usersRepository.findOne({
-            where: { id: id},
+            where: { id: id },
             select: {
                 id: true,
-                username:true,
+                username: true,
                 xp: true,
                 level: true,
                 wongame: true,
                 lostgame: true,
                 wonteamgame: true,
-                lostteamgame: true
-            }
+                lostteamgame: true,
+            },
         });
 
         if (!user) throw new PlayerNotFoundError(id);
@@ -35,21 +34,41 @@ export class UsersService {
         return user;
     }
 
-    async searchUserByUsername(input: string): Promise<Users[]> {
+    // USER PROFILE
+    async getUserByUsername(username: string): Promise<Users> {
+        const user = await this.usersRepository.findOne({
+            where: { username: username },
+            select: {
+                id: true,
+                username: true,
+                xp: true,
+                level: true,
+                wongame: true,
+                lostgame: true,
+                wonteamgame: true,
+                lostteamgame: true,
+            },
+        });
 
+        if (!user) throw new PlayerNotFoundError(0);
+
+        return user;
+    }
+
+    // SEARCH BAR
+    async searchUserByUsername(input: string): Promise<Users[]> {
         const search = await this.usersRepository
             .createQueryBuilder("users")
             .where("username LIKE :input", { input: `${input}%` })
             .select(["users.username", "users.id"])
             .take(5)
-            .getMany()
+            .getMany();
 
         return search;
     }
 
     async deleteUser(id: number): Promise<DeleteResult> {
-
-        const deleteTheUser = await this.usersRepository.delete({id: id});
+        const deleteTheUser = await this.usersRepository.delete({ id: id });
 
         return deleteTheUser;
     }

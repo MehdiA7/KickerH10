@@ -7,6 +7,8 @@ import { PlayerNotFoundError } from "../errors/users.errors";
 const usersService = new UsersService();
 
 export class UsersController {
+
+    // SEARCH BAR
     static async SearchUsers(req: Request, res: Response) {
         try {
             const theBody: SearchUserBody = req.body;
@@ -42,6 +44,44 @@ export class UsersController {
             res.status(500).send({
                 success: false,
                 message: `Unknow error... : ${error}`,
+            });
+            return;
+        }
+    }
+
+    // USER PROFILE
+    static async GetUserByUsername(req:Request, res: Response) {
+        try {
+            const username: string = req.params.username;
+
+            if (!username) {
+                res.status(400).send({
+                    success: false,
+                    message: "no content in your query..."
+                });
+                return;
+            }
+
+            const response = await usersService.getUserByUsername(username);
+
+            res.status(200).send({
+                success: true,
+                message: "Your user by username",
+                content: response
+            });
+
+        } catch (error) {
+            if (error instanceof PlayerNotFoundError) {
+                res.status(404).send({
+                    success: false,
+                    message: error.message
+                });
+                return;
+            }
+
+            res.status(500).send({
+                success: false,
+                message: `Unknow error... : ${error}`
             });
             return;
         }
@@ -83,6 +123,7 @@ export class UsersController {
             return;
         }
     }
+
     static async DeleteUser(req: Request, res: Response) {
         try {
             const userId = parseInt(req.params.userId);
