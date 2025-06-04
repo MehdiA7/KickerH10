@@ -5,7 +5,7 @@ import { User } from "@/lib/types/type";
 import { Progress } from "../ui/progress";
 
 type ProfileOverviewProps = {
-    FetchUserProfile: Promise<User>;
+    FetchUserProfile: Promise<User> | User;
 };
 
 const ProfileOverview: FC<ProfileOverviewProps> = async ({ FetchUserProfile }) => {
