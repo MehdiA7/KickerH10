@@ -3,18 +3,8 @@ import { User } from "@/lib/types/type";
 
 const apiUrl = process.env.API_URL;
 
+// GET USER BY ID
 export async function FetchUserProfile(id: number) {
-    // fake data
-    // const user =
-    //     {
-    //         username: "QuentinLeS",
-    //         xp: 83,
-    //         level: 4,
-    //         won_game: 32,
-    //         lost_game: 21,
-    //         won_team_game: 10,
-    //         lost_team_game: 4,
-    //     };
 
     const user = await fetch(`${apiUrl}/user/${id}`, {
         method: "GET",
@@ -23,21 +13,6 @@ export async function FetchUserProfile(id: number) {
     const data = await user.json();
 
     return data.content;
-}
-
-export async function FetchUserProfileByName(name: string) {
-    const user = {
-        id: 0,
-        username: "QuentinLeS",
-        xp: 83,
-        level: 4,
-        won_game: 32,
-        lost_game: 21,
-        won_team_game: 10,
-        lost_team_game: 4,
-    };
-
-    return user;
 }
 
 export async function FetchFriendWithUserId(id: number) {
@@ -87,6 +62,7 @@ export async function FetchFriendWithUserId(id: number) {
     return userList;
 }
 
+// SEARCH BY USERNAME
 export async function FetchUserByUsername(userInput: string): Promise<User[]> {
     const response = await fetch(`${apiUrl}/user/search`, {
         method: "POST",

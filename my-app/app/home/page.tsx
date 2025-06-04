@@ -3,11 +3,11 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import React from "react";
 import { FetchUserProfile } from "../serverAction/fetchUsers";
-import RecentGame from "@/components/organisms/SoloGameTable";
+import RecentGame from "@/components/molecules/SoloGameTable";
 import SearchBar from "@/components/molecules/SearchBar";
 import { cookies } from "next/headers";
 import { FetchSoloMatchByUserId } from "../serverAction/fetchMatches";
-import SoloGameTable from "@/components/organisms/SoloGameTable";
+import SoloGameTable from "@/components/molecules/SoloGameTable";
 
 
 

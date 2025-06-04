@@ -2,8 +2,8 @@
 import React, { FC, useState } from "react";
 import { Button } from "../ui/button";
 import { SoloMatch, TeamMatch } from "@/lib/types/type";
-import SoloGameTable from "./SoloGameTable";
-import TeamGameTable from "./TeamGameTable";
+import SoloGameTable from "../molecules/SoloGameTable";
+import TeamGameTable from "../molecules/TeamGameTable";
 
 type ScoreTableProps = {
     FetchSoloMatch: SoloMatch[];
