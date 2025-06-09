@@ -2,6 +2,7 @@
 import {
     Card,
     CardContent,
+    CardDescription,
     CardFooter,
     CardHeader,
     CardTitle,
@@ -32,8 +33,8 @@ const GameModeSelector: FC<GameModeSelectorProps> = ({
     FetchFriendWithUserId,
     UserInformation,
 }) => {
-    const [gameMode, setGameMode] = useState("");
-    const [ally, setAlly] = useState("");
+    const [gameMode, setGameMode] = useState("1v1");
+    const [ally, setAlly] = useState(UserInformation.username);
     const [allyTeam, setAllyTeam] = useState<Team>();
     const [challenger, setChallenger] = useState("");
     const [challengerTeam, setChallengerTeam] = useState<Team>();
@@ -76,51 +77,46 @@ const GameModeSelector: FC<GameModeSelectorProps> = ({
         }
     };
 
-    useEffect(() => {
-        const fetchTeams = async () => {
-            const userid = 1;
-            const data = FetchTeamByUserId(userid);
-            setUserTeamsList(data);
-        };
-        /*  
-    if (UserInformation.id) {
-        fetchTeams(parseInt(UserInformation.id));
-    }
-    }, [UserInformation.id]);
-*/
-        //replace code below with code above when user id is available
-        fetchTeams();
-    }, [UserInformation.id]);
 
-    useEffect(() => {
-        setAlly(UserInformation.username);
-    }, []);
+    // NEXT FEATURE : TEAM GAME
+//     useEffect(() => {
+//         const fetchTeams = async () => {
+//             // const userid = 1;
+//             // const data = FetchTeamByUserId(userid);
+//             setUserTeamsList([]);
+//         };
+//         /*  
+//     if (UserInformation.id) {
+//         fetchTeams(parseInt(UserInformation.id));
+//     }
+//     }, [UserInformation.id]);
+// */
+//         //replace code below with code above when user id is available
+//         fetchTeams();
+//     }, [UserInformation.id]);
 
-    useEffect(() => {
-        const fetchTeams = async () => {
-            const challengerID = 1;
-            const data = FetchTeamByUserId(challengerID);
-            setchallengerTeamsList(data);
-            console.log("data =" + JSON.stringify(data));
-        };
-        /*  
-        if (UserInformation.id) {
-            fetchTeams(parseInt(UserInformation.id));
-        }
-        }, [UserInformation.id]);
-    */
-        //replace code below with code above when user id is available
-        fetchTeams();
-    }, [UserInformation.id]);
+//     useEffect(() => {
+//         const fetchTeams = async () => {
+//             const challengerID = 1;
+//             //const data = FetchTeamByUserId(challengerID);
+//             //setchallengerTeamsList(data);
+//         };
+//         /*  
+//         if (UserInformation.id) {
+//             fetchTeams(parseInt(UserInformation.id));
+//         }
+//         }, [UserInformation.id]);
+//     */
+//         //replace code below with code above when user id is available
+//         fetchTeams();
+//     }, [UserInformation.id]);
 
-    useEffect(() => {
-        setAlly(UserInformation.username);
-    }, []);
 
     return (
         <Card className="w-[350px]">
             <CardHeader>
                 <CardTitle>Select your GameMode</CardTitle>
+                <CardDescription>2v2 is available at the next update ! Stay tuned</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
                 <form>
@@ -128,11 +124,11 @@ const GameModeSelector: FC<GameModeSelectorProps> = ({
                         <Label htmlFor="gamemode">Game Mode</Label>
                         <Select onValueChange={(value) => setGameMode(value)}>
                             <SelectTrigger id="gamemode">
-                                <SelectValue placeholder="Select" />
+                                <SelectValue placeholder="1v1" />
                             </SelectTrigger>
                             <SelectContent position="popper">
                                 <SelectItem value="1v1">1v1</SelectItem>
-                                <SelectItem value="2v2">2v2</SelectItem>
+                                {/* <SelectItem value="2v2">2v2</SelectItem> */}
                             </SelectContent>
                         </Select>
                         {gameMode === "2v2" ? (
