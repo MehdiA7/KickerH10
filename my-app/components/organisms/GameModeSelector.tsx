@@ -1,4 +1,7 @@
 "use client";
+
+// NEED TO MAKE A BIG REFACTOR ON THIS COMPONENT WITH REACT HOOK FORM
+
 import {
     Card,
     CardContent,
@@ -15,6 +18,18 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import {
+    Drawer,
+    DrawerClose,
+    DrawerContent,
+    DrawerDescription,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger,
+} from "@/components/ui/drawer";
+import { Button } from "../ui/button";
+import SelectScore from "../molecules/SelectScore";
 import { useState, FC, useEffect } from "react";
 import SelectPlayer from "../molecules/SelectPlayer";
 import { FetchTeamByUserId } from "../../app/serverAction/fetchTeam";
@@ -35,13 +50,16 @@ const GameModeSelector: FC<GameModeSelectorProps> = ({
 }) => {
     const [gameMode, setGameMode] = useState("1v1");
     const [ally, setAlly] = useState(UserInformation.username);
+    const [allyScore, setAllyScore] = useState<string>();
     const [allyTeam, setAllyTeam] = useState<Team>();
     const [challenger, setChallenger] = useState("");
+    const [challengerScore, setChallengerScore] = useState<string>();
     const [challengerTeam, setChallengerTeam] = useState<Team>();
     const [userTeamsList, setUserTeamsList] = useState<Team[]>([]);
     const [challengerTeamsList, setchallengerTeamsList] = useState<Team[]>([]);
-    const handleScoreSubmit = (allyScore: string, challengerScore: string) => {
+    const handleScoreSubmit = () => {
         if (gameMode === "2v2") {
+
             /*
             ?? what is this ?
             const player1 = ally.split("");
@@ -55,6 +73,7 @@ const GameModeSelector: FC<GameModeSelectorProps> = ({
                 player4[0] + player4[1] + player4[2]
             }`;
             */
+            
             if (allyTeam != undefined && challengerTeam != undefined) {
                 let team1id = allyTeam.id;
                 let team2id = challengerTeam.id;
@@ -68,55 +87,62 @@ const GameModeSelector: FC<GameModeSelectorProps> = ({
                 console.log("Final score:", body);
             }
         } else {
+
+            if(!allyScore || !challengerScore) return <p>PROBLEM NO SCORE</p>;
             const body = {
                 player1: ally,
                 player2: challenger,
-                score1: allyScore,
-                score2: challengerScore,
+                score1: parseInt(allyScore),
+                score2: parseInt(challengerScore),
             };
+            console.log(body)
         }
     };
 
+    const handleSubmit = () => {
+        console.log(ally, challenger)
+    }
 
     // NEXT FEATURE : TEAM GAME
-//     useEffect(() => {
-//         const fetchTeams = async () => {
-//             // const userid = 1;
-//             // const data = FetchTeamByUserId(userid);
-//             setUserTeamsList([]);
-//         };
-//         /*  
-//     if (UserInformation.id) {
-//         fetchTeams(parseInt(UserInformation.id));
-//     }
-//     }, [UserInformation.id]);
-// */
-//         //replace code below with code above when user id is available
-//         fetchTeams();
-//     }, [UserInformation.id]);
+    //     useEffect(() => {
+    //         const fetchTeams = async () => {
+    //             // const userid = 1;
+    //             // const data = FetchTeamByUserId(userid);
+    //             setUserTeamsList([]);
+    //         };
+    //         /*
+    //     if (UserInformation.id) {
+    //         fetchTeams(parseInt(UserInformation.id));
+    //     }
+    //     }, [UserInformation.id]);
+    // */
+    //         //replace code below with code above when user id is available
+    //         fetchTeams();
+    //     }, [UserInformation.id]);
 
-//     useEffect(() => {
-//         const fetchTeams = async () => {
-//             const challengerID = 1;
-//             //const data = FetchTeamByUserId(challengerID);
-//             //setchallengerTeamsList(data);
-//         };
-//         /*  
-//         if (UserInformation.id) {
-//             fetchTeams(parseInt(UserInformation.id));
-//         }
-//         }, [UserInformation.id]);
-//     */
-//         //replace code below with code above when user id is available
-//         fetchTeams();
-//     }, [UserInformation.id]);
-
+    //     useEffect(() => {
+    //         const fetchTeams = async () => {
+    //             const challengerID = 1;
+    //             //const data = FetchTeamByUserId(challengerID);
+    //             //setchallengerTeamsList(data);
+    //         };
+    //         /*
+    //         if (UserInformation.id) {
+    //             fetchTeams(parseInt(UserInformation.id));
+    //         }
+    //         }, [UserInformation.id]);
+    //     */
+    //         //replace code below with code above when user id is available
+    //         fetchTeams();
+    //     }, [UserInformation.id]);
 
     return (
         <Card className="w-[350px]">
             <CardHeader>
                 <CardTitle>Select your GameMode</CardTitle>
-                <CardDescription>2v2 is available at the next update ! Stay tuned</CardDescription>
+                <CardDescription>
+                    2v2 is available at the next update ! Stay tuned
+                </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
                 <form>
@@ -178,14 +204,64 @@ const GameModeSelector: FC<GameModeSelectorProps> = ({
                 </form>
             </CardContent>
             <CardFooter className="flex justify-end">
-                <ScoreSelector
+                <Drawer>
+                    <DrawerTrigger asChild>
+                        <Button type="button">Play !</Button>
+                    </DrawerTrigger>
+                    <DrawerContent>
+                        <DrawerHeader>
+                            <DrawerTitle>Put your score !</DrawerTitle>
+                            <DrawerDescription>
+                                /!\ This action cannot be undone /!\
+                            </DrawerDescription>
+                        </DrawerHeader>
+
+                        <div className="flex flex-row justify-center space-x-20">
+                            <div className="flex flex-col items-center">
+                                <SelectScore
+                                    onScore={setAllyScore}
+                                    selectPlaceholder={"Score"}
+                                />
+                                <p className="mt-2">{ally}</p>
+                                {gameMode === "2v2" ? (
+                                    <>
+                                        <p>{allyTeam?.name}</p>
+                                    </>
+                                ) : null}
+                            </div>
+
+                            <div className="flex flex-col items-center">
+                                <SelectScore
+                                    onScore={setChallengerScore}
+                                    selectPlaceholder={"Score"}
+                                />
+                                {gameMode === "1v1" ? (
+                                    <p className="mt-2">{challenger}</p>
+                                ) : null}
+                                {gameMode === "2v2" ? (
+                                    <>
+                                        <p className="mt-2">{setChallengerTeam.name}</p>
+                                    </>
+                                ) : null}
+                            </div>
+                        </div>
+
+                        <DrawerFooter>
+                            <Button onClick={handleScoreSubmit}>Submit</Button>
+                            <DrawerClose asChild>
+                                <Button variant="outline">Cancel</Button>
+                            </DrawerClose>
+                        </DrawerFooter>
+                    </DrawerContent>
+                </Drawer>
+                {/* <ScoreSelector
                     ally={ally}
                     ally2={allyTeam?.name ?? "Unknown Team"}
                     challenger={challenger}
                     challenger2={challengerTeam?.name ?? "Unknown Team"}
                     GameMode={gameMode}
                     onScoreSubmit={handleScoreSubmit}
-                />
+                /> */}
             </CardFooter>
         </Card>
     );
