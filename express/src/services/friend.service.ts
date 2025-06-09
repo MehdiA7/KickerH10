@@ -5,6 +5,7 @@ import { AppDataSource } from "../config/database";
 import { FriendData } from "../lib/friendType";
 import { PlayerNotFoundError } from "../errors/users.errors";
 import { FriendRequestDoesntExist } from "../errors/friend.erros";
+import { PagingGameFormat } from "../lib/gameType";
 
 export class FriendService {
     private friendRepository: Repository<Friend>;
@@ -58,9 +59,12 @@ export class FriendService {
     }
 
     // I need to get all friend but un the table we have 2 column with id
-    async getFriend(userId: number): Promise<Friend[]> {
-        
-        const friend = await this.friendRepository.find({
+    async getFriend(userId: number, page: number, limit: number): Promise<PagingGameFormat<Friend[]>> {
+        const offset: number = (page - 1) * limit;
+
+        const [friend, total] = await this.friendRepository.findAndCount({
+            take: limit,
+            skip: offset,
             relations: ["user", "friend"],
             where: [{ user: { id: userId } }, { friend: { id: userId } }],
             select: {
@@ -89,6 +93,14 @@ export class FriendService {
             }
         });
 
-        return friend;
+        const totalPage = Math.ceil(total / limit)
+
+        const formatResponse = {
+            content: friend,
+            currentPage: page,
+            totalPage
+        }
+
+        return formatResponse;
     }
 }

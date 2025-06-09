@@ -187,12 +187,12 @@ export class SoloGameService {
                 },
             });
 
-        const totalPages = Math.ceil(total / limit);
+        const totalPage = Math.ceil(total / limit);
 
         const formatResponse = {
             content: allUserSoloGame,
             currentPage: page,
-            totalPage: totalPages,
+            totalPage: totalPage,
         };
 
         return formatResponse;

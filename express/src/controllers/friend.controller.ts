@@ -107,6 +107,8 @@ export class FriendController {
         try {
             
             const userId: number = parseInt(req.params.userId);
+            const pageNumber = parseInt(req.params.page);
+            const limitNumber = parseInt(req.params.limit);
 
             if (!userId) {
                 res.status(400).send({
@@ -116,12 +118,14 @@ export class FriendController {
                 return;
             }
 
-            const friend = await friendService.getFriend(userId);
+            const friend = await friendService.getFriend(userId, pageNumber, limitNumber);
 
             res.status(200).send({
                 success: true,
                 message: "Its works !",
-                content: friend
+                content: friend.content,
+                currentPage: friend.currentPage,
+                totalPage: friend.totalPage
             })
         } catch(error) {
 

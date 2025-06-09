@@ -7,6 +7,6 @@ friendRouter.use(express.json());
 
 friendRouter.post("/", logger, FriendController.createFriend);
 friendRouter.patch("/", logger, FriendController.acceptFriend);
-friendRouter.get("/:userId", logger, FriendController.getFriendWithUserId);
+friendRouter.get("/:userId/page=:page/limit=:limit", logger, FriendController.getFriendWithUserId);
 
 export default friendRouter;
