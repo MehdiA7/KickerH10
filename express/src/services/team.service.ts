@@ -44,4 +44,14 @@ export class TeamService {
 
         return await this.teamRepository.save(newTeam);
     }
+
+    async getTeamByUserId(userId: number): Promise<Team[]> {
+
+        const team = await this.teamRepository.find({
+            relations: ["player1", "player2"],
+            where: [{player1: {id: userId}}, {player2: {id: userId}}],
+        });
+
+        return team;
+    }
 }

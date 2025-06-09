@@ -63,4 +63,36 @@ export class TeamController {
             return
         }
     }
+
+    static async getTeamByUserId(req: Request, res: Response) {
+        try {
+            const userId: string = req.params.userId;
+
+            const id: number = parseInt(userId);
+
+            if (!Number.isInteger(id) || id < 0) {
+                res.status(400).send({
+                    success: false,
+                    message: "Id format is not good, need only positive number"
+                });
+                return;
+            } 
+
+            const response = await teamService.getTeamByUserId(id);
+            
+            res.status(200).send({
+                success: true,
+                message: "All team by userId",
+                content: response
+            });
+            return;
+
+        } catch (error) {
+            res.status(500).send({
+                success: false,
+                message: `Unknow error : ${error}`
+            });
+            return;
+        }
+    }
 }
