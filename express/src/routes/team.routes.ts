@@ -6,5 +6,6 @@ const teamRouter = express.Router();
 teamRouter.use(express.json());
 
 teamRouter.post("/", logger, TeamController.createTeam);
+teamRouter.get("/userId=:userId", logger, TeamController.getTeamByUserId);
 
 export default teamRouter;

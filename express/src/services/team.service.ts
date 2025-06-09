@@ -47,9 +47,31 @@ export class TeamService {
 
     async getTeamByUserId(userId: number): Promise<Team[]> {
 
+        const userExist = await this.usersRepository.exists({
+            where: {id: userId}
+        });
+
+        if(!userExist) throw new PlayerNotFoundError(userId);
+
         const team = await this.teamRepository.find({
             relations: ["player1", "player2"],
             where: [{player1: {id: userId}}, {player2: {id: userId}}],
+            select: {
+                id: true,
+                name: true,
+                player1: {
+                    id: true,
+                    username: true
+                },
+                player2: {
+                    id: true,
+                    username: true
+                },
+                wongame: true,
+                lostgame: true,
+                goal: true,
+                createdat: true
+            }
         });
 
         return team;

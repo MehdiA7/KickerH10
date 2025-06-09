@@ -88,6 +88,15 @@ export class TeamController {
             return;
 
         } catch (error) {
+
+            if(error instanceof PlayerNotFoundError) {
+                res.status(400).send({
+                    success: false,
+                    message: error.message
+                });
+                return;
+            }
+
             res.status(500).send({
                 success: false,
                 message: `Unknow error : ${error}`
