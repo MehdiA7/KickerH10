@@ -44,6 +44,7 @@ const GameModeSelector: FC<GameModeSelectorProps> = ({
 
         if (gameMode === "2v2") {
             /*
+            ?? what is this ?
             const player1 = ally.split("");
             const player2 = allyTeam.split("");
             const player3 = challenger.split("");

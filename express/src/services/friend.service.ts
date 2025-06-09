@@ -59,17 +59,35 @@ export class FriendService {
 
     // I need to get all friend but un the table we have 2 column with id
     async getFriend(userId: number): Promise<Friend[]> {
-        const friend = await this.friendRepository
-            .createQueryBuilder("friend")
-            .leftJoinAndSelect("friend.users", "users", "users.id = :userId", {
-                userId: userId,
-            })
-            .where("userId = :id", { id: userId })
-            .orWhere("friendId = :id", { id: userId })
-            .getMany();
-
-        // const friend = await this.usersRepository
-        //     .findOneBy({id: userId})
+        
+        const friend = await this.friendRepository.find({
+            relations: ["user", "friend"],
+            where: [{ user: { id: userId } }, { friend: { id: userId } }],
+            select: {
+                id: true,
+                accepted: true,
+                friend: {
+                    id: true,
+                    username: true,
+                    xp: true,
+                    level: true,
+                    wongame: true,
+                    lostgame: true,
+                    wonteamgame: true,
+                    lostteamgame: true
+                },
+                user: {
+                    id: true,
+                    username: true,
+                    xp: true,
+                    level: true,
+                    wongame: true,
+                    lostgame: true,
+                    wonteamgame: true,
+                    lostteamgame: true
+                }
+            }
+        });
 
         return friend;
     }
