@@ -1,11 +1,10 @@
-"use server"
+"use server";
 import { User } from "@/lib/types/type";
 
 const apiUrl = process.env.API_URL;
 
 // GET USER BY ID
 export async function FetchUserProfile(id: number) {
-
     const user = await fetch(`${apiUrl}/user/id=${id}`, {
         method: "GET",
     });
@@ -15,51 +14,14 @@ export async function FetchUserProfile(id: number) {
     return data.content;
 }
 
-export async function FetchFriendWithUserId(id: number) {
-    const userList = [
-        {
-            id: 4,
-            username: "Hugo",
-        },
-        {
-            id: 5,
-            username: "Martin",
-        },
-        {
-            id: 6,
-            username: "Robin",
-        },
-        {
-            id: 7,
-            username: "Nico",
-        },
-        {
-            id: 8,
-            username: "Pierre",
-        },
-        {
-            id: 9,
-            username: "Scott Borlon",
-        },
-        {
-            id: 10,
-            username: "Bryan Charles",
-        },
-        {
-            id: 11,
-            username: "Lucas Cloes",
-        },
-        {
-            id: 12,
-            username: "Denis Collette",
-        },
-        {
-            id: 13,
-            username: "Emmanuel Cuiret",
-        },
-    ];
+export async function FetchFriendWithUserId(id: number, page: number, limit: number) {
+    const user = await fetch(`${apiUrl}/friend/id=${id}/page=${page}/limit=${limit}`, {
+        method: "GET",
+    });
 
-    return userList;
+    const data = await user.json();
+
+    return data.content;
 }
 
 // SEARCH BY USERNAME
@@ -70,12 +32,12 @@ export async function SearchUserByUsername(userInput: string): Promise<User[]> {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            input: userInput
+            input: userInput,
         }),
     });
 
     const data = await response.json();
-    
+
     return data.content;
 }
 

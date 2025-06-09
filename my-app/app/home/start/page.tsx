@@ -17,7 +17,7 @@ const StartPage = async () => {
 // check if player is not playing against himself
 
     const userInformation = {
-        id: id,
+        id: parseInt(id),
         username: username
     };
 
@@ -28,7 +28,7 @@ const StartPage = async () => {
             </h1>
             <div className="flex justify-center">
                 <GameModeSelector
-                    FetchFriendWithUserId={FetchFriendWithUserId()}
+                    FetchFriendWithUserId={await FetchFriendWithUserId(userInformation.id, 1,5)}
                     UserInformation={userInformation}
                 />
             </div>

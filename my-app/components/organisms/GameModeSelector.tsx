@@ -16,13 +16,12 @@ import {
 } from "@/components/ui/select";
 import { useState, FC, useEffect } from "react";
 import SelectPlayer from "../molecules/SelectPlayer";
-import {FetchTeamByUserId} from "../../app/serverAction/fetchTeam"
+import { FetchTeamByUserId } from "../../app/serverAction/fetchTeam";
 import { FriendUserList } from "@/lib/types/type";
 import ScoreSelector from "./ScoreSelector";
 import { CookieUserInformation } from "@/lib/types/authTypes";
 import { Team } from "@/lib/types/type";
 import SelectTeam from "../molecules/SelectTeam";
-
 
 type GameModeSelectorProps = {
     FetchFriendWithUserId: FriendUserList[];
@@ -41,7 +40,6 @@ const GameModeSelector: FC<GameModeSelectorProps> = ({
     const [userTeamsList, setUserTeamsList] = useState<Team[]>([]);
     const [challengerTeamsList, setchallengerTeamsList] = useState<Team[]>([]);
     const handleScoreSubmit = (allyScore: string, challengerScore: string) => {
-
         if (gameMode === "2v2") {
             /*
             ?? what is this ?
@@ -56,77 +54,68 @@ const GameModeSelector: FC<GameModeSelectorProps> = ({
                 player4[0] + player4[1] + player4[2]
             }`;
             */
-            if(allyTeam != undefined && challengerTeam != undefined){
-            let team1id = allyTeam.id
-            let team2id = challengerTeam.id
+            if (allyTeam != undefined && challengerTeam != undefined) {
+                let team1id = allyTeam.id;
+                let team2id = challengerTeam.id;
 
-            const body = {
-                team1: team1id,
-                team2: team2id,
-                team1score: allyScore,
-                team2scpre: challengerScore,
-            };
-            console.log("Final score:", body);
-            
+                const body = {
+                    team1: team1id,
+                    team2: team2id,
+                    team1score: allyScore,
+                    team2scpre: challengerScore,
+                };
+                console.log("Final score:", body);
             }
         } else {
             const body = {
                 player1: ally,
                 player2: challenger,
                 score1: allyScore,
-                score2: challengerScore
-            }
+                score2: challengerScore,
+            };
         }
     };
 
-
-
     useEffect(() => {
-    const fetchTeams = async () => {
-        const userid = 1
-        const data = FetchTeamByUserId(userid)
-        setUserTeamsList(data);
-        
-    };
- /*  
+        const fetchTeams = async () => {
+            const userid = 1;
+            const data = FetchTeamByUserId(userid);
+            setUserTeamsList(data);
+        };
+        /*  
     if (UserInformation.id) {
         fetchTeams(parseInt(UserInformation.id));
     }
     }, [UserInformation.id]);
 */
-    //replace code below with code above when user id is available
-    fetchTeams();
-    
+        //replace code below with code above when user id is available
+        fetchTeams();
     }, [UserInformation.id]);
 
     useEffect(() => {
         setAlly(UserInformation.username);
     }, []);
 
-
     useEffect(() => {
-    const fetchTeams = async () => {
-        const challengerID = 1
-        const data = FetchTeamByUserId(challengerID)
-        setchallengerTeamsList(data);
-        console.log("data =" + JSON.stringify(data))
-    };
-    /*  
+        const fetchTeams = async () => {
+            const challengerID = 1;
+            const data = FetchTeamByUserId(challengerID);
+            setchallengerTeamsList(data);
+            console.log("data =" + JSON.stringify(data));
+        };
+        /*  
         if (UserInformation.id) {
             fetchTeams(parseInt(UserInformation.id));
         }
         }, [UserInformation.id]);
     */
         //replace code below with code above when user id is available
-    fetchTeams();
-    
+        fetchTeams();
     }, [UserInformation.id]);
 
     useEffect(() => {
         setAlly(UserInformation.username);
     }, []);
-
-
 
     return (
         <Card className="w-[350px]">
@@ -154,7 +143,7 @@ const GameModeSelector: FC<GameModeSelectorProps> = ({
                                 <SelectTeam
                                     FetchTeamByUserId={userTeamsList}
                                     onTeamSelect={setAllyTeam}
-                                    />
+                                />
                             </>
                         ) : (
                             ""
@@ -170,13 +159,20 @@ const GameModeSelector: FC<GameModeSelectorProps> = ({
                                     FetchFriendWithUserId={
                                         FetchFriendWithUserId
                                     }
+                                    userInformation={UserInformation}
                                     onPlayerSelect={setChallenger}
                                 />
                                 {gameMode === "2v2" ? (
-                                        challenger != "" ? (<SelectTeam
-                                        FetchTeamByUserId={challengerTeamsList}
-                                        onTeamSelect={setChallengerTeam}
-                                    />) : ("")
+                                    challenger != "" ? (
+                                        <SelectTeam
+                                            FetchTeamByUserId={
+                                                challengerTeamsList
+                                            }
+                                            onTeamSelect={setChallengerTeam}
+                                        />
+                                    ) : (
+                                        ""
+                                    )
                                 ) : (
                                     ""
                                 )}

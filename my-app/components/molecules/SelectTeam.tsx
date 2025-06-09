@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import {
     DropdownMenu,
     DropdownMenuContent,
-    DropdownMenuLabel,
+    DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Team } from "@/lib/types/type";
@@ -38,13 +38,13 @@ const SelectTeam: FC<SelectTeamProps> = ({
             <DropdownMenuContent className="w-56">
                 { UserTeam && (
                     UserTeam.map((f) => (
-                        <DropdownMenuLabel 
+                        <DropdownMenuItem
                             key={f.name} 
                             className="hover:bg-gray-50" 
                             onClick={() => handleSelect(f)}
                         >
                             {f.name}
-                        </DropdownMenuLabel>
+                        </DropdownMenuItem>
 
                         
                     ))

@@ -40,7 +40,7 @@ const ScoreSelector: FC<ScoreSelectorProps> = ({
 
     return (
         <Drawer>
-            <DrawerTrigger>
+            <DrawerTrigger asChild>
                 <Button type="button">Play !</Button>
             </DrawerTrigger>
             <DrawerContent>

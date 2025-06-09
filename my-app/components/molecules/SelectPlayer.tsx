@@ -3,19 +3,22 @@ import { Button } from "@/components/ui/button";
 import {
     DropdownMenu,
     DropdownMenuContent,
-    DropdownMenuLabel,
+    DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { CookieUserInformation } from "@/lib/types/authTypes";
 import { FriendUserList } from "@/lib/types/type";
 import { useState, FC } from "react";
 
 type SelectPlayerProps = {
-    FetchFriendWithUserId: FriendUserList[]
+    FetchFriendWithUserId: FriendUserList[];
+    userInformation: CookieUserInformation;
     onPlayerSelect: (name: string) => void;
 }
 
 const SelectPlayer: FC<SelectPlayerProps> = ({ 
     FetchFriendWithUserId,
+    userInformation,
     onPlayerSelect}) => {
 
     const [player, setPlayer] = useState("");
@@ -36,13 +39,13 @@ const SelectPlayer: FC<SelectPlayerProps> = ({
             <DropdownMenuContent className="w-56">
                 { friends && (
                     friends.map((f) => (
-                        <DropdownMenuLabel 
-                            key={f.username} 
+                        <DropdownMenuItem 
+                            key={f.id} 
                             className="hover:bg-gray-50" 
-                            onClick={() => handleSelect(f.username)}
+                            onClick={() => handleSelect(f.friend.id === userInformation.id ? f.user.username : f.friend.username)}
                         >
-                            {f.username}
-                        </DropdownMenuLabel>
+                            {f.friend.id === userInformation.id ? f.user.username : f.friend.username}
+                        </DropdownMenuItem>
                     ))
                 )}
             </DropdownMenuContent>
