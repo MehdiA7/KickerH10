@@ -21,6 +21,9 @@ import { NewGame, newGameSchema } from "@/lib/schema/newGame";
 import { FriendUserList } from "@/lib/types/type";
 import { CookieUserInformation } from "@/lib/types/authTypes";
 import SelectFriend from "../molecules/SelectFriend";
+import { useFormContext } from "react-hook-form";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 
 type GameModeSelectorProps = {
     FetchFriendWithUserId: FriendUserList[];
@@ -35,12 +38,17 @@ const GameModeSelector = ({
         register,
         handleSubmit,
         control,
+        watch,
         formState: { errors },
     } = useForm<NewGame>({
         resolver: zodResolver(newGameSchema),
     });
 
     const [gameMode, setGameMode] = useState("");
+
+    const watchedPlayer2 = watch("player2");
+    const watchedScore1 = watch("score1");
+    const watchedScore2 = watch("score2");
 
     const handleCreateNewGame: SubmitHandler<NewGame> = async (data) => {
         // send data here in api
@@ -54,7 +62,7 @@ const GameModeSelector = ({
                     2v2 is available at the next update ! Stay tuned
                 </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-6">
+            <CardContent className="space-y-3">
                 <div>
                     <Select onValueChange={setGameMode}>
                         <SelectTrigger>
@@ -64,25 +72,59 @@ const GameModeSelector = ({
                             <SelectItem value="1v1">1v1</SelectItem>
                         </SelectContent>
                     </Select>
+                    {gameMode && (
+                        <p className="flex justify-center mt-4 font-semibold">
+                            {UserInformation.username}
+                        </p>
+                    )}
                 </div>
                 <form>
                     {gameMode && (
-                        <>
-                            <p>Your challenger</p>
-                            <Controller
-                                name="player2"
-                                control={control}
-                                render={({ field }) => (
-                                    <SelectFriend
-                                        data={FetchFriendWithUserId}
-                                        onSelectFriend={(value) =>
-                                            field.onChange(value)
-                                        }
-                                        value={field.value}
-                                    />
+                        <div className="grid w-full items-center gap-4">
+                            <div className="flex flex-col space-y-4">
+                                <p className="flex justify-center font-bold">VS</p>
+                                <Controller
+                                    name="player2"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <SelectFriend
+                                            data={FetchFriendWithUserId}
+                                            onSelectFriend={(value) =>
+                                                field.onChange(value)
+                                            }
+                                            value={field.value}
+                                        />
+                                    )}
+                                />
+                                {watchedPlayer2 && (
+                                    <>
+                                        <p className="mb-2">Your score</p>
+                                        <Input
+                                            type="number"
+                                            {...register("score1")}
+                                            className="w-20"
+                                        />
+                                        {watchedScore1 && (
+                                            <>
+                                                <p className="mb-2">
+                                                    Challenger score
+                                                </p>
+                                                <Input
+                                                    className="w-20"
+                                                    type="number"
+                                                    {...register("score2")}
+                                                />
+                                                {watchedScore2 && (
+                                                    <div className="flex justify-end">
+                                                        <Button>SAVE</Button>
+                                                    </div>
+                                                )}
+                                            </>
+                                        )}
+                                    </>
                                 )}
-                            />
-                        </>
+                            </div>
+                        </div>
                     )}
                 </form>
             </CardContent>
