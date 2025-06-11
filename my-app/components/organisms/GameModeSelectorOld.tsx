@@ -44,6 +44,8 @@ type GameModeSelectorProps = {
     UserInformation: CookieUserInformation;
 };
 
+// Maybe bad type approche
+// https://www.flaming.codes/posts/react-fc-vs-function-components-typescript
 const GameModeSelectorOld: FC<GameModeSelectorProps> = ({
     FetchFriendWithUserId,
     UserInformation,
