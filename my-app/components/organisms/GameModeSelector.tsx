@@ -39,19 +39,22 @@ const GameModeSelector = ({
         handleSubmit,
         control,
         watch,
+        setValue,
         formState: { errors },
     } = useForm<NewGame>({
         resolver: zodResolver(newGameSchema),
     });
 
-    const [gameMode, setGameMode] = useState("");
-
+    setValue("player1", UserInformation.id);
     const watchedPlayer2 = watch("player2");
     const watchedScore1 = watch("score1");
     const watchedScore2 = watch("score2");
+    
+    const [gameMode, setGameMode] = useState("");
 
     const handleCreateNewGame: SubmitHandler<NewGame> = async (data) => {
         // send data here in api
+        
     };
 
     return (
@@ -82,46 +85,52 @@ const GameModeSelector = ({
                     {gameMode && (
                         <div className="grid w-full items-center gap-4">
                             <div className="flex flex-col space-y-4">
-                                <p className="flex justify-center font-bold">VS</p>
-                                <Controller
-                                    name="player2"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <SelectFriend
-                                            data={FetchFriendWithUserId}
-                                            onSelectFriend={(value) =>
-                                                field.onChange(value)
-                                            }
-                                            value={field.value}
-                                        />
-                                    )}
-                                />
-                                {watchedPlayer2 && (
-                                    <>
-                                        <p className="mb-2">Your score</p>
-                                        <Input
-                                            type="number"
-                                            {...register("score1")}
-                                            className="w-20"
-                                        />
-                                        {watchedScore1 && (
-                                            <>
-                                                <p className="mb-2">
-                                                    Challenger score
-                                                </p>
-                                                <Input
-                                                    className="w-20"
-                                                    type="number"
-                                                    {...register("score2")}
-                                                />
-                                                {watchedScore2 && (
-                                                    <div className="flex justify-end">
-                                                        <Button>SAVE</Button>
-                                                    </div>
-                                                )}
-                                            </>
+                                <p className="flex justify-center font-bold">
+                                    VS
+                                </p>
+                                <div className="flex justify-center">
+                                    <Controller
+                                        name="player2"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <SelectFriend
+                                                data={FetchFriendWithUserId}
+                                                onSelectFriend={(value) =>
+                                                    field.onChange(value)
+                                                }
+                                                value={field.value}
+                                            />
                                         )}
-                                    </>
+                                    />
+                                </div>
+                                <div className="flex justify-center items-center space-x-18">
+                                    {watchedPlayer2 && (
+                                        <div className="flex flex-col justify-center">
+                                            <p className="mb-2">Your score</p>
+                                            <Input
+                                                type="number"
+                                                {...register("score1")}
+                                                className="w-20"
+                                            />
+                                        </div>
+                                    )}
+                                    {watchedScore1 && (
+                                        <div className="flex flex-col justify-center items-center">
+                                            <p className="mb-2">
+                                                Challenger score
+                                            </p>
+                                            <Input
+                                                className="w-20"
+                                                type="number"
+                                                {...register("score2")}
+                                            />
+                                        </div>
+                                    )}
+                                </div>
+                                {watchedScore2 && (
+                                    <div className="flex justify-end">
+                                        <Button>SAVE</Button>
+                                    </div>
                                 )}
                             </div>
                         </div>
