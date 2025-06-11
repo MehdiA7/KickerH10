@@ -20,22 +20,21 @@ import {
 } from "@/components/ui/popover";
 import { FieldError } from "react-hook-form";
 
-type SelectCountryProps = {
-    onSelectCountry: (name: string) => void;
+type SelectFriendProps = {
+    onSelectFriend: (name: string) => void;
     data: string[];
     value?: string;
     reject?: FieldError;
 };
 
-const SelectCountry = ({
-    onSelectCountry,
+const SelectFriend = ({
+    onSelectFriend,
     data,
     value: externalValue,
     reject,
-}: SelectCountryProps) => {
+}: SelectFriendProps) => {
     const [open, setOpen] = React.useState(false);
     const [value, setValue] = React.useState("");
-    const countryData = data;
 
     useEffect(() => {
         if (externalValue !== undefined) {
@@ -45,7 +44,7 @@ const SelectCountry = ({
 
     const handleSelect = (val: string) => {
         setValue(val);
-        onSelectCountry(val);
+        onSelectFriend(val);
         setOpen(false);
     };
 
@@ -63,7 +62,7 @@ const SelectCountry = ({
                     }
                 >
                     {value
-                        ? countryData.find((country) => country === value)
+                        ? data.find((f) => f === value)
                         : "Select country..."}
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
@@ -72,12 +71,12 @@ const SelectCountry = ({
                 <Command>
                     <CommandInput placeholder="Search country..." />
                     <CommandList>
-                        <CommandEmpty>No country found.</CommandEmpty>
+                        <CommandEmpty>No friend found.</CommandEmpty>
                         <CommandGroup>
-                            {countryData.map((country) => (
+                            {data.map((f) => (
                                 <CommandItem
-                                    key={country}
-                                    value={country}
+                                    key={f}
+                                    value={f}
                                     onSelect={(currentValue) => {
                                         handleSelect(
                                             currentValue === value
@@ -89,12 +88,12 @@ const SelectCountry = ({
                                     <Check
                                         className={cn(
                                             "mr-2 h-4 w-4",
-                                            value === country
+                                            value === f
                                                 ? "opacity-100"
                                                 : "opacity-0"
                                         )}
                                     />
-                                    {country}
+                                    {f}
                                 </CommandItem>
                             ))}
                         </CommandGroup>
@@ -105,4 +104,4 @@ const SelectCountry = ({
     );
 };
 
-export default SelectCountry;
+export default SelectFriend;

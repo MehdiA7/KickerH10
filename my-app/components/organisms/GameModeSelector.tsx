@@ -1,4 +1,5 @@
-import React, { FC } from "react";
+"use client";
+import React, { useState } from "react";
 import {
     Card,
     CardContent,
@@ -25,11 +26,11 @@ type GameModeSelectorProps = {
     UserInformation: CookieUserInformation;
 };
 
-const GameModeSelector= ({
+const GameModeSelector = ({
     FetchFriendWithUserId,
-    UserInformation
+    UserInformation,
 }: GameModeSelectorProps) => {
-    const { 
+    const {
         register,
         handleSubmit,
         control,
@@ -38,9 +39,11 @@ const GameModeSelector= ({
         resolver: zodResolver(newGameSchema),
     });
 
+    const [gameMode, setGameMode] = useState("");
+
     const handleCreateNewGame: SubmitHandler<NewGame> = async (data) => {
         // send data here in api
-    }
+    };
 
     return (
         <Card className="w-[350px]">
@@ -50,7 +53,23 @@ const GameModeSelector= ({
                     2v2 is available at the next update ! Stay tuned
                 </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-6"></CardContent>
+            <CardContent className="space-y-6">
+                    <div>
+                        <Select onValueChange={setGameMode}>
+                            <SelectTrigger>
+                                <SelectValue placeholder="X"/>
+                            </SelectTrigger>
+                            <SelectContent position="popper">
+                                <SelectItem value="1v1">1v1</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
+                <form>
+                    {gameMode && (
+                        <p>Your challenger</p>
+                    )}
+                </form>
+            </CardContent>
         </Card>
     );
 };
