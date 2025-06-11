@@ -59,7 +59,7 @@ export class FriendService {
     }
 
     // I need to get all friend but un the table we have 2 column with id
-    async getFriend(userId: number, page: number, limit: number): Promise<PagingGameFormat<Friend[]>> {
+    async getFriend(userId: number, page: number, limit: number): Promise<PagingGameFormat<any[]>> {
         const offset: number = (page - 1) * limit;
 
         const [friend, total] = await this.friendRepository.findAndCount({
@@ -93,10 +93,20 @@ export class FriendService {
             }
         });
 
+        const formatedFriend = friend.map(relation => {
+        const friendData = relation.user.id === userId ? relation.friend : relation.user;
+        
+        return {
+            id: relation.id,
+            accepted: relation.accepted,
+            friend: friendData
+        };
+    });
+
         const totalPage = Math.ceil(total / limit)
 
         const formatResponse = {
-            content: friend,
+            content: formatedFriend,
             currentPage: page,
             totalPage
         }
