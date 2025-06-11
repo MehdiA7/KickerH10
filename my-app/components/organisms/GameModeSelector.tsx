@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     Card,
     CardContent,
@@ -45,16 +45,23 @@ const GameModeSelector = ({
         resolver: zodResolver(newGameSchema),
     });
 
-    setValue("player1", UserInformation.id);
+    const [disableButton, setDisableButton] = useState(false);
+
+    // About setValue or reset https://github.com/orgs/react-hook-form/discussions/7671
+    useEffect(() => {
+        setValue("player1", UserInformation.id);
+    }, [setValue])
     const watchedPlayer2 = watch("player2");
     const watchedScore1 = watch("score1");
     const watchedScore2 = watch("score2");
-    
+
     const [gameMode, setGameMode] = useState("");
 
     const handleCreateNewGame: SubmitHandler<NewGame> = async (data) => {
         // send data here in api
-        
+        setDisableButton(true);
+        console.log(data);
+        setDisableButton(false);
     };
 
     return (
@@ -81,7 +88,7 @@ const GameModeSelector = ({
                         </p>
                     )}
                 </div>
-                <form>
+                <form onSubmit={handleSubmit(handleCreateNewGame)}>
                     {gameMode && (
                         <div className="grid w-full items-center gap-4">
                             <div className="flex flex-col space-y-4">
@@ -108,9 +115,10 @@ const GameModeSelector = ({
                                         <div className="flex flex-col justify-center">
                                             <p className="mb-2">Your score</p>
                                             <Input
-                                                type="number"
-                                                {...register("score1")}
                                                 className="w-20"
+                                                type="number"
+                                                max="11"
+                                                {...register("score1")}
                                             />
                                         </div>
                                     )}
@@ -122,6 +130,7 @@ const GameModeSelector = ({
                                             <Input
                                                 className="w-20"
                                                 type="number"
+                                                max="11"
                                                 {...register("score2")}
                                             />
                                         </div>
@@ -129,7 +138,14 @@ const GameModeSelector = ({
                                 </div>
                                 {watchedScore2 && (
                                     <div className="flex justify-end">
-                                        <Button>SAVE</Button>
+                                        <Button
+                                            className={`w-full ${
+                                                disableButton &&
+                                                "animate-bounce"
+                                            }`}
+                                        >
+                                            SAVE
+                                        </Button>
                                     </div>
                                 )}
                             </div>
