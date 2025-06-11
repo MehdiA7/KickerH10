@@ -2,7 +2,7 @@ import { Repository } from "typeorm";
 import { Friend } from "../entities/Friend.entity";
 import { Users } from "../entities/Users.entity";
 import { AppDataSource } from "../config/database";
-import { FriendData } from "../lib/friendType";
+import { FriendData, FriendList } from "../lib/friendType";
 import { PlayerNotFoundError } from "../errors/users.errors";
 import { FriendRequestDoesntExist } from "../errors/friend.erros";
 import { PagingGameFormat } from "../lib/gameType";
@@ -59,7 +59,7 @@ export class FriendService {
     }
 
     // I need to get all friend but un the table we have 2 column with id
-    async getFriend(userId: number, page: number, limit: number): Promise<PagingGameFormat<any[]>> {
+    async getFriend(userId: number, page: number, limit: number): Promise<PagingGameFormat<FriendList[]>> {
         const offset: number = (page - 1) * limit;
 
         const [friend, total] = await this.friendRepository.findAndCount({
@@ -78,7 +78,8 @@ export class FriendService {
                     wongame: true,
                     lostgame: true,
                     wonteamgame: true,
-                    lostteamgame: true
+                    lostteamgame: true,
+                    createdat: true
                 },
                 user: {
                     id: true,
@@ -88,7 +89,8 @@ export class FriendService {
                     wongame: true,
                     lostgame: true,
                     wonteamgame: true,
-                    lostteamgame: true
+                    lostteamgame: true,
+                    createdat:true
                 }
             }
         });
