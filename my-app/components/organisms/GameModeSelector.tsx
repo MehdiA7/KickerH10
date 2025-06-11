@@ -14,8 +14,14 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const GameModeSelector = () => {
+    const {
+        register,
+        
+    } = useForm<
   return (
     <Card className="w-[350px]">
         <CardHeader>

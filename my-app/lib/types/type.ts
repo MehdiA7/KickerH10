@@ -35,11 +35,6 @@ export type SoloMatch = {
     createdat: Date;
 };
 
-export type SoloAndTeamMatch = {
-    sologame: SoloMatch[];
-    teamgame: TeamMatch[];
-};
-
 export type Team = {
     id: number;
     name: string;
