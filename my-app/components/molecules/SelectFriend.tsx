@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -19,11 +19,12 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover";
 import { FieldError } from "react-hook-form";
+import { FriendUserList } from "@/lib/types/type";
 
 type SelectFriendProps = {
-    onSelectFriend: (name: string) => void;
-    data: string[];
-    value?: string;
+    onSelectFriend: (id: number) => void;
+    data: FriendUserList[];
+    value?: number;
     reject?: FieldError;
 };
 
@@ -33,8 +34,8 @@ const SelectFriend = ({
     value: externalValue,
     reject,
 }: SelectFriendProps) => {
-    const [open, setOpen] = React.useState(false);
-    const [value, setValue] = React.useState("");
+    const [open, setOpen] = useState(false);
+    const [value, setValue] = useState<number>();
 
     useEffect(() => {
         if (externalValue !== undefined) {
@@ -42,7 +43,7 @@ const SelectFriend = ({
         }
     }, [externalValue]);
 
-    const handleSelect = (val: string) => {
+    const handleSelect = (val: number) => {
         setValue(val);
         onSelectFriend(val);
         setOpen(false);
@@ -62,8 +63,8 @@ const SelectFriend = ({
                     }
                 >
                     {value
-                        ? data.find((f) => f === value)
-                        : "Select country..."}
+                        ? data.find((f) => f.friend.id === value)?.friend.username
+                        : "Select friend..."}
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
             </PopoverTrigger>
@@ -75,25 +76,19 @@ const SelectFriend = ({
                         <CommandGroup>
                             {data.map((f) => (
                                 <CommandItem
-                                    key={f}
-                                    value={f}
-                                    onSelect={(currentValue) => {
-                                        handleSelect(
-                                            currentValue === value
-                                                ? ""
-                                                : currentValue
-                                        );
-                                    }}
+                                    key={f.id}
+                                    value={f.friend.username}
+                                    onSelect={() => handleSelect(f.friend.id)}
                                 >
                                     <Check
                                         className={cn(
                                             "mr-2 h-4 w-4",
-                                            value === f
+                                            value === f.friend.id
                                                 ? "opacity-100"
                                                 : "opacity-0"
                                         )}
                                     />
-                                    {f}
+                                    {f.friend.username}
                                 </CommandItem>
                             ))}
                         </CommandGroup>

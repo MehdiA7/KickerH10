@@ -18,10 +18,8 @@ export type User = {
 
 export type FriendUserList = {
     id: number;
-    user: User;
     friend: User;
     accepted: boolean;
-    createdat: Date;
 };
 
 export type SoloMatch = {

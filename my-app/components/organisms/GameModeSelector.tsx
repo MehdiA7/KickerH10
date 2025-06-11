@@ -20,6 +20,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { NewGame, newGameSchema } from "@/lib/schema/newGame";
 import { FriendUserList } from "@/lib/types/type";
 import { CookieUserInformation } from "@/lib/types/authTypes";
+import SelectFriend from "../molecules/SelectFriend";
 
 type GameModeSelectorProps = {
     FetchFriendWithUserId: FriendUserList[];
@@ -54,19 +55,34 @@ const GameModeSelector = ({
                 </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-                    <div>
-                        <Select onValueChange={setGameMode}>
-                            <SelectTrigger>
-                                <SelectValue placeholder="X"/>
-                            </SelectTrigger>
-                            <SelectContent position="popper">
-                                <SelectItem value="1v1">1v1</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
+                <div>
+                    <Select onValueChange={setGameMode}>
+                        <SelectTrigger>
+                            <SelectValue placeholder="X" />
+                        </SelectTrigger>
+                        <SelectContent position="popper">
+                            <SelectItem value="1v1">1v1</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
                 <form>
                     {gameMode && (
-                        <p>Your challenger</p>
+                        <>
+                            <p>Your challenger</p>
+                            <Controller
+                                name="player2"
+                                control={control}
+                                render={({ field }) => (
+                                    <SelectFriend
+                                        data={FetchFriendWithUserId}
+                                        onSelectFriend={(value) =>
+                                            field.onChange(value)
+                                        }
+                                        value={field.value}
+                                    />
+                                )}
+                            />
+                        </>
                     )}
                 </form>
             </CardContent>
