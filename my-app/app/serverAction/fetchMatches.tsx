@@ -20,8 +20,6 @@ export async function FetchCreateSoloMatch(
             body: JSON.stringify(body),
         });
 
-        console.log(response.status);
-
         const data = await response.json();
 
         return data;
