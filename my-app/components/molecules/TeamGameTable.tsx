@@ -21,7 +21,7 @@ const TeamGameTable: FC<TeamGameTableProps> = ({ FetchTeamMatch }) => {
     return (
         <>
             <Table className="w-88 m-auto ">
-                <TableCaption>⚽ Team Game ⚽</TableCaption>
+                <TableCaption>⚽ Team game is not available... Stay tuned ! ⚽</TableCaption>
                 <TableHeader className="bg-gray-100">
                     <TableRow>
                         <TableHead className="w-[100px]">Match</TableHead>

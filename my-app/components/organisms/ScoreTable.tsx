@@ -14,7 +14,7 @@ const ScoreTable: FC<ScoreTableProps> = ({
     FetchSoloMatch,
     FetchTeamMatch,
 }) => {
-    const [matchType, setMatchType] = useState<string>("");
+    const [matchType, setMatchType] = useState<string>("SOLO");
 
     const handleSoloGame = () => {
         setMatchType("SOLO");
