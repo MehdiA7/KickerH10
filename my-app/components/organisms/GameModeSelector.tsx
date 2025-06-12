@@ -50,7 +50,7 @@ const GameModeSelector = ({
     // About setValue or reset https://github.com/orgs/react-hook-form/discussions/7671
     useEffect(() => {
         setValue("player1", UserInformation.id);
-    }, [setValue])
+    }, [setValue, UserInformation.id])
     const watchedPlayer2 = watch("player2");
     const watchedScore1 = watch("score1");
     const watchedScore2 = watch("score2");
