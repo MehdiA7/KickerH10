@@ -62,10 +62,9 @@ const GameModeSelector = ({
     const handleCreateNewGame: SubmitHandler<NewSoloGame> = async (data) => {
         // send data here in api
         setDisableButton(true);
+
         const response = await FetchCreateSoloMatch(data);
-        console.log(response.success);
-        console.log(response.message);
-        console.log(data);
+        
         if(!response.success) return setDisableButton(false);
 
         redirect("/home");

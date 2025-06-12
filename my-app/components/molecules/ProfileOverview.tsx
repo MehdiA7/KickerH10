@@ -15,7 +15,7 @@ const ProfileOverview: FC<ProfileOverviewProps> = async ({ FetchUserProfile }) =
         <div className="flex flex-row items-center mb-10">
             <div className="relative w-30 h-30 overflow-hidden rounded-full mr-15">
                 <Image
-                    src={Quentin}
+                    src={footIcon}
                     alt="Profile Picture"
                     fill
                     className="object-cover"

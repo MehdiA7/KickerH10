@@ -22,6 +22,11 @@ export type FriendUserList = {
     accepted: boolean;
 };
 
+export type CreateFriendBody = {
+    user: number;
+    friend: number;
+}
+
 export type SoloMatch = {
     id: number;
     score1: number;
