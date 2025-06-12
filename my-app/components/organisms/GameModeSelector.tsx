@@ -24,6 +24,8 @@ import SelectFriend from "../molecules/SelectFriend";
 import { useFormContext } from "react-hook-form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { FetchCreateSoloMatch } from "@/app/serverAction/fetchMatches";
+import { redirect } from "next/navigation";
 
 type GameModeSelectorProps = {
     FetchFriendWithUserId: FriendUserList[];
@@ -60,8 +62,13 @@ const GameModeSelector = ({
     const handleCreateNewGame: SubmitHandler<NewSoloGame> = async (data) => {
         // send data here in api
         setDisableButton(true);
+        const response = await FetchCreateSoloMatch(data);
+        console.log(response.success);
+        console.log(response.message);
         console.log(data);
-        setDisableButton(false);
+        if(!response.success) return setDisableButton(false);
+
+        redirect("/home");
     };
 
     return (
