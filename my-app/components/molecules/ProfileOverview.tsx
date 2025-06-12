@@ -1,7 +1,6 @@
 import Image from "next/image";
 import React, { FC } from "react";
 import footIcon from "@/public/img/footIcon.png";
-import Quentin from "@/public/img/quentin2crop.jpg";
 import { User } from "@/lib/types/type";
 import { Progress } from "../ui/progress";
 

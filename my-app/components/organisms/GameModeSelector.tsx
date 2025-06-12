@@ -4,7 +4,6 @@ import {
     Card,
     CardContent,
     CardDescription,
-    CardFooter,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
@@ -21,7 +20,6 @@ import { NewSoloGame, newSoloGameSchema } from "@/lib/schema/newGame";
 import { FriendUserList } from "@/lib/types/type";
 import { CookieUserInformation } from "@/lib/types/authTypes";
 import SelectFriend from "../molecules/SelectFriend";
-import { useFormContext } from "react-hook-form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { FetchCreateSoloMatch } from "@/app/serverAction/fetchMatches";
@@ -42,7 +40,7 @@ const GameModeSelector = ({
         control,
         watch,
         setValue,
-        formState: { errors },
+        formState: { },
     } = useForm<NewSoloGame>({
         resolver: zodResolver(newSoloGameSchema),
     });
