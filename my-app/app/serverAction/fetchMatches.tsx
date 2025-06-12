@@ -1,4 +1,4 @@
-// 'use server'
+'use server'
 // this is a server action component, with this
 // you can make api call from client component to server component
 
@@ -6,7 +6,7 @@ import { NewSoloGame } from "@/lib/schema/newGame";
 import { ApiResponseFormat, SoloMatch, TeamMatch } from "@/lib/types/type";
 
 const apiUrl = process.env.API_URL || "No API";
-
+console.log("apiUrl loaded:", apiUrl);
 // ================== CREATE SOLO MATCH ========================
 export async function FetchCreateSoloMatch(
     body: NewSoloGame
