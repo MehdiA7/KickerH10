@@ -74,6 +74,7 @@ export async function FetchCreateNewFriendConnection(body: CreateFriendBody) {
             headers: {
                 "Content-Type": "application/json",
             },
+            body: JSON.stringify(body),
         });
     
         const data = await response.json();
