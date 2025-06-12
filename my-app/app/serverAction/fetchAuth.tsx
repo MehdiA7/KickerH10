@@ -65,7 +65,7 @@ export const login = async (
         });
         cookieStore.set({
             name: "UserId",
-            value: data.content.id,
+            value: String(data.content.id),
             httpOnly: false,
             path: "/",
         });

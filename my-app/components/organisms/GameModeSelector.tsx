@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/select";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { NewGame, newGameSchema } from "@/lib/schema/newGame";
+import { NewSoloGame, newSoloGameSchema } from "@/lib/schema/newGame";
 import { FriendUserList } from "@/lib/types/type";
 import { CookieUserInformation } from "@/lib/types/authTypes";
 import SelectFriend from "../molecules/SelectFriend";
@@ -41,8 +41,8 @@ const GameModeSelector = ({
         watch,
         setValue,
         formState: { errors },
-    } = useForm<NewGame>({
-        resolver: zodResolver(newGameSchema),
+    } = useForm<NewSoloGame>({
+        resolver: zodResolver(newSoloGameSchema),
     });
 
     const [disableButton, setDisableButton] = useState(false);
@@ -57,7 +57,7 @@ const GameModeSelector = ({
 
     const [gameMode, setGameMode] = useState("");
 
-    const handleCreateNewGame: SubmitHandler<NewGame> = async (data) => {
+    const handleCreateNewGame: SubmitHandler<NewSoloGame> = async (data) => {
         // send data here in api
         setDisableButton(true);
         console.log(data);
