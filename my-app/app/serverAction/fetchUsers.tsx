@@ -93,7 +93,7 @@ export async function FetchCreateNewFriendConnection(body: CreateFriendBody) {
 export async function FetchIfIsFriend(
     userId: number,
     friendId: number
-): Promise<ApiResponseFormat<Boolean>> {
+): Promise<ApiResponseFormat<boolean>> {
     try {
         const response = await fetch(
             apiUrl + `/friend/userId=${userId}/friendId=${friendId}`,
