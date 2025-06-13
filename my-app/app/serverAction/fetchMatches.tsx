@@ -1,4 +1,4 @@
-'use server'
+"use server";
 // this is a server action component, with this
 // you can make api call from client component to server component
 
@@ -38,6 +38,7 @@ export async function FetchSoloMatchByUserId(
         apiUrl + `/game/solo/userId=${userId}/page=${page}/limit=${limit}`,
         {
             method: "GET",
+            cache: "no-store",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -58,6 +59,7 @@ export async function FetchSoloMatch(
         apiUrl + `/game/solo/page=${page}/limit=${limit}`,
         {
             method: "GET",
+            cache: "no-store",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -78,6 +80,7 @@ export async function FetchTeamMatch(
         apiUrl + `/game/team/page=${page}/limit=${limit}`,
         {
             method: "GET",
+            cache: "no-store",
             headers: {
                 "Content-Type": "application/json",
             },
