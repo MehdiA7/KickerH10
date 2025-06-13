@@ -153,7 +153,7 @@ export class FriendController {
             const parseUserId: number = parseInt(userId);
             const parseFriendId: number = parseInt(friendId);
 
-            if (!Number.isInteger(userId) || !Number.isInteger(friendId)) {
+            if (!Number.isInteger(parseUserId) || !Number.isInteger(parseFriendId)) {
                 res.status(400).send({
                     success: false,
                     message: "Number id is required..."
