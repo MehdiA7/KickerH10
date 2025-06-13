@@ -185,6 +185,7 @@ export class SoloGameService {
                     },
                     createdat: true
                 },
+                order: {createdat: "DESC"}
             });
 
         const totalPage = Math.ceil(total / limit);

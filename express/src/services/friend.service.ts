@@ -59,7 +59,11 @@ export class FriendService {
     }
 
     // I need to get all friend but un the table we have 2 column with id
-    async getFriend(userId: number, page: number, limit: number): Promise<PagingGameFormat<FriendList[]>> {
+    async getFriend(
+        userId: number,
+        page: number,
+        limit: number
+    ): Promise<PagingGameFormat<FriendList[]>> {
         const offset: number = (page - 1) * limit;
 
         const [friend, total] = await this.friendRepository.findAndCount({
@@ -79,7 +83,7 @@ export class FriendService {
                     lostgame: true,
                     wonteamgame: true,
                     lostteamgame: true,
-                    createdat: true
+                    createdat: true,
                 },
                 user: {
                     id: true,
@@ -90,29 +94,41 @@ export class FriendService {
                     lostgame: true,
                     wonteamgame: true,
                     lostteamgame: true,
-                    createdat:true
-                }
-            }
+                    createdat: true,
+                },
+            },
         });
 
-        const formatedFriend = friend.map(relation => {
-        const friendData = relation.user.id === userId ? relation.friend : relation.user;
-        
-        return {
-            id: relation.id,
-            accepted: relation.accepted,
-            friend: friendData
-        };
-    });
+        const formatedFriend = friend.map((relation) => {
+            const friendData =
+                relation.user.id === userId ? relation.friend : relation.user;
 
-        const totalPage = Math.ceil(total / limit)
+            return {
+                id: relation.id,
+                accepted: relation.accepted,
+                friend: friendData,
+            };
+        });
+
+        const totalPage = Math.ceil(total / limit);
 
         const formatResponse = {
             content: formatedFriend,
             currentPage: page,
-            totalPage
-        }
+            totalPage,
+        };
 
         return formatResponse;
+    }
+
+    async checkFriend(userId: number, friendId: number): Promise<Boolean> {
+        const isFriend = await this.friendRepository.exists({
+            where: [
+                { user: { id: userId }, friend: { id: friendId } },
+                { user: { id: friendId }, friend: { id: userId } },
+            ],
+        });
+
+        return isFriend;
     }
 }

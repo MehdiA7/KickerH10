@@ -136,4 +136,46 @@ export class FriendController {
             return;
         }
     }
+
+    //               CHECK IF IS YOUR FRIEND
+    static async checkIfIsFriend(req: Request, res: Response) {
+        try {
+            const userId: string = req.params.userId;
+            const friendId: string = req.params.friendId;
+
+            if (!userId || !friendId) {
+                res.status(400).send({
+                    success:false,
+                    message: "Field is required"
+                });
+                return;
+            }
+            const parseUserId: number = parseInt(userId);
+            const parseFriendId: number = parseInt(friendId);
+
+            if (!Number.isInteger(userId) || !Number.isInteger(friendId)) {
+                res.status(400).send({
+                    success: false,
+                    message: "Number id is required..."
+                });
+                return;
+            }
+
+            const response = await friendService.checkFriend(parseUserId, parseFriendId);
+
+            res.status(200).send({
+                success: true,
+                message: "Are you friend ?",
+                content: response
+            });
+            return;
+
+        } catch (error) {
+            res.status(500).send({
+                success: false,
+                message: `Unknow error ... : ${error}`
+            });
+            return;
+        }
+    }
 }
