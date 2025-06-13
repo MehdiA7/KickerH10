@@ -1,5 +1,5 @@
 "use server";
-import { CreateFriendBody, User } from "@/lib/types/type";
+import { ApiResponseFormat, CreateFriendBody, User } from "@/lib/types/type";
 
 const apiUrl = process.env.API_URL;
 
@@ -76,14 +76,46 @@ export async function FetchCreateNewFriendConnection(body: CreateFriendBody) {
             },
             body: JSON.stringify(body),
         });
-    
+
         const data = await response.json();
-    
+
         return data;
     } catch (error) {
         return {
             success: false,
-            message: `Something wrong... : ${error}`
-        }
+            message: `Something wrong... : ${error}`,
+        };
+    }
+}
+
+// ===================== CHECK IF IS FRIEND ========================
+
+export async function FetchIfIsFriend(
+    userId: number,
+    friendId: number
+): Promise<ApiResponseFormat<Boolean>> {
+    try {
+        const response = await fetch(
+            apiUrl + `/friend/userId=${userId}/friendId=${friendId}`,
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }
+        );
+
+        const data = await response.json();
+
+        return {
+            success: true,
+            message: "Are you friend ?",
+            content: data,
+        };
+    } catch (error) {
+        return {
+            success: false,
+            message: `Something wrong... : ${error}`,
+        };
     }
 }
