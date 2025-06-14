@@ -6,10 +6,9 @@
 
 ## Le projet actuellement
 
-**Le rush**
-Ici je fais un sprint pour mettre l'app en production.
+**Premier Deploiment**
 
-Je dois encore faire toute les routes et un page de création de team en front pour que tout soit bon.
+La toute première version de kicker est enfin dispo ! Avec le mode **1v1** !
 
 ## 🌟 **Description du projet**
 
