@@ -25,7 +25,9 @@ const AddFriendButton = ({
     useEffect(() => {
         const isFriend = async () => {
             const response = await FetchIfIsFriend(userId, friendId);
-            if (response.content) {
+            console.log("User : ", userId, " Friend : ", friendId);
+            console.log(response.content, " && ", response);
+            if (response.success) {
                 setIsFriend(Boolean(response.content));
                 setIsLoading(false);
             }

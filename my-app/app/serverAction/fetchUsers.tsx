@@ -110,7 +110,7 @@ export async function FetchIfIsFriend(
         return {
             success: true,
             message: "Are you friend ?",
-            content: data,
+            content: data.content,
         };
     } catch (error) {
         return {
