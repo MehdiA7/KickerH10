@@ -1,14 +1,20 @@
 import { DataSource } from "typeorm";
 import { join } from "path";
 
-
 import dotenv from "dotenv";
 dotenv.config();
+
+let dbPort;
+if (!process.env.DB_PORT) {
+    dbPort = 3306;
+} else {
+    dbPort = parseInt(process.env.DB_PORT);
+}
 
 export const AppDataSource = new DataSource({
     type: "mariadb",
     host: process.env.DB_HOST,
-    port: 5432,
+    port: dbPort,
     username: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
@@ -18,6 +24,6 @@ export const AppDataSource = new DataSource({
     migrations: [join(__dirname, "..", "migrations", "*.{ts,js}")],
     subscribers: [join(__dirname, "..", "subscribers", "*.subscriber.{ts,js}")],
     extra: {
-        connectionLimit: 10
-    }
+        connectionLimit: 10,
+    },
 });

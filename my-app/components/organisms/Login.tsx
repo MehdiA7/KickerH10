@@ -43,7 +43,7 @@ const Login = () => {
                 >
                     <div className="flex items-center">
                         <input
-                            type="text"
+                            type="email"
                             placeholder="Email"
                             {...register("email")}
                             className={
